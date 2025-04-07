@@ -23,7 +23,15 @@ namespace Human_Benchmark_2._0.Controllers
         {
             return View();
         }
-
+        public IActionResult ReactionTime()
+        {
+            return View("ReactionTime");
+        }
+        public IActionResult ReactionTimeSave(string id)
+        {
+            
+            return View("Index");
+        }
         public IActionResult Privacy()
         {
             return View();
