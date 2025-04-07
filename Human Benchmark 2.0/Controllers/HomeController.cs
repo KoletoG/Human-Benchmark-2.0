@@ -27,7 +27,7 @@ namespace Human_Benchmark_2._0.Controllers
         {
             return View("ReactionTime");
         }
-        public IActionResult ReactionTimeSave(string id)
+        public IActionResult ReactionTimeSave([FromBody] int time)
         {
             
             return View("Index");
