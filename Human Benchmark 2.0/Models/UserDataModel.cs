@@ -32,23 +32,14 @@ namespace Human_Benchmark_2._0.Models
         }
         public void AddReactionTimeToArray(int reaction)
         {
-            if (reactionTimesArray.Contains(default))
+            int index = Array.IndexOf(reactionTimesArray, default);
+            if (index != -1)
             {
-                for (int i = 0; i < arrayCount; i++)
-                {
-                    if (reactionTimesArray[i] == default)
-                    {
-                        reactionTimesArray[i] = reaction;
-                        return;
-                    }
-                }
+                reactionTimesArray[index] = reaction;
             }
             else
             {
-                for (int i = 0; i < arrayCount - 1; i++)
-                {
-                    reactionTimesArray[i] = reactionTimesArray[i + 1];
-                }
+                Array.Copy(reactionTimesArray, 1, reactionTimesArray, 0, arrayCount - 1);
                 reactionTimesArray[arrayCount - 1] = reaction;
             }
         }
