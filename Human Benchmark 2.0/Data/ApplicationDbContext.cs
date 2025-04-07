@@ -10,6 +10,5 @@ namespace Human_Benchmark_2._0.Data
             : base(options)
         {
         }
-        public DbSet<ReactionTimeDataModel> Reactions { get; set; }
     }
 }

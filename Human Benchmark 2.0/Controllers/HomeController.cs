@@ -2,6 +2,7 @@ using System.Diagnostics;
 using Human_Benchmark_2._0.Data;
 using Human_Benchmark_2._0.Methods;
 using Human_Benchmark_2._0.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -25,16 +26,16 @@ namespace Human_Benchmark_2._0.Controllers
         {
             return View();
         }
+        [Authorize]
         public IActionResult ReactionTime()
         {
             return View("ReactionTime");
         }
+        [Authorize]
         public async Task<IActionResult> ReactionTimeSave([FromBody] int time)
         {
-            ReactionTimeDataModel model = new ReactionTimeDataModel();
-            model.ReactionTime = time;
             UserDataModel userDataModel = await _context.GetUserByNameAsync(this.User.Identity?.Name ?? "");
-            userDataModel.AddReactionTimeToArray(model);
+            userDataModel.AddReactionTimeToArray(time);
             _context.Update(userDataModel);
             _context.SaveChanges();
             return View("Index");
