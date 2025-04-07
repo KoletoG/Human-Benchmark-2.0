@@ -14,6 +14,7 @@ namespace Human_Benchmark_2._0.Models
         }
         public ReactionTimeDataModel(ushort reactionTime)
         {
+            Id = Guid.NewGuid().ToString();
             this.ReactionTime = reactionTime;
         }
         private int[] Reactions = new int[timesOfReactions];
