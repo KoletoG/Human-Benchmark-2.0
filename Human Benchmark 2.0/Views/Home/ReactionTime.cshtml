@@ -2,3 +2,84 @@
 @{
 	ReactionTimeDataModel reactionTimeDataModel = new();
 }
+@{
+	// Javascript here about registering clicks and counting time
+
+}
+<h2>Reaction Time Test</h2>
+
+<div id="box" style="width:100%;height:300px;background-color:gray;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:24px;color:white;">
+    Click to Start
+</div>
+<p id="averageTime"></p>
+
+@section Scripts {
+    <script>
+        let trialCount = 0;
+        let reactionTimes = [];
+        let startTime;
+        let waiting = false;
+        let timeoutId = null;
+
+        const box = document.getElementById("box");
+        const avgDisplay = document.getElementById("averageTime");
+
+        function getRandomDelay() {
+            return Math.floor(Math.random() * 4000) + 2000;
+        }
+
+        function showBox() {
+            waiting = true;
+            startTime = Date.now();
+            box.style.backgroundColor = "green";
+            box.textContent = "CLICK!";
+        }
+
+        function startTrial() {
+            box.textContent = "Wait for green...";
+            box.style.backgroundColor = "red";
+            timeoutId = setTimeout(showBox, getRandomDelay());
+        }
+
+        function endTest() {
+            const average = Math.round(reactionTimes.reduce((a, b) => a + b) / reactionTimes.length);
+            avgDisplay.textContent = `Average Reaction Time: ${average} ms`;
+            box.textContent = "Done!";
+            box.style.backgroundColor = "gray";
+        }
+
+        box.addEventListener("click", () => {
+            if (trialCount >= @ReactionTimeDataModel.TimesOfReactions) return;
+
+            if (!waiting && timeoutId === null) {
+                startTrial();
+            } 
+            else if (waiting) 
+            {
+                const reactionTime = Date.now() - startTime;
+                reactionTimes.push(reactionTime);
+                trialCount++;
+                waiting = false;
+                timeoutId = null;
+
+                if (trialCount < @ReactionTimeDataModel.TimesOfReactions) 
+                {
+                    setTimeout(startTrial);
+                } 
+                else 
+                {
+                    endTest();
+                }
+            } 
+            else 
+            {
+                clearTimeout(timeoutId);
+                timeoutId = null;
+                box.textContent = "Too Soon! Restarting...";
+                box.style.backgroundColor = "gray";
+                avgDisplay.textContent = "You clicked too early. Trial restarting...";
+                setTimeout(startTrial);
+            }
+        });
+    </script>
+}
