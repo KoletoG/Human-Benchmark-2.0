@@ -15,6 +15,7 @@ namespace Human_Benchmark_2._0.Models
         [Required]
         [DataType(DataType.EmailAddress)]
         public override string? Email { get; set; }
+        public ReactionTimeDataModel[] ReactionTimesArray = new ReactionTimeDataModel[5];
         public UserDataModel(string email, string username)
         {
             Id = Guid.NewGuid().ToString();
