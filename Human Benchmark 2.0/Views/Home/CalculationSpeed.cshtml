@@ -1,0 +1,82 @@
+﻿@page
+@{
+    ViewData["Title"] = "Calculation Speed";
+    Layout = "_Layout"; // Or whatever layout you're using
+}
+
+<h2>Multiplication Challenge</h2>
+
+<div id="game" class="p-4 rounded shadow max-w-md mx-auto">
+    <div id="question" class="text-xl font-bold mb-4">Press Start to Begin</div>
+
+    <input type="number" id="answerInput" class="border p-2 rounded w-full mb-4" placeholder="Your Answer" disabled />
+
+    <button onclick="submitAnswer()" class="bg-blue-500 text-white px-4 py-2 rounded mb-4" id="submitBtn" disabled>Submit</button>
+    <button onclick="startGame()" class="bg-green-500 text-white px-4 py-2 rounded mb-4" id="startBtn">Start Game</button>
+
+    <div id="result" class="text-lg font-semibold mt-4"></div>
+</div>
+
+@section Scripts {
+    <script>
+        let totalRounds = 5;
+        let currentRound = 0;
+        let startTime;
+        let timeTakenList = [];
+        let correctAnswers = 0;
+
+        let currentA = 0;
+        let currentB = 0;
+
+        function startGame() {
+            currentRound = 0;
+            timeTakenList = [];
+            correctAnswers = 0;
+            document.getElementById("result").innerText = "";
+            document.getElementById("startBtn").disabled = true;
+            document.getElementById("answerInput").disabled = false;
+            document.getElementById("submitBtn").disabled = false;
+            nextQuestion();
+        }
+
+        function nextQuestion() {
+            if (currentRound >= totalRounds) {
+                finishGame();
+                return;
+            }
+
+            currentA = Math.floor(Math.random() * 90) + 10;
+            currentB = Math.floor(Math.random() * 90) + 10;
+
+            document.getElementById("question").innerText = `What is ${currentA} × ${currentB}?`;
+            document.getElementById("answerInput").value = "";
+            document.getElementById("answerInput").focus();
+            startTime = new Date();
+        }
+
+        function submitAnswer() {
+            const input = document.getElementById("answerInput").value;
+            const endTime = new Date();
+            const timeTaken = (endTime - startTime) / 1000; // in seconds
+            timeTakenList.push(timeTaken);
+
+            if (parseInt(input) === currentA * currentB) {
+                correctAnswers++;
+            }
+
+            currentRound++;
+            nextQuestion();
+        }
+
+        function finishGame() {
+            document.getElementById("question").innerText = "Game Over!";
+            document.getElementById("answerInput").disabled = true;
+            document.getElementById("submitBtn").disabled = true;
+            document.getElementById("startBtn").disabled = false;
+
+            const avgTime = (timeTakenList.reduce((a, b) => a + b, 0) / totalRounds).toFixed(2);
+            document.getElementById("result").innerText =
+                `You got ${correctAnswers} out of ${totalRounds} correct.\nAverage Time: ${avgTime} seconds`;
+        }
+    </script>
+}
