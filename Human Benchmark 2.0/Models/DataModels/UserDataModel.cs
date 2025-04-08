@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNetCore.Identity;
 
-namespace Human_Benchmark_2._0.Models.DataModel
+namespace Human_Benchmark_2._0.Models.DataModels
 {
     public class UserDataModel : IdentityUser
     {
