@@ -18,6 +18,7 @@ namespace Human_Benchmark_2._0.Models
         [Required]
         [DataType(DataType.EmailAddress)]
         public override string? Email { get; set; }
+        [NotMapped]
         private const int arrayCount = 5;
         public int[] reactionTimesArray = new int[arrayCount];
         public UserDataModel(string email, string username)
