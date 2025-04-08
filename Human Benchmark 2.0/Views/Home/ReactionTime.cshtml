@@ -8,7 +8,7 @@
 	Click to Start
 </div>
 <p id="averageTime">@averageTime</p>
-<button id="submitt">SUBMIT ME</button>
+<button id="submitt" hidden="hidden" class="reactionbutton"><span class="text">SUBMIT ME</span></button>
 
 @section Scripts {
 	<script>
@@ -23,41 +23,52 @@
 		const box = document.getElementById("box");
 		const avgDisplay = document.getElementById("averageTime");
 
-		function getRandomDelay() {
+		function getRandomDelay()
+		{
 			return Math.floor(Math.random() * 4000) + 2000;
 		}
 
-		function showBox() {
+		function showBox()
+		{
 			waiting = true;
 			startTime = Date.now();
 			box.style.backgroundColor = "green";
 			box.textContent = "CLICK!";
 		}
 
-		function startTrial() {
+		function startTrial()
+		{
 			box.textContent = "Wait for green...";
 			box.style.backgroundColor = "red";
 			timeoutId = setTimeout(showBox, getRandomDelay());
 		}
 
-		function endTest() {
+		function endTest()
+		{
 			const average = Math.round(reactionTimes.reduce((a, b) => a + b) / reactionTimes.length);
 			avgDisplay.textContent = `Average Reaction Time: ${average} ms`;
 			box.textContent = "Done!";
 					box.style.backgroundColor = "gray";
 		finalAverage = average;
 			 document.getElementById("submitt").disabled = false;
-			}
+			 document.getElementById("submitt").hidden = false;
+		}
 			document.getElementById("submitt").addEventListener("click", () => {
 			if (finalAverage == null) return;
-			fetch("/Home/ReactionTimeSave", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json"
-				},
-				body: JSON.stringify(finalAverage)
-			})
+					fetch("/Home/ReactionTimeSave", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json"
+			},
+			body: JSON.stringify(finalAverage)
+		})
+		.then(res => res.json())
+		.then(data => {
+			if (data.redirectUrl) {
+				window.location.href = data.redirectUrl;
+			}
 		});
+			});
 		box.addEventListener("click", () => {
 			if (trialCount >= cycleRepeat) return;
 
@@ -71,7 +82,6 @@
 				trialCount++;
 				waiting = false;
 				timeoutId = null;
-
 				if (trialCount < cycleRepeat)
 				{
 					setTimeout(startTrial);

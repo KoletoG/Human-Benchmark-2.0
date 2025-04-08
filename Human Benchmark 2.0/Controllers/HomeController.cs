@@ -47,7 +47,7 @@ namespace Human_Benchmark_2._0.Controllers
             userDataModel.AddReactionTimeToArray(time);
             _context.Update(userDataModel);
             _context.SaveChanges();
-            return View("Index");
+            return Json(new { redirectUrl = Url.Action("Profile","Home") });
         }
         public IActionResult Privacy()
         {

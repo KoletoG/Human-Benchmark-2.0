@@ -1,7 +1,9 @@
 ﻿@model UserDataModel
-
+<style ></style>
 <h1>@Model.Id</h1>
 @{
+	<h1>@Model.UserName</h1>
+	<h1>Last 5 attempts of the reaction time test:</h1>
 	for(int i = 0; i < 5; i++)
 	{
 		<h2>@Model.reactionTimesArray[i]</h2>
