@@ -1,4 +1,6 @@
 ﻿using Human_Benchmark_2._0.Data;
+using Human_Benchmark_2._0.Methods;
+using Human_Benchmark_2._0.Models.DataModels;
 using Human_Benchmark_2._0.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -18,6 +20,14 @@ namespace Human_Benchmark_2._0.Controllers
         {
             return View();
         }
-      
+        [HttpPost]
+        public async Task<IActionResult> SaveCalc([FromBody] StatsDataModel stats)
+        {
+            UserDataModel userDataModel = await _context.GetUserByNameAsync(this.User.Identity?.Name ?? "");
+            userDataModel.AddCalcSpeedToArray(stats.AvgTime, stats.CorrectAnswers);
+            _context.Update(userDataModel);
+            _context.SaveChanges();
+            return Json(new { redirectUrl = Url.Action("Profile", "Home") });
+        }
     }
 }

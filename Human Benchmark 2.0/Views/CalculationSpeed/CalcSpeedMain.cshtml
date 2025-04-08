@@ -1,5 +1,4 @@
-﻿@page
-@{
+﻿@{
     ViewData["Title"] = "Calculation Speed";
     Layout = "_Layout"; // Or whatever layout you're using
 }
@@ -13,7 +12,7 @@
 
     <button onclick="submitAnswer()" class="bg-blue-500 text-white px-4 py-2 rounded mb-4" id="submitBtn" disabled>Submit</button>
     <button onclick="startGame()" class="bg-green-500 text-white px-4 py-2 rounded mb-4" id="startBtn">Start Game</button>
-
+    <button class="bg-green-500 text-white px-4 py-2 rounded mb-4" hidden disabled id="saveStatsBtn">Save Results</button>
     <div id="result" class="text-lg font-semibold mt-4"></div>
 </div>
 
@@ -24,7 +23,7 @@
         let startTime;
         let timeTakenList = [];
         let correctAnswers = 0;
-
+        let avgTime = 0;
         let currentA = 0;
         let currentB = 0;
 
@@ -73,10 +72,30 @@
             document.getElementById("answerInput").disabled = true;
             document.getElementById("submitBtn").disabled = true;
             document.getElementById("startBtn").disabled = false;
-
-            const avgTime = (timeTakenList.reduce((a, b) => a + b, 0) / totalRounds).toFixed(2);
+            document.getElementById("saveStatsBtn").disabled=false;
+            document.getElementById("saveStatsBtn").hidden=false;
+            avgTime = (timeTakenList.reduce((a, b) => a + b, 0) / totalRounds).toFixed(2);
             document.getElementById("result").innerText =
                 `You got ${correctAnswers} out of ${totalRounds} correct.\nAverage Time: ${avgTime} seconds`;
         }
+                    document.getElementById("saveStatsBtn").addEventListener("click", ()=>{fetch("/CalculationSpeed/SaveCalc", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json"
+                                     },
+                                    body: JSON.stringify({
+            avgTime: avgTime,
+            correctAnswers: correctAnswers
+        })
+                                                        })
+                            .then(res => res.json())
+                            .then(data => {
+                                        if (data.redirectUrl) {
+                                                window.location.href = data.redirectUrl;
+                                                               }
+                                           })
+                                           });
+            			
+                            
     </script>
 }
