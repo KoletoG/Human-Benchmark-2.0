@@ -1,4 +1,4 @@
-﻿using Human_Benchmark_2._0.Models;
+﻿using Human_Benchmark_2._0.Models.DataModel;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 

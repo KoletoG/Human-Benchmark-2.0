@@ -1,4 +1,4 @@
-namespace Human_Benchmark_2._0.Models
+namespace Human_Benchmark_2._0.Models.ViewModel
 {
     public class ErrorViewModel
     {

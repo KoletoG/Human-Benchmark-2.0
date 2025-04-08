@@ -16,5 +16,10 @@ namespace Human_Benchmark_2._0.Controllers
         {
             return View();
         }
+        public IActionResult CalcSpeedStart() 
+        {
+            return View("CalcSpeedMain");
+        }
+
     }
 }
