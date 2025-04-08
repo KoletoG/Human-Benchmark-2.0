@@ -1,5 +1,5 @@
 ﻿using Human_Benchmark_2._0.Data;
-using Human_Benchmark_2._0.Models.PageModels;
+using Human_Benchmark_2._0.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -16,9 +16,8 @@ namespace Human_Benchmark_2._0.Controllers
         }
         public IActionResult CalcSpeedMain()
         {
-            CalcSpeedMainPageModel model = new CalcSpeedMainPageModel();
-            return View(model);
+            return View();
         }
-
+      
     }
 }
