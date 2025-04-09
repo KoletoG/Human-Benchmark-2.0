@@ -13,14 +13,20 @@ namespace Human_Benchmark_2._0.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<UserDataModel>().Property(x => x.reactionTimesArray).HasConversion(
+            modelBuilder.Entity<UserDataModel>().Property(x => x.reactionTimesArray).HasConversion
+                (
                 x => string.Join(',', x),
-                x => x.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(x=>int.Parse(x)).ToArray()
+                x => x.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray()
                 );
             modelBuilder.Entity<UserDataModel>().Property(x => x.avgTimeScoreArray).HasConversion
                 (
                 x => string.Join(',', x),
-                x => x.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(x => double.Parse(x)).ToArray()
+                x => x.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(double.Parse).ToArray()
+                );
+            modelBuilder.Entity<UserDataModel>().Property(x => x.memoryNumbersScoreArray).HasConversion
+                (
+                x => string.Join(',', x),
+                x=>x.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray()
                 );
         }
     }

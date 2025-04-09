@@ -22,6 +22,7 @@ namespace Human_Benchmark_2._0.Models.DataModels
         private const int arrayCount = 5;
         public int[] reactionTimesArray = new int[arrayCount];
         public double[] avgTimeScoreArray = new double[arrayCount*2];
+        public int[] memoryNumbersScoreArray = new int[arrayCount];
         public UserDataModel(string email, string username)
         {
             Id = Guid.NewGuid().ToString();
@@ -58,6 +59,19 @@ namespace Human_Benchmark_2._0.Models.DataModels
                 Array.Copy(avgTimeScoreArray, 2, avgTimeScoreArray, 0, arrayCount*2 - 2);
                 avgTimeScoreArray[arrayCount*2 - 1] = score;
                 avgTimeScoreArray[arrayCount * 2 - 2] = avgTime;
+            }
+        }
+        public void AddScoreToMemoryNumbersArray(int score)
+        {
+            int index = Array.IndexOf(memoryNumbersScoreArray, default);
+            if (index != -1)
+            {
+                memoryNumbersScoreArray[index] = score;
+            }
+            else
+            {
+                Array.Copy(memoryNumbersScoreArray, 1, memoryNumbersScoreArray, 0, arrayCount - 1);
+                memoryNumbersScoreArray[arrayCount - 1] = score;
             }
         }
     }
