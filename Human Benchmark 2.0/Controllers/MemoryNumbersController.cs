@@ -15,7 +15,7 @@ namespace Human_Benchmark_2._0.Controllers
         }
         public IActionResult MemoryNumbersSave()
         {
-            return View();
+            return View("MemoryNumbersMain");
         }
     }
 }
