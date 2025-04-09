@@ -1,4 +1,5 @@
 ﻿using Human_Benchmark_2._0.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Human_Benchmark_2._0.Controllers
@@ -13,6 +14,7 @@ namespace Human_Benchmark_2._0.Controllers
             _logger = logger;
             _context = context;
         }
+        [Authorize]
         public IActionResult MemoryNumbers()
         {
             return View("MemoryNumbersMain");
@@ -20,7 +22,7 @@ namespace Human_Benchmark_2._0.Controllers
         [HttpPost]
         public IActionResult MemoryNumbersSave([FromBody] int score)
         {
-            return Json(new {redirecturl= Url.Action("Profile","Home")});
+            return Json(new {redirectUrl= Url.Action("Profile","Home")});
         }
     }
 }

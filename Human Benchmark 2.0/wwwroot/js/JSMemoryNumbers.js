@@ -1,15 +1,19 @@
-﻿let number = "";
+﻿let number;
 let currentLength = 1;
 let score=0;
+let numberLength=1;
+document.getElementById("numberField").innerHTML="Type your answer";
 function startGame()
 {
-    for(let i =0;i<currentLength;i++)
-    {
-        number[i]=Math.random()*10;
-    }
+    document.getElementById("answerField").innerHTML="";
+    document.getElementById("btnStart").hidden=true;
+    document.getElementById("btnStart").disabled=true;
+    document.getElementById("answerField").hidden=false;
+    document.getElementById("numberField").hidden=false;
+    numberLength*=10;
+    number=Math.floor(Math.random()*(numberLength));
     document.getElementById("numberField").style.color="black";
-    document.getElementById("numberField").innerText=number;
-    document.getElementById("answerField").innerText="";
+    document.getElementById("numberField").innerHTML=`${number}`;
     setTimeout(()=>
     {
         checkAnswer();
@@ -18,24 +22,30 @@ function startGame()
 
 function checkAnswer()
 {
-    document.getElementById("numberField").innerText="Type your answer";
-    let answer = document.getElementById("answerField").innerText;
-    if(parseInt(number) == parseInt(answer))
+    document.getElementById("numberField").innerHTML="Type your answer";
+    let answer = document.getElementById("answerField").value;
+    document.getElementById("answerField").value = "";
+    if(number == parseInt(answer))
     {
         document.getElementById("numberField").style.color="green";
-        document.getElementById("numberField").innerText="Your answer is right. Continuing..."
+        document.getElementById("numberField").innerHTML="Your answer is right. Continuing..."
         currentLength++;
         score++;
-        startGame();
+        setTimeout(()=>
+        {
+            startGame();
+        },3000);
     }
     else
     {
         document.getElementById("numberField").style.color="red";
-        document.getElementById("numberField").innerText="Your answer was wrong!";
+        document.getElementById("numberField").innerHTML = "Your answer was wrong!";
         document.getElementById("scoreLabel").hidden=false;
-        document.getElementById("scoreLabel").innerText=`Your score is ${score}`;
+        document.getElementById("scoreLabel").innerHTML=`Your score is ${score}`;
         document.getElementById("answerField").hidden=true;
         document.getElementById("answerField").disabled=true;
+        document.getElementById("btnSave").disabled=false;
+        document.getElementById("btnSave").hidden=false;
     }
 }
 
