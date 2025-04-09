@@ -13,9 +13,14 @@ namespace Human_Benchmark_2._0.Controllers
             _logger = logger;
             _context = context;
         }
-        public IActionResult MemoryNumbersSave()
+        public IActionResult MemoryNumbers()
         {
             return View("MemoryNumbersMain");
+        }
+        [HttpPost]
+        public IActionResult MemoryNumbersSave([FromBody] int score)
+        {
+            return Json(new {redirecturl= Url.Action("Profile","Home")});
         }
     }
 }
