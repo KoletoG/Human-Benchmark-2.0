@@ -1,0 +1,84 @@
+﻿let totalRounds = 5;
+let currentRound = 0;
+let startTime;
+let timeTakenList = [];
+let correctAnswers = 0;
+let avgTime = 0;
+let currentA = 0;
+let currentB = 0;
+
+function startGame() {
+    currentRound = 0;
+    timeTakenList = [];
+    correctAnswers = 0;
+    document.getElementById("result").innerText = "";
+    document.getElementById("startBtn").disabled = true;
+    document.getElementById("answerInput").disabled = false;
+    document.getElementById("submitBtn").disabled = false;
+    nextQuestion();
+}
+
+function nextQuestion() 
+{
+    if (currentRound >= totalRounds)
+    {
+        finishGame();
+        return;
+    }
+    currentA = Math.floor(Math.random() * 90) + 10;
+    currentB = Math.floor(Math.random() * 90) + 10;
+    document.getElementById("question").innerText = `What is ${currentA} × ${currentB}?`;
+    document.getElementById("answerInput").value = "";
+    document.getElementById("answerInput").focus();
+    startTime = new Date();
+}
+
+function submitAnswer() 
+{
+    const input = document.getElementById("answerInput").value;
+    const endTime = new Date();
+    const timeTaken = (endTime - startTime) / 1000;
+    timeTakenList.push(timeTaken);
+    if (parseInt(input) === currentA * currentB) 
+    {
+        correctAnswers++;
+    }
+    currentRound++;
+    nextQuestion();
+}
+
+function finishGame() {
+    document.getElementById("question").innerText = "Game Over!";
+    document.getElementById("answerInput").disabled = true;
+    document.getElementById("submitBtn").disabled = true;
+    document.getElementById("startBtn").disabled = false;
+    document.getElementById("saveStatsBtn").disabled = false;
+    document.getElementById("saveStatsBtn").hidden = false;
+    avgTime = (timeTakenList.reduce((a, b) => a + b, 0) / totalRounds).toFixed(2);
+    document.getElementById("result").innerText = `You got ${correctAnswers} out of ${totalRounds} correct.\nAverage Time: ${avgTime} seconds`;
+}
+document.getElementById("saveStatsBtn").addEventListener("click", () => 
+{
+    fetch("/CalculationSpeed/SaveCalc", 
+    {
+        method: "POST",
+        headers: 
+        {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(
+        {
+            avgTime: avgTime,
+            correctAnswers: correctAnswers
+        })
+    })
+    .then(res => res.json())
+    .then(data => 
+    {
+        if (data.redirectUrl)
+        {
+            window.location.href = data.redirectUrl;
+        }
+    })
+});
+
