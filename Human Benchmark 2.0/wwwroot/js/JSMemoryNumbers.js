@@ -8,7 +8,7 @@ function startGame()
     document.getElementById("answerField").innerHTML="";
     document.getElementById("btnStart").hidden=true;
     document.getElementById("btnStart").disabled=true;
-    document.getElementById("answerField").hidden=false;
+    document.getElementById("answerField").hidden=true;
     document.getElementById("numberField").hidden=false;
     numberLength*=10;
     number=Math.floor(Math.random()*(numberLength));
@@ -16,15 +16,24 @@ function startGame()
     document.getElementById("numberField").innerHTML=`${number}`;
     setTimeout(()=>
     {
-        checkAnswer();
-    },currentLength*1000 + 3000);
+        typingAnswer();
+    },currentLength*800 + 3000); // Time for the number to show up for
 }
 
+function typingAnswer()
+{
+    document.getElementById("numberField").innerHTML="Type the number";
+    document.getElementById("answerField").hidden=false;
+    setTimeout(()=>{
+        checkAnswer();
+    },3000+currentLength*400) // Time for the user to type the shown number for
+}
+// Checks if user's answer is true
 function checkAnswer()
 {
-    document.getElementById("numberField").innerHTML="Type your answer";
     let answer = document.getElementById("answerField").value;
     document.getElementById("answerField").value = "";
+    document.getElementById("answerField").hidden = true;
     if(number == parseInt(answer))
     {
         document.getElementById("numberField").style.color="green";
