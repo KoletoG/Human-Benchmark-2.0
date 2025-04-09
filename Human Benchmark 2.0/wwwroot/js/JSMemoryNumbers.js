@@ -55,7 +55,23 @@ function checkAnswer()
         document.getElementById("answerField").disabled=true;
         document.getElementById("btnSave").disabled=false;
         document.getElementById("btnSave").hidden=false;
+        document.getElementById("restartButton").hidden=false;
+        document.getElementById("restartButton").disabled=false;
     }
+}
+
+function restartGame()
+{
+    currentLength = 1;
+    score=0;
+    numberLength=1;
+    document.getElementById("scoreLabel").hidden=true;
+    document.getElementById("btnSave").hidden=true;
+    document.getElementById("btnSave").disabled=false;
+    document.getElementById("restartButton").hidden=true;
+    document.getElementById("restartButton").disabled = true;
+    document.getElementById("answerField").disabled = false;
+    startGame();
 }
 
 function saveStats()
