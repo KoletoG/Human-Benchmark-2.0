@@ -19,11 +19,11 @@ function startGame()
         typingAnswer();
     },currentLength*800 + 3000); // Time for the number to show up for
 }
-
 function typingAnswer()
 {
-    document.getElementById("numberField").innerHTML="Type the number";
-    document.getElementById("answerField").hidden=false;
+    document.getElementById("numberField").innerHTML = "Type the number";
+    document.getElementById("answerField").hidden = false;
+    document.getElementById("answerField").focus();
     setTimeout(()=>{
         checkAnswer();
     },3000+currentLength*400) // Time for the user to type the shown number for
