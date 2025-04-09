@@ -21,10 +21,10 @@ namespace Human_Benchmark_2._0.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> SaveCalc([FromBody] StatsDataModel stats)
+        public async Task<IActionResult> SaveCalc([FromBody] double avgTime)
         {
             UserDataModel userDataModel = await _context.GetUserByNameAsync(this.User.Identity?.Name ?? "");
-            userDataModel.AddCalcSpeedToArray(stats.AvgTime, stats.CorrectAnswers);
+            userDataModel.AddCalcSpeedToArray(avgTime);
             _context.Update(userDataModel);
             _context.SaveChanges();
             return Json(new { redirectUrl = Url.Action("Profile", "Home") });

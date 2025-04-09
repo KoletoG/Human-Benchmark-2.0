@@ -2,7 +2,6 @@
 let currentRound = 0;
 let startTime;
 let timeTakenList = [];
-let correctAnswers = 0;
 let avgTime = 0;
 let currentA = 0;
 let currentB = 0;
@@ -41,12 +40,20 @@ function submitAnswer()
     timeTakenList.push(timeTaken);
     if (parseInt(input) === currentA * currentB) 
     {
-        correctAnswers++;
+        currentRound++;
+        nextQuestion();
     }
-    currentRound++;
-    nextQuestion();
+    else{
+        finishGame();
+    }
 }
-
+function failFinish()
+{
+    document.getElementById("question").innerText = "Game Over!";
+    document.getElementById("answerInput").disabled = true;
+    document.getElementById("submitBtn").disabled = true;
+    document.getElementById("startBtn").disabled = false;
+}
 function finishGame() {
     document.getElementById("question").innerText = "Game Over!";
     document.getElementById("answerInput").disabled = true;
@@ -55,7 +62,7 @@ function finishGame() {
     document.getElementById("saveStatsBtn").disabled = false;
     document.getElementById("saveStatsBtn").hidden = false;
     avgTime = (timeTakenList.reduce((a, b) => a + b, 0) / totalRounds).toFixed(2);
-    document.getElementById("result").innerText = `You got ${correctAnswers} out of ${totalRounds} correct.\nAverage Time: ${avgTime} seconds`;
+    document.getElementById("result").innerText = `Average Time: ${avgTime} seconds`;
 }
 document.getElementById("saveStatsBtn").addEventListener("click", () => 
 {
@@ -66,11 +73,7 @@ document.getElementById("saveStatsBtn").addEventListener("click", () =>
         {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify(
-        {
-            avgTime: avgTime,
-            correctAnswers: correctAnswers
-        })
+        body: JSON.stringify(avgTime)
     })
     .then(res => res.json())
     .then(data => 
