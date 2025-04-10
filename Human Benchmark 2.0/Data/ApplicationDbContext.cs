@@ -28,6 +28,11 @@ namespace Human_Benchmark_2._0.Data
                 x => string.Join(',', x),
                 x=>x.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray()
                 );
+            modelBuilder.Entity<UserDataModel>().Property(x => x.memoryWordsScoreArray).HasConversion
+                (
+                x => string.Join(',', x),
+                x => x.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray()
+                );
         }
     }
 }

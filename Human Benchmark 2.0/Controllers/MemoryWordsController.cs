@@ -1,5 +1,7 @@
 ﻿using System;
 using Human_Benchmark_2._0.Data;
+using Human_Benchmark_2._0.Methods;
+using Human_Benchmark_2._0.Models.DataModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Human_Benchmark_2._0.Controllers
@@ -23,6 +25,15 @@ namespace Human_Benchmark_2._0.Controllers
         public IActionResult GetWords()
         {
             return Ok(GetRandomWords(150));
+        }
+        [HttpPost]
+        public async Task<IActionResult> SaveWordsScore([FromBody] int score)
+        {
+            UserDataModel userDataModel = await _context.GetUserByNameAsync(this.User.Identity?.Name ?? "");
+            userDataModel.AddScoreToWordsArray(score);
+            _context.Update(userDataModel);
+            _context.SaveChanges();
+            return Json(new { redirectUrl = Url.Action("Profile", "Home") });
         }
         private string[] GetRandomWords(int count)
         {

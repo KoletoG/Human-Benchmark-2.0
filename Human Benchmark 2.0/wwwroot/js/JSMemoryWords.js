@@ -45,6 +45,7 @@ function restartGame()
     document.getElementById("restartBtn").disabled=true;
     score=0;
     wordsCurrentList=[];
+    let firstWordPassed = true;
     startGame();
 }
 
@@ -101,4 +102,24 @@ async function loadWordsFromApi() {
         console.error("Fetch error:", error);
         return [];
     }
+}
+function saveStats()
+{
+    fetch("/MemoryWords/SaveWordsScore", 
+    {
+        method: "POST",
+        headers: 
+        {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(score)
+    })
+    .then(res => res.json())
+    .then(data => 
+    {
+        if (data.redirectUrl) 
+        {
+            window.location.href = data.redirectUrl;
+        }
+    });
 }

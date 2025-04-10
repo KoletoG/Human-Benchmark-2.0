@@ -23,6 +23,7 @@ namespace Human_Benchmark_2._0.Models.DataModels
         public int[] reactionTimesArray = new int[arrayCount];
         public double[] avgTimeScoreArray = new double[arrayCount];
         public int[] memoryNumbersScoreArray = new int[arrayCount];
+        public int[] memoryWordsScoreArray = new int[arrayCount];
         public UserDataModel(string email, string username)
         {
             Id = Guid.NewGuid().ToString();
@@ -44,6 +45,19 @@ namespace Human_Benchmark_2._0.Models.DataModels
             {
                 Array.Copy(reactionTimesArray, 1, reactionTimesArray, 0, arrayCount - 1);
                 reactionTimesArray[arrayCount - 1] = reaction;
+            }
+        }
+        public void AddScoreToWordsArray(int score)
+        {
+            int index = Array.IndexOf(memoryWordsScoreArray, default);
+            if (index != -1)
+            {
+                memoryWordsScoreArray[index] = score;
+            }
+            else
+            {
+                Array.Copy(memoryWordsScoreArray, 1, memoryWordsScoreArray, 0, arrayCount - 1);
+                memoryWordsScoreArray[arrayCount - 1] = score;
             }
         }
         public void AddCalcSpeedToArray(double avgTime)
