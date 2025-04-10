@@ -29,6 +29,5 @@ namespace Human_Benchmark_2._0.Data
                 x=>x.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray()
                 );
         }
-        public DbSet<WordDataModel> WordDataModel { get; set; }
     }
 }

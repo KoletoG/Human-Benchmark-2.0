@@ -64,10 +64,23 @@ async function notSeenWord()
 
 async function grabWord()
 {
-    let response = await fetch("https://wordsapiv1.p.mashape.com/words/example");
-    const text = response.text();
-    const words = text.split("\n").filter(w => w.trim().length > 0);
+    const words = await loadWordsFromApi();
     const randomIndex = Math.floor(Math.random() * words.length);
     randomWord = words[randomIndex];
     document.getElementById("currentWord").innerText = randomWord;
+}
+
+async function loadWordsFromApi() {
+    try {
+        let response = await fetch("/api/GetWords"); // relative to your site root
+        if (!response.ok) {
+            throw new Error("Network response was not ok");
+        }
+        const words = await response.json(); // this will be a string[]
+        console.log("Words from API:", words);
+        return words;
+    } catch (error) {
+        console.error("Fetch error:", error);
+        return [];
+    }
 }
