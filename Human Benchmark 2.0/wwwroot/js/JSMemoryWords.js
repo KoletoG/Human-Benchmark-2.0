@@ -1,7 +1,7 @@
 ﻿let wordsCurrentList = [];
 let score=0;
 let randomWord="";
-
+let firstWordPassed = false;
 async function startGame()
 {
     await grabWord();
@@ -64,9 +64,27 @@ async function notSeenWord()
 
 async function grabWord()
 {
-    const words = await loadWordsFromApi();
-    const randomIndex = Math.floor(Math.random() * words.length);
-    randomWord = words[randomIndex];
+    if(!firstWordPassed)
+    {
+        const words = await loadWordsFromApi();
+        firstWordPassed=true;
+        const randomIndex = Math.floor(Math.random() * words.length);
+        randomWord = words[randomIndex];
+    }
+    else
+    {
+        if(Math.random()>0.66)
+        {
+            const randomIndex = Math.floor(Math.random() * wordsCurrentList.length);
+            randomWord = wordsCurrentList[randomIndex];
+        }
+        else
+        {
+            const words = await loadWordsFromApi();
+            const randomIndex = Math.floor(Math.random() * words.length);
+            randomWord = words[randomIndex];
+        }
+    }
     document.getElementById("currentWord").innerText = randomWord;
 }
 
