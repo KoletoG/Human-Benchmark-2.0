@@ -21,7 +21,6 @@ namespace Human_Benchmark_2._0.Controllers
             return View();
         }
         [HttpGet]
-        [Route("api/GetWords")]
         public IActionResult GetWords()
         {
             return Ok(GetRandomWords(150));

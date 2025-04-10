@@ -91,7 +91,7 @@ async function grabWord()
 
 async function loadWordsFromApi() {
     try {
-        let response = await fetch("/api/GetWords"); // relative to your site root
+        let response = await fetch("/MemoryWords/GetWords"); // relative to your site root
         if (!response.ok) {
             throw new Error("Network response was not ok");
         }
