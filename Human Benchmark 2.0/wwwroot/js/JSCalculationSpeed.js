@@ -5,7 +5,6 @@ let timeTakenList = [];
 let avgTime = 0;
 let currentA = 0;
 let currentB = 0;
-
 function startGame() {
     currentRound = 0;
     timeTakenList = [];
