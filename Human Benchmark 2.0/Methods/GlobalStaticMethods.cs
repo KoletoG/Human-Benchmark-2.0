@@ -13,7 +13,7 @@ namespace Human_Benchmark_2._0.Methods
             string[] toReturn = new string[count];
             for (int i = 0; i < count; i++)
             {
-                toReturn[i] = words[_random.Next(0, words.Length)];
+                toReturn[i] = words[_random.Next(0, words.Length)].Replace('\r',' ');
             }
             return toReturn;
         }

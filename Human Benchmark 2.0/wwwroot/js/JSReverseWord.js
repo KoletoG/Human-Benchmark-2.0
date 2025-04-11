@@ -18,22 +18,27 @@ function startGame()
     nextWord();
 }
 
-function nextWord()
+async function nextWord()
 {
-    grabWord();
+    document.getElementById("answerInput").value="";
+    await grabWord();
     setTimeout(()=>
     {
         checkAnswer();
-    },1000*score+2000);
+    },1000*score+3000);
 }
 
 function checkAnswer()
 {
     document.getElementById("currentWord").innerText="";
-    if(document.getElementById("answerInput").value.trim()==reverseWord)
+    let answer =document.getElementById("answerInput").value;
+    if(answer==reverseWord)
     {
         score++;
-        nextWord();
+        document.getElementById("currentWord").innerText="Right!";
+        setTimeout(()=>{
+            nextWord();
+        },3000);
     }
     else
     {
@@ -58,11 +63,11 @@ function failGame()
 async function loadWordsFromApi() 
 {
     try {
-        let response = await fetch("/ReverseWord/GetWords"); // relative to your site root
+        let response = await fetch("/ReverseWord/GetWords");
         if (!response.ok) {
             throw new Error("Network response was not ok");
         }
-        const words = await response.json(); // this will be a string[]
+        const words = await response.json();
         console.log("Words from API:", words);
         return words;
     } catch (error) {
@@ -74,17 +79,20 @@ async function loadWordsFromApi()
 async function grabWord()
 {
     const allWords = await loadWordsFromApi();
-    const wordsWithSpecificLength = allWords.filter(x=>x.length==score+1);
-    const randomIndex = Math.floor(Math.random() * words.length);
+    const wordsWithSpecificLength = allWords.filter(x=>x.length==score+3);    
+    if (wordsWithSpecificLength.length === 0)
+    {
+        alert("No more words of that length!");
+        failGame();
+        return;
+    }
+    const randomIndex = Math.floor(Math.random() * wordsWithSpecificLength.length);
     randomWord = wordsWithSpecificLength[randomIndex];
+    reverseWord = reverseAWord(randomWord);
     document.getElementById("currentWord").innerText = randomWord;
+    document.getElementById("reversedWord").innerText = reverseWord;
 }
 
-function reverseAWord()
-{
-    // possible error
-    for(let i=0;i<randomWord.length;i++)
-    {
-        reverseAWord[i] = randomWord[randomWord.length-1-i];
-    }
+function reverseAWord(word) {
+    return word.split("").reverse().join("").trim();
 }
