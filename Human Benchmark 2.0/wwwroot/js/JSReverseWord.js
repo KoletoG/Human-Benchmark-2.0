@@ -84,6 +84,27 @@ async function loadWordsFromApi()
     }
 }
 
+function saveStats()
+{
+    fetch("/ReverseWord/SaveWordsScore", 
+        {
+            method: "POST",
+            headers: 
+            {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(score)
+        })
+        .then(res => res.json())
+        .then(data => 
+        {
+            if (data.redirectUrl) 
+            {
+                window.location.href = data.redirectUrl;
+            }
+        });
+}
+
 async function grabWord()
 {
     const allWords = await loadWordsFromApi();
