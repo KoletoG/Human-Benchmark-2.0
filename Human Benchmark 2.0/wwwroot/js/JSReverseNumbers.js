@@ -1,6 +1,6 @@
 ﻿let number=0;
 let score =0;
-let reverseNumber=1;
+let reverseNumber=0;
 function startGame()
 {
     score=0;
@@ -92,7 +92,16 @@ function saveStats()
 
 function grabNumber()
 {
-    let randomNumber = Math.floor(Math.random()*Math.pow(10,score+2));
+    let powNumber = Math.pow(10,score+2);
+    let randomNumber = Math.floor(Math.random()*powNumber);
+    if(randomNumber.toString().length<powNumber.toString().length-1)
+    {
+        while(randomNumber.toString().length<powNumber.toString().length)
+        {
+            randomNumber*=10;
+            randomNumber+=Math.floor(Math.random()*10);
+        }
+    }
     document.getElementById("currentNumber").innerText = randomNumber;
     reverseNumber = reverseANumber(randomNumber);
 }
@@ -104,8 +113,10 @@ function reverseANumber(number)
     {
         if(number>=10)
         {
-            reversedNumber+=number%10;
+            let deleteLast = number%10;
+            reversedNumber+=deleteLast;
             reversedNumber*=10;
+            number-=deleteLast;
             number/=10;
         }
         else
