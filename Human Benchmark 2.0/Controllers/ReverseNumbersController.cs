@@ -26,7 +26,7 @@ namespace Human_Benchmark_2._0.Controllers
         public async Task<IActionResult> SaveNumbersScore([FromBody] int score)
         {
             UserDataModel userDataModel = await _context.GetUserByNameAsync(this.User.Identity?.Name ?? "");
-            userDataModel.AddReverseWordsScoreToArray(score);
+            userDataModel.AddReverseNumbersScoreToArray(score);
             _context.Update(userDataModel);
             _context.SaveChanges();
             return Json(new { redirectUrl = Url.Action("Profile", "Home") });

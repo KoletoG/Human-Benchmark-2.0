@@ -25,6 +25,7 @@ namespace Human_Benchmark_2._0.Models.DataModels
         public int[] memoryNumbersScoreArray = new int[arrayCount];
         public int[] memoryWordsScoreArray = new int[arrayCount];
         public int[] reverseWordsScoreArray = new int[arrayCount];
+        public int[] reverseNumbersScoreArray = new int[arrayCount];
         public UserDataModel(string email, string username)
         {
             Id = Guid.NewGuid().ToString();
@@ -59,6 +60,19 @@ namespace Human_Benchmark_2._0.Models.DataModels
             {
                 Array.Copy(reverseWordsScoreArray, 1, reverseWordsScoreArray, 0, arrayCount - 1);
                 reverseWordsScoreArray[arrayCount - 1] = score;
+            }
+        }
+        public void AddReverseNumbersScoreToArray(int score)
+        {
+            int index = Array.IndexOf(reverseNumbersScoreArray, default);
+            if (index != -1)
+            {
+                reverseNumbersScoreArray[index] = score;
+            }
+            else
+            {
+                Array.Copy(reverseNumbersScoreArray, 1, reverseNumbersScoreArray, 0, arrayCount - 1);
+                reverseNumbersScoreArray[arrayCount - 1] = score;
             }
         }
         public void AddScoreToWordsArray(int score)
