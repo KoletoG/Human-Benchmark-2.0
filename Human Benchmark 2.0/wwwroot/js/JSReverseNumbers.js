@@ -92,8 +92,8 @@ function saveStats()
 
 function grabNumber()
 {
-    let randomNumber = Math.floor(Math.random()*(10^(score+1)));
-    document.getElementById("currentWord").innerText = randomNumber;
+    let randomNumber = Math.floor(Math.random()*Math.pow(10,score+2));
+    document.getElementById("currentNumber").innerText = randomNumber;
     reverseNumber = reverseANumber(randomNumber);
 }
 

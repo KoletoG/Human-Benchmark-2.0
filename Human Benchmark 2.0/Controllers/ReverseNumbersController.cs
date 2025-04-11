@@ -16,6 +16,7 @@ namespace Human_Benchmark_2._0.Controllers
             _logger = logger;
             _context = context;
         }
+        [Authorize]
         public IActionResult ReverseNumbersMain()
         {
             return View();
