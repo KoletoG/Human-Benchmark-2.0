@@ -1,4 +1,5 @@
 ﻿using Human_Benchmark_2._0.Data;
+using Human_Benchmark_2._0.Methods;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Human_Benchmark_2._0.Controllers
@@ -16,6 +17,11 @@ namespace Human_Benchmark_2._0.Controllers
         public IActionResult ReverseWordMain()
         {
             return View();
+        }
+        [HttpGet]
+        public IActionResult GetWords()
+        {
+            return Ok(GlobalStaticMethods.GetRandomWords(150));
         }
     }
 }
