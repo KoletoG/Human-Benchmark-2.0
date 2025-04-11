@@ -22,7 +22,7 @@ namespace Human_Benchmark_2._0.Controllers
         }
 
         [Authorize]
-        public async Task<IActionResult> SaveWordsScore([FromBody] int score)
+        public async Task<IActionResult> SaveNumbersScore([FromBody] int score)
         {
             UserDataModel userDataModel = await _context.GetUserByNameAsync(this.User.Identity?.Name ?? "");
             userDataModel.AddReverseWordsScoreToArray(score);
