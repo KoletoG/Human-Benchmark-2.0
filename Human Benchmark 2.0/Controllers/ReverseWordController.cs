@@ -21,7 +21,7 @@ namespace Human_Benchmark_2._0.Controllers
         [HttpGet]
         public IActionResult GetWords()
         {
-            return Ok(GlobalStaticMethods.GetRandomWords(150));
+            return Ok(GlobalStaticMethods.GetRandomWords(350));
         }
     }
 }

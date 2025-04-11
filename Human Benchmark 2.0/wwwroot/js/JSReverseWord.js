@@ -8,8 +8,6 @@ function startGame()
     reverseWord="";
     document.getElementById("startBtn").hidden=true;
     document.getElementById("startBtn").disabled=true;
-    document.getElementById("answerInput").hidden=false;
-    document.getElementById("answerInput").disabled=false;
     document.getElementById("saveBtn").hidden=true;
     document.getElementById("saveBtn").disabled=true;
     document.getElementById("scoreOutput").disabled=true;
@@ -21,6 +19,8 @@ function startGame()
 async function nextWord()
 {
     document.getElementById("answerInput").value="";
+    document.getElementById("answerInput").hidden=true;
+    document.getElementById("answerInput").disabled=true;
     await grabWord();
     setTimeout(()=>
     {
@@ -30,20 +30,28 @@ async function nextWord()
 
 function checkAnswer()
 {
+
     document.getElementById("currentWord").innerText="";
-    let answer =document.getElementById("answerInput").value;
-    if(answer==reverseWord)
-    {
-        score++;
-        document.getElementById("currentWord").innerText="Right!";
-        setTimeout(()=>{
-            nextWord();
-        },3000);
-    }
-    else
-    {
-        failGame();
-    }
+    document.getElementById("answerInput").hidden=false;
+    document.getElementById("answerInput").disabled=false;
+    setTimeout(()=>{
+        let answer =document.getElementById("answerInput").value;
+        if(answer==reverseWord)
+            {
+                score++;
+                document.getElementById("currentWord").innerText="Right!";
+                document.getElementById("answerInput").hidden=true;
+                document.getElementById("answerInput").disabled=true;
+                setTimeout(()=>{
+                    nextWord();
+                },3000);
+            }
+            else
+            {
+                failGame();
+            }
+    },1000*score+3000);
+    
 } 
 
 function failGame()
@@ -90,7 +98,6 @@ async function grabWord()
     randomWord = wordsWithSpecificLength[randomIndex];
     reverseWord = reverseAWord(randomWord);
     document.getElementById("currentWord").innerText = randomWord;
-    document.getElementById("reversedWord").innerText = reverseWord;
 }
 
 function reverseAWord(word) {
