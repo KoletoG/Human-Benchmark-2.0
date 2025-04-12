@@ -106,7 +106,6 @@ function createBlocks(number)
         btn.style.height="50px";
         btn.style.width="50px";
         btn.style.margin="10px";
-        btn.innerText="HAA";
         btn.disabled=true;
         setTimeout(()=>
         {
