@@ -2,9 +2,12 @@
 let score =0;
 let idsFull = [];
 let container;
-document.addEventListener("DOMContentLoaded",()=>{
-     container = document.getElementById("gameContainer");
+
+document.addEventListener("DOMContentLoaded",()=>
+{
+    container = document.getElementById("gameContainer");
 })
+
 function startGame()
 {
     document.getElementById("startBtn").hidden=true;
@@ -12,8 +15,64 @@ function startGame()
     createBlocks(score);
 }
 
+function nextLevel()
+{
+    score++;
+    createBlocks(score);
+}
+
+function checkBlock(id)
+{
+    for(let i =0;i<idsFull.length;i++)
+    {
+        if(idsFull[i]==id)
+        {
+            idsFull[i]=-1;
+            break;
+        }
+    }
+    let last=true;
+    for(let i=0;i<idsFull.length;i++)
+    {
+        if(idsFull[i]!=-1)
+        {
+            last=false;
+            break;
+        }
+    }
+    if(!last)
+    {
+        
+    }
+    else
+    {
+        deleteOldBlocks();
+        setTimeout(()=>
+        {
+            nextLevel();
+        },1200);
+    }
+}
+
+function deleteOldBlocks()
+{
+    for(let i=0;i<49;i++)
+    {
+        let idName = "id";
+        idName+=i;
+        document.getElementById(idName).remove();
+    }
+    for(let i=6;i<=48;i+=7)
+        {
+        let idName = "idBr";
+        idName+=i;
+        document.getElementById(idName).remove();
+    }
+}
+
 function createBlocks(number)
 {
+    idsFull=[];
     for(let i =0;i<number+1;i++)
     {
         idsFull.push(Math.floor(Math.random()*49));
@@ -33,9 +92,10 @@ function createBlocks(number)
             showRight(btn);
             btn.addEventListener("click",()=>
                 {
+                    checkBlock(i);
                     btn.style.backgroundColor="green";
                 }
-                );
+            );
         }
         else
         {
@@ -50,8 +110,11 @@ function createBlocks(number)
         container.appendChild(btn);
         if((i+1)%7==0)
         {
-            document.createElement("br");
-            container.appendChild(document.createElement("br"));
+            idName="idBr";
+            idName+=i;
+            let line = document.createElement("br");
+            line.setAttribute("id",idName)
+            container.appendChild(line);
         }
     }
 }
