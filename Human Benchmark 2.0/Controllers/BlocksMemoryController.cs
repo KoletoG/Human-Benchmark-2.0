@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Human_Benchmark_2._0.Data;
 using Human_Benchmark_2._0.Methods;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Human_Benchmark_2._0.Controllers
@@ -15,10 +16,12 @@ namespace Human_Benchmark_2._0.Controllers
             _logger = logger;
             _context = context;
         }
+        [Authorize]
         public IActionResult BlocksMemoryMain()
         {
             return View();
         }
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> SaveBlocksScore([FromBody] int score)
         {

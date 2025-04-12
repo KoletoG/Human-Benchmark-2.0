@@ -2,6 +2,7 @@
 using Human_Benchmark_2._0.Data;
 using Human_Benchmark_2._0.Methods;
 using Human_Benchmark_2._0.Models.DataModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Human_Benchmark_2._0.Controllers
@@ -15,6 +16,7 @@ namespace Human_Benchmark_2._0.Controllers
             _logger = logger;
             _context = context;
         }
+        [Authorize]
         public IActionResult MemoryWordsMain()
         {
             return View();
@@ -24,6 +26,7 @@ namespace Human_Benchmark_2._0.Controllers
         {
             return Ok(GlobalStaticMethods.GetRandomWords(150));
         }
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> SaveWordsScore([FromBody] int score)
         {

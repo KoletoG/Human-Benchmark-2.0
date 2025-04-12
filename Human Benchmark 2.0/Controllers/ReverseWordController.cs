@@ -28,6 +28,7 @@ namespace Human_Benchmark_2._0.Controllers
         }
 
         [Authorize]
+        [HttpPost]
         public async Task<IActionResult> SaveWordsScore([FromBody] int score)
         {
             UserDataModel userDataModel = await _context.GetUserByNameAsync(this.User.Identity?.Name ?? "");

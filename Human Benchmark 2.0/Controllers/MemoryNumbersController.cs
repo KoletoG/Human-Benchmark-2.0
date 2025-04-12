@@ -21,6 +21,7 @@ namespace Human_Benchmark_2._0.Controllers
         {
             return View("MemoryNumbersMain");
         }
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> MemoryNumbersSave([FromBody] int score)
         {

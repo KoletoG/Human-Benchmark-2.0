@@ -2,6 +2,7 @@
 using Human_Benchmark_2._0.Methods;
 using Human_Benchmark_2._0.Models.DataModels;
 using Human_Benchmark_2._0.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -16,10 +17,12 @@ namespace Human_Benchmark_2._0.Controllers
             _logger = logger;
             _context = context;
         }
+        [Authorize]
         public IActionResult CalcSpeedMain()
         {
             return View();
         }
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> SaveCalc([FromBody] double avgTime)
         {
