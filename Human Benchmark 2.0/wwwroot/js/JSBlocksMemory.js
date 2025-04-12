@@ -89,7 +89,13 @@ function createBlocks(number)
     idsFull=[];
     for(let i =0;i<number+1;i++)
     {
-        idsFull.push(Math.floor(Math.random()*49));
+        let idNum = Math.floor(Math.random()*49);
+        if(idsFull.indexOf(idNum)==-1)
+        {
+            idsFull.push(idNum);
+            continue;
+        }
+        i--;
     }
     for(let i=0;i<49;i++)
     {
@@ -102,7 +108,8 @@ function createBlocks(number)
         btn.style.margin="10px";
         btn.innerText="HAA";
         btn.disabled=true;
-        setTimeout(()=>{
+        setTimeout(()=>
+        {
             btn.disabled=false;
         },4000)
         if(idsFull.includes(i))
