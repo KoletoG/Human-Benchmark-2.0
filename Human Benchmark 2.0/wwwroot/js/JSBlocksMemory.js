@@ -162,3 +162,24 @@ function showRight(btn)
             btn.style.backgroundColor="gray";
         },4000)
 }
+
+function saveStats()
+{
+    fetch("/BlocksMemory/SaveBlocksScore", 
+    {
+        method: "POST",
+        headers: 
+        {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(score)
+    })
+    .then(res => res.json())
+    .then(data => 
+    {
+        if (data.redirectUrl) 
+        {
+            window.location.href = data.redirectUrl;
+        }
+    });
+}
