@@ -56,7 +56,7 @@
 		}
 			document.getElementById("submitt").addEventListener("click", () => {
 			if (finalAverage == null) return;
-					fetch("/Home/ReactionTimeSave", {
+					fetch("/ReactionTime/ReactionTimeSave", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json"

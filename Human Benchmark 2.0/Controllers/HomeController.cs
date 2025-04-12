@@ -31,24 +31,10 @@ namespace Human_Benchmark_2._0.Controllers
             return View();
         }
         [Authorize]
-        public IActionResult ReactionTime()
-        {
-            return View("ReactionTime");
-        }
-        [Authorize]
         public async Task<IActionResult> Profile()
         {
             var currentUser = await _context.GetUserByNameAsync(this.User.Identity.Name);
             return View("Profile", currentUser);
-        }
-        [Authorize]
-        public async Task<IActionResult> ReactionTimeSave([FromBody] int time)
-        {
-            UserDataModel userDataModel = await _context.GetUserByNameAsync(this.User.Identity?.Name ?? "");
-            userDataModel.AddReactionTimeToArray(time);
-            _context.Update(userDataModel);
-            _context.SaveChanges();
-            return Json(new { redirectUrl = Url.Action("Profile","Home") });
         }
         public IActionResult Privacy()
         {
