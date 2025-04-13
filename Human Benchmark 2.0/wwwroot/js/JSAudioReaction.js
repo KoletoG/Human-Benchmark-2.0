@@ -31,7 +31,7 @@ function nextLevel()
     {
         for(let i=0;i<5;i++)
         {
-            avgTime+=time[i];
+            avgTime+=times[i];
         }
         avgTime/=5;
         document.getElementById("avgTime").hidden=false;
@@ -39,14 +39,43 @@ function nextLevel()
         document.getElementById("avgTime").innerText=avgTime;
         document.getElementById("saveBtn").hidden=false;
         document.getElementById("saveBtn").disabled=false;
+        document.getElementById("btnStart").hidden=false;
+        document.getElementById("btnStart").disabled=false;
+        document.getElementById("leftBtn").hidden=true;
+        document.getElementById("leftBtn").disabled=true;
+        document.getElementById("rightBtn").hidden=true;
+        document.getElementById("rightBtn").disabled=true;
+        document.getElementById("upBtn").hidden=true;
+        document.getElementById("upBtn").disabled=true;
+        document.getElementById("downBtn").hidden=true;
+        document.getElementById("downBtn").disabled=true;
     }
     else
     {
-    setTimeout(playSound(),2000);
+        document.getElementById("leftBtn").hidden=true;
+        document.getElementById("leftBtn").disabled=true;
+        document.getElementById("rightBtn").hidden=true;
+        document.getElementById("rightBtn").disabled=true;
+        document.getElementById("upBtn").hidden=true;
+        document.getElementById("upBtn").disabled=true;
+        document.getElementById("downBtn").hidden=true;
+        document.getElementById("downBtn").disabled=true;
+        setTimeout(()=>
+        {
+            playSound();
+        },2000);
     }
 }
 function playSound()
 {
+    document.getElementById("leftBtn").hidden=false;
+    document.getElementById("leftBtn").disabled=false;
+    document.getElementById("rightBtn").hidden=false;
+    document.getElementById("rightBtn").disabled=false;
+    document.getElementById("upBtn").hidden=false;
+    document.getElementById("upBtn").disabled=false;
+    document.getElementById("downBtn").hidden=false;
+    document.getElementById("downBtn").disabled=false;
     let nameId="myAudio";
     index=Math.floor(Math.random()*4)+1;
     document.getElementById("testS").innerText=index;
