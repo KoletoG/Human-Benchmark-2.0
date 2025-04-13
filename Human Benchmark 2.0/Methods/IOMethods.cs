@@ -6,6 +6,7 @@ namespace Human_Benchmark_2._0.Methods
 {
     public static class IOMethods
     {
+        private static readonly Random rnd = new Random();
         public static async Task<UserDataModel> GetUserByNameAsync(this ApplicationDbContext _context,string name)
         {
             if (String.IsNullOrEmpty(name))
@@ -25,6 +26,16 @@ namespace Human_Benchmark_2._0.Methods
                 }
                 await _context.SaveChangesAsync();
             }
+        }
+        public static async Task<string[]> GetRandomWords(this ApplicationDbContext _context, int count)
+        {
+            string[] words = new string[count];
+            for(int i = 0; i < count; i++)
+            {
+                var result = await _context.wordDataModels.ElementAtAsync(rnd.Next(0, 10000));
+                words[i] = result.Word;
+            }
+            return words;
         }
     }
 }
