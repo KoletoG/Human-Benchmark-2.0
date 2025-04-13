@@ -26,8 +26,9 @@ namespace Human_Benchmark_2._0.Controllers
             _context = context;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            await _context.FillDatabaseWithWords();
             return View();
         }
         [Authorize]
