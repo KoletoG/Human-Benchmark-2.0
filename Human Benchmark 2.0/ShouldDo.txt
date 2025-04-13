@@ -16,3 +16,4 @@ Bell's curve for every mini-game
 Keyboard coordination reaction speed
 Think of way to get ID of user instead of userName
 Make username a private field in the controllers
+About page
