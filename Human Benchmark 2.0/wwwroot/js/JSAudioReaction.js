@@ -25,6 +25,24 @@ function startGame()
     currentLoop=0;
     playSound();
 }
+function saveStats()
+{
+    fetch("/AudioReaction/SaveAudioTime",
+        {
+            method: "POST",
+            headers:
+            {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(avgTime)
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.redirectUrl) {
+                window.location.href = data.redirectUrl;
+            }
+        });
+}
 function nextLevel()
 {
     if(currentLoop>4)
