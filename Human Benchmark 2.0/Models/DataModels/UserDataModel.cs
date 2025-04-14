@@ -6,8 +6,6 @@ namespace Human_Benchmark_2._0.Models.DataModels
 {
     public class UserDataModel : IdentityUser
     {
-        [NotMapped]
-        public static readonly int TimesOfReactions = 3;
         [Key]
         [Required]
         public override string Id { get; set; }
