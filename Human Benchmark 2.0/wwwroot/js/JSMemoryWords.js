@@ -3,15 +3,29 @@ let score=0;
 let randomWord="";
 let firstWordPassed = false;
 let allWordsFromApi = [];
+let seenBtn;
+let notSeenBtn;
+let btnStart;
+let saveBtn;
+let restartBtn;
+let currentWord;
+document.addEventListener("DOMContentLoaded", () => {
+    seenBtn = document.getElementById("seenBtn");
+    notSeenBtn = document.getElementById("notSeenBtn");
+    btnStart = document.getElementById("btnStart");
+    saveBtn = document.getElementById("saveBtn");
+    restartBtn = document.getElementById("restartBtn");
+    currentWord = document.getElementById("currentWord");
+});
 async function startGame()
 {
     await grabWord();
-    document.getElementById("seenBtn").hidden = false;
-    document.getElementById("seenBtn").disabled = false;
-    document.getElementById("notSeenBtn").hidden = false;
-    document.getElementById("notSeenBtn").disabled = false;
-    document.getElementById("btnStart").hidden=true;
-    document.getElementById("btnStart").disabled=true;
+    seenBtn.hidden = false;
+    seenBtn.disabled = false;
+    notSeenBtn.hidden = false;
+    notSeenBtn.disabled = false;
+    btnStart.hidden=true;
+    btnStart.disabled=true;
 }
 
 async function seenWord()
@@ -29,23 +43,23 @@ async function seenWord()
 
 function gameOver()
 {
-    document.getElementById("seenBtn").hidden = true;
-    document.getElementById("seenBtn").disabled = true;
-    document.getElementById("notSeenBtn").hidden = true;
-    document.getElementById("notSeenBtn").disabled = true;
-    document.getElementById("saveBtn").hidden = false;
-    document.getElementById("saveBtn").disabled = false;
-    document.getElementById("restartBtn").hidden=false;
-    document.getElementById("restartBtn").disabled=false;
-    document.getElementById("currentWord").innerText=score;
+    seenBtn.hidden = true;
+    seenBtn.disabled = true;
+    notSeenBtn.hidden = true;
+    notSeenBtn.disabled = true;
+    saveBtn.hidden = false;
+    saveBtn.disabled = false;
+    restartBtn.hidden=false;
+    restartBtn.disabled=false;
+    currentWord.innerText=score;
 }
 
 function restartGame()
 {
-    document.getElementById("saveBtn").hidden = true;
-    document.getElementById("saveBtn").disabled = true;
-    document.getElementById("restartBtn").hidden=true;
-    document.getElementById("restartBtn").disabled=true;
+    saveBtn.hidden = true;
+    saveBtn.disabled = true;
+    restartBtn.hidden=true;
+    restartBtn.disabled=true;
     score=0;
     wordsCurrentList=[];
     startGame();
@@ -87,7 +101,7 @@ async function grabWord()
             randomWord = allWordsFromApi[randomIndex];
         }
     }
-    document.getElementById("currentWord").innerText = randomWord;
+    currentWord.innerText = randomWord;
 }
 
 async function loadWordsFromApi() {
