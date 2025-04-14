@@ -3,25 +3,37 @@ let reverseWord="";
 let score =0;
 let firstTime = true;
 let allWords = [];
+let startBtn;
+let saveBtn;
+let scoreOutput;
+let answerInput;
+let currentWord;
+document.addEventListener("DOMContentLoaded", () => {
+    startBtn = document.getElementById("startBtn");
+    saveBtn = document.getElementById("saveBtn");
+    scoreOutput = document.getElementById("scoreOutput");
+    answerInput = document.getElementById("answerInput");
+    currentWord = document.getElementById("currentWord");
+});
 function startGame()
 {
     score=0;
     reverseWord="";
-    document.getElementById("startBtn").hidden=true;
-    document.getElementById("startBtn").disabled=true;
-    document.getElementById("saveBtn").hidden=true;
-    document.getElementById("saveBtn").disabled=true;
-    document.getElementById("scoreOutput").disabled=true;
-    document.getElementById("scoreOutput").hidden=true;
-    document.getElementById("currentWord").hidden=false;
+    startBtn.hidden=true;
+    startBtn.disabled=true;
+    saveBtn.hidden=true;
+    saveBtn.disabled=true;
+    scoreOutput.disabled=true;
+    scoreOutput.hidden=true;
+    currentWord.hidden=false;
     nextWord();
 }
 
 async function nextWord()
 {
-    document.getElementById("answerInput").value="";
-    document.getElementById("answerInput").hidden=true;
-    document.getElementById("answerInput").disabled=true;
+    answerInput.value="";
+    answerInput.hidden=true;
+    answerInput.disabled=true;
     await grabWord();
     setTimeout(()=>
     {
@@ -32,17 +44,17 @@ async function nextWord()
 function checkAnswer()
 {
 
-    document.getElementById("currentWord").innerText="";
-    document.getElementById("answerInput").hidden=false;
-    document.getElementById("answerInput").disabled=false;
-    setTimeout(()=>{
-        let answer =document.getElementById("answerInput").value;
-        if(answer==reverseWord)
+    currentWord.innerText = "";
+    answerInput.hidden=false;
+    answerInput.disabled=false;
+    setTimeout(() =>
+    {
+        if (answerInput.value == reverseWord)
             {
                 score++;
-                document.getElementById("currentWord").innerText="Right!";
-                document.getElementById("answerInput").hidden=true;
-                document.getElementById("answerInput").disabled=true;
+                currentWord.innerText = "Right!";
+                answerInput.hidden=true;
+                answerInput.disabled=true;
                 setTimeout(()=>{
                     nextWord();
                 },3000);
@@ -57,16 +69,16 @@ function checkAnswer()
 
 function failGame()
 {
-    document.getElementById("startBtn").hidden=false;
-    document.getElementById("startBtn").disabled=false;
-    document.getElementById("answerInput").hidden=true;
-    document.getElementById("answerInput").disabled=true;
-    document.getElementById("scoreOutput").disabled=false;
-    document.getElementById("scoreOutput").hidden=false;
-    document.getElementById("scoreOutput").innerText=score;
-    document.getElementById("saveBtn").hidden=false;
-    document.getElementById("saveBtn").disabled=false;
-    document.getElementById("currentWord").hidden=true;
+    startBtn.hidden=false;
+    startBtn.disabled=false;
+    answerInput.hidden=true;
+    answerInput.disabled=true;
+    scoreOutput.disabled=false;
+    scoreOutput.hidden=false;
+    scoreOutput.innerText=score;
+    saveBtn.hidden=false;
+    saveBtn.disabled=false;
+    currentWord.hidden=true;
 }
 
 async function loadWordsFromApi() 
