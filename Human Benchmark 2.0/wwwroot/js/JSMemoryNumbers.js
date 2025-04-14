@@ -1,19 +1,33 @@
 ﻿let number;
 let currentLength = 1;
 let score=0;
-let numberLength=1;
-document.getElementById("numberField").innerHTML="Type your answer";
+let numberLength = 1;
+let answerField;
+let btnStart;
+let numberField;
+let scoreLabel;
+let btnSave;
+let restartButton;
+document.addEventListener("DOMContentLoaded", () =>
+{
+    answerField = document.getElementById("answerField");
+    btnStart = document.getElementById("btnStart");
+    numberField = document.getElementById("numberField");
+    scoreLabel = document.getElementById("scoreLabel");
+    btnSave = document.getElementById("btnSave");
+    restartButton = document.getElementById("restartButton");
+});
 function startGame()
 {
-    document.getElementById("answerField").innerHTML="";
-    document.getElementById("btnStart").hidden=true;
-    document.getElementById("btnStart").disabled=true;
-    document.getElementById("answerField").hidden=true;
-    document.getElementById("numberField").hidden=false;
+    answerField.innerHTML="";
+    btnStart.hidden=true;
+    btnStart.disabled=true;
+    answerField.hidden=true;
+    numberField.hidden=false;
     numberLength*=10;
-    number=Math.floor(Math.random()*(numberLength));
-    document.getElementById("numberField").style.color="black";
-    document.getElementById("numberField").innerHTML=`${number}`;
+    number = Math.floor(Math.random() * (numberLength));
+    numberField.style.color = "black";
+    numberField.innerHTML=`${number}`;
     setTimeout(()=>
     {
         typingAnswer();
@@ -21,9 +35,9 @@ function startGame()
 }
 function typingAnswer()
 {
-    document.getElementById("numberField").innerHTML = "Type the number";
-    document.getElementById("answerField").hidden = false;
-    document.getElementById("answerField").focus();
+    numberField.innerHTML = "Type the number";
+    answerField.hidden = false;
+    answerField.focus();
     setTimeout(()=>{
         checkAnswer();
     },3000+currentLength*400) // Time for the user to type the shown number for
@@ -31,13 +45,13 @@ function typingAnswer()
 // Checks if user's answer is true
 function checkAnswer()
 {
-    let answer = document.getElementById("answerField").value;
-    document.getElementById("answerField").value = "";
-    document.getElementById("answerField").hidden = true;
-    if(number == parseInt(answer))
+    let answer = answerField.value;
+    answerField.value = "";
+    answerField.hidden = true;
+    if (number == parseInt(answer))
     {
-        document.getElementById("numberField").style.color="green";
-        document.getElementById("numberField").innerHTML="Your answer is right. Continuing..."
+        numberField.style.color="green";
+        numberField.innerHTML="Your answer is right. Continuing..."
         currentLength++;
         score++;
         setTimeout(()=>
@@ -47,16 +61,16 @@ function checkAnswer()
     }
     else
     {
-        document.getElementById("numberField").style.color="red";
-        document.getElementById("numberField").innerHTML = "Your answer was wrong!";
-        document.getElementById("scoreLabel").hidden=false;
-        document.getElementById("scoreLabel").innerHTML=`Your score is ${score}`;
-        document.getElementById("answerField").hidden=true;
-        document.getElementById("answerField").disabled=true;
-        document.getElementById("btnSave").disabled=false;
-        document.getElementById("btnSave").hidden=false;
-        document.getElementById("restartButton").hidden=false;
-        document.getElementById("restartButton").disabled=false;
+        numberField.style.color="red";
+        numberField.innerHTML = "Your answer was wrong!";
+        scoreLabel.hidden=false;
+        scoreLabel.innerHTML=`Your score is ${score}`;
+        answerField.hidden=true;
+        answerField.disabled=true;
+        btnSave.disabled=false;
+        btnSave.hidden=false;
+        restartButton.hidden=false;
+        restartButton.disabled=false;
     }
 }
 
@@ -65,12 +79,12 @@ function restartGame()
     currentLength = 1;
     score=0;
     numberLength=1;
-    document.getElementById("scoreLabel").hidden=true;
-    document.getElementById("btnSave").hidden=true;
-    document.getElementById("btnSave").disabled=false;
-    document.getElementById("restartButton").hidden=true;
-    document.getElementById("restartButton").disabled = true;
-    document.getElementById("answerField").disabled = false;
+    scoreLabel.hidden=true;
+    btnSave.hidden=true;
+    btnSave.disabled=false;
+    restartButton.hidden=true;
+    restartButton.disabled = true;
+    answerField.disabled = false;
     startGame();
 }
 
