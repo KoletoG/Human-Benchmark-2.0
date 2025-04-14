@@ -8,8 +8,12 @@ let cycleRepeat = 3;
 let button;
 let box;
 let avgDisplay;
-document.addEventListener("DOMContentLoaded",()=>{
-    document.getElementById("submitt").disabled = true;
+let startBtn;
+let submitBtn;
+document.addEventListener("DOMContentLoaded", () => {
+    submitBtn = document.getElementById("submitt");
+    submitBtn.disabled = true;
+    startBtn = document.getElementById("startBtn");
     button = document.getElementsByName("submitt");
     box = document.getElementById("box");
     avgDisplay = document.getElementById("averageTime");
@@ -38,23 +42,23 @@ function endTest() {
     box.textContent = "Done!";
     box.style.backgroundColor = "gray";
     finalAverage = average;
-    document.getElementById("submitt").disabled = false;
-    document.getElementById("submitt").hidden = false;
-    document.getElementById("startBtn").hidden=false;
-    document.getElementById("startBtn").disabled=false;
+    submitBtn.disabled = false;
+    submitBtn.hidden = false;
+    startBtn.hidden = false;
+    startBtn.disabled = false;
 }
 
 function startNewGame()
 {
-    document.getElementById("submitt").disabled = true;
-    document.getElementById("submitt").hidden = true;
+    submitBtn.disabled = true;
+    submitBtn.hidden = true;
     trialCount=0;
     waiting=false;
     reactionTimes=[];
-    timeoutId=null;
-    document.getElementById("startBtn").hidden=true;
-    document.getElementById("startBtn").disabled=true;
-    document.getElementById("averageTime").innerText="";
+    timeoutId = null;
+    startBtn.hidden = true;
+    startBtn.disabled = true;
+    avgDisplay.innerText="";
     startReaction();
 }
 function saveStats()

@@ -1,5 +1,4 @@
-﻿ // 7x7, let name += idBtn, **createElement("button")**, random elements 0-49 in array/list, timeout 5 sec, color = red, onclick()="failGame()", int clicked=0; 
-let score =0;
+﻿let score =0;
 let idsFull = [];
 let container;
 
