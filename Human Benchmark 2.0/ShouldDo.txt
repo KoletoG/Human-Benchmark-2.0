@@ -5,7 +5,6 @@ Logical questions / Trick questions
 Quiz Millionaire / Fun game
 Info for every game on the main page of the specific mini-game
 Fix code in JS / Make it better - faster and more readable
-Move ReactionTime script to a separate file
 Random name for easier registration and faster and add Username to Register UI
 Make UI better for every mini-game
 Delete test blocks of every mini-game
@@ -19,3 +18,4 @@ About page
 Fix start btn in MemoryWords
 Summaries on every method
 Error-handling on every method
+Make start new game button for every mini-game

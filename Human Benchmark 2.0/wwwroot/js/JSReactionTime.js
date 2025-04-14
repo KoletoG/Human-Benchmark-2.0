@@ -40,8 +40,23 @@ function endTest() {
     finalAverage = average;
     document.getElementById("submitt").disabled = false;
     document.getElementById("submitt").hidden = false;
+    document.getElementById("startBtn").hidden=false;
+    document.getElementById("startBtn").disabled=false;
 }
 
+function startNewGame()
+{
+    document.getElementById("submitt").disabled = true;
+    document.getElementById("submitt").hidden = true;
+    trialCount=0;
+    waiting=false;
+    reactionTimes=[];
+    timeoutId=null;
+    document.getElementById("startBtn").hidden=true;
+    document.getElementById("startBtn").disabled=true;
+    document.getElementById("averageTime").innerText="";
+    startReaction();
+}
 function saveStats()
 {
    
