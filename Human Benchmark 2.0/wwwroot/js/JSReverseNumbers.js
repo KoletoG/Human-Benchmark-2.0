@@ -1,25 +1,37 @@
 ﻿let number=0;
 let score =0;
-let reverseNumber=0;
+let reverseNumber = 0;
+let startBtn;
+let saveBtn;
+let scoreOutput;
+let answerInput;
+let currentNumber;
+document.addEventListener("DOMContentLoaded", () => {
+    startBtn = document.getElementById("startBtn");
+    saveBtn = document.getElementById("saveBtn");
+    scoreOutput = document.getElementById("scoreOutput");
+    answerInput = document.getElementById("answerInput");
+    currentNumber = document.getElementById("currentNumber");
+});
 function startGame()
 {
     score=0;
     number=0;
-    document.getElementById("startBtn").hidden=true;
-    document.getElementById("startBtn").disabled=true;
-    document.getElementById("saveBtn").hidden=true;
-    document.getElementById("saveBtn").disabled=true;
-    document.getElementById("scoreOutput").disabled=true;
-    document.getElementById("scoreOutput").hidden=true;
-    document.getElementById("currentNumber").hidden=false;
+    startBtn.hidden=true;
+    startBtn.disabled=true;
+    saveBtn.hidden=true;
+    saveBtn.disabled=true;
+    scoreOutput.disabled=true;
+    scoreOutput.hidden=true;
+    currentNumber.hidden=false;
     nextNumber();
 }
 
 async function nextNumber()
 {
-    document.getElementById("answerInput").value="";
-    document.getElementById("answerInput").hidden=true;
-    document.getElementById("answerInput").disabled=true;
+    answerInput.value="";
+    answerInput.hidden=true;
+    answerInput.disabled=true;
     grabNumber();
     setTimeout(()=>
     {
@@ -30,18 +42,17 @@ async function nextNumber()
 function checkAnswer()
 {
 
-    document.getElementById("currentNumber").innerText="";
-    document.getElementById("answerInput").hidden=false;
-    document.getElementById("answerInput").disabled=false;
+    currentNumber.innerText="";
+    answerInput.hidden=false;
+    answerInput.disabled=false;
     setTimeout(()=>
     {
-        let answer =document.getElementById("answerInput").value;
-        if(answer==reverseNumber)
+        if(answerInput.value==reverseNumber)
             {
                 score++;
-                document.getElementById("currentNumber").innerText="Right!";
-                document.getElementById("answerInput").hidden=true;
-                document.getElementById("answerInput").disabled=true;
+                currentNumber.innerText="Right!";
+                answerInput.hidden=true;
+                answerInput.disabled=true;
                 setTimeout(()=>
                 {
                     nextNumber();
@@ -57,16 +68,16 @@ function checkAnswer()
 
 function failGame()
 {
-    document.getElementById("startBtn").hidden=false;
-    document.getElementById("startBtn").disabled=false;
-    document.getElementById("answerInput").hidden=true;
-    document.getElementById("answerInput").disabled=true;
-    document.getElementById("scoreOutput").disabled=false;
-    document.getElementById("scoreOutput").hidden=false;
-    document.getElementById("scoreOutput").innerText=score;
-    document.getElementById("saveBtn").hidden=false;
-    document.getElementById("saveBtn").disabled=false;
-    document.getElementById("currentNumber").hidden=true;
+    startBtn.hidden=false;
+    startBtn.disabled=false;
+    answerInput.hidden=true;
+    answerInput.disabled=true;
+    scoreOutput.disabled=false;
+    scoreOutput.hidden=false;
+    scoreOutput.innerText=score;
+    saveBtn.hidden=false;
+    saveBtn.disabled=false;
+    currentNumber.hidden=true;
 }
 
 function saveStats()
@@ -104,7 +115,7 @@ function grabNumber()
             randomNumber+=Math.floor(Math.random()*10);
         }
     }
-    document.getElementById("currentNumber").innerText = randomNumber;
+    currentNumber.innerText = randomNumber;
     reverseNumber = reverseANumber(randomNumber);
 }
 
