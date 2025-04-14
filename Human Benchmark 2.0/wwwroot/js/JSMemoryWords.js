@@ -10,6 +10,8 @@ async function startGame()
     document.getElementById("seenBtn").disabled = false;
     document.getElementById("notSeenBtn").hidden = false;
     document.getElementById("notSeenBtn").disabled = false;
+    document.getElementById("btnStart").hidden=true;
+    document.getElementById("btnStart").disabled=true;
 }
 
 async function seenWord()
@@ -46,7 +48,6 @@ function restartGame()
     document.getElementById("restartBtn").disabled=true;
     score=0;
     wordsCurrentList=[];
-    let firstWordPassed = true;
     startGame();
 }
 

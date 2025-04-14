@@ -12,10 +12,10 @@ Change profile page
 Change navigation bar
 Bell's curve for every mini-game
 Keyboard coordination reaction speed
-Think of way to get ID of user instead of userName
+Think of way to get ID of user instead of userName --
 Make username a private field in the controllers
 About page
 Fix start btn in MemoryWords
 Summaries on every method
 Error-handling on every method
-Make start new game button for every mini-game
+Make start new game button for every mini-game / Reaction Time done
