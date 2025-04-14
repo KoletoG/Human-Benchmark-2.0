@@ -35,7 +35,7 @@ namespace Human_Benchmark_2._0.Controllers
         [Authorize]
         public async Task<IActionResult> Profile()
         {
-            var currentUser = await _context.GetUserByNameAsync(this.User.Identity.Name);
+            var currentUser = await _context.GetUserByNameAsync(this.User.Identity?.Name ?? throw new Exception("User not valid."));
             return View("Profile", currentUser);
         }
         public IActionResult Privacy()
