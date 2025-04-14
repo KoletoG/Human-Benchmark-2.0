@@ -93,10 +93,12 @@ function saveStats()
 function grabNumber()
 {
     let powNumber = Math.pow(10,score+2);
-    let randomNumber = Math.floor(Math.random()*powNumber);
-    if(randomNumber.toString().length<powNumber.toString().length-1)
+    let randomNumber = Math.floor(Math.random() * powNumber);
+    let powLength = powNumber.toString().length;
+    let randomNumLength = randomNumber.toString().length;
+    if (randomNumLength < powLength-1)
     {
-        while(randomNumber.toString().length<powNumber.toString().length)
+        while (randomNumLength < powLength)
         {
             randomNumber*=10;
             randomNumber+=Math.floor(Math.random()*10);
