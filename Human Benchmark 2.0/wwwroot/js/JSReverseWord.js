@@ -1,7 +1,8 @@
 ﻿let randomWord="";
 let reverseWord="";
 let score =0;
-
+let firstTime = true;
+let allWords = [];
 function startGame()
 {
     score=0;
@@ -107,7 +108,11 @@ function saveStats()
 
 async function grabWord()
 {
-    const allWords = await loadWordsFromApi();
+    if (firstTime)
+    {
+        allWords = await loadWordsFromApi();
+        firstTime = false;
+    }
     const wordsWithSpecificLength = allWords.filter(x=>x.length==score+3);    
     if (wordsWithSpecificLength.length === 0)
     {

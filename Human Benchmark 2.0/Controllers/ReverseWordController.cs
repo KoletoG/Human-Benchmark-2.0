@@ -22,9 +22,9 @@ namespace Human_Benchmark_2._0.Controllers
             return View();
         }
         [HttpGet]
-        public IActionResult GetWords()
+        public async Task<IActionResult> GetWords()
         {
-            return Ok(GlobalStaticMethods.GetRandomWords(350));
+            return Ok(await _context.GetRandomWords(350));
         }
 
         [Authorize]
