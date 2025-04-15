@@ -7,3 +7,73 @@
 <button onclick="startGame()" id="startBtn">START</button>
 <input id="answerInput" type="text" hidden disabled />
 <button id="saveBtn" onclick="saveStats()" hidden disabled>SAVE SCORE</button>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        text-align: center;
+        padding-top: 50px;
+        color: #333;
+    }
+
+    h1 {
+        font-size: 2.5rem;
+        margin-bottom: 30px;
+    }
+
+    #currentNumber {
+        font-size: 2rem;
+        font-weight: bold;
+        margin: 20px 0;
+        color: #222;
+    }
+
+    #scoreOutput {
+        font-size: 1.3rem;
+        margin: 10px 0 30px;
+        color: #444;
+    }
+
+    #answerInput {
+        padding: 10px;
+        font-size: 1.2rem;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        margin-bottom: 20px;
+        width: 200px;
+    }
+
+    button {
+        margin: 10px;
+        padding: 12px 24px;
+        font-size: 1rem;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    #startBtn {
+        background-color: #2196F3;
+        color: white;
+    }
+
+        #startBtn:hover {
+            background-color: #0b7dda;
+        }
+
+    #saveBtn {
+        background-color: #4CAF50;
+        color: white;
+    }
+
+        #saveBtn:hover {
+            background-color: #45a049;
+        }
+
+    button[disabled] {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
+</style>
