@@ -1,22 +1,27 @@
 ﻿let score =0;
 let idsFull = [];
 let container;
-
-document.addEventListener("DOMContentLoaded",()=>
+let startBtn;
+let saveBtn;
+let scoreDiv;
+document.addEventListener("DOMContentLoaded", () =>
 {
     container = document.getElementById("gameContainer");
-})
+    startBtn = document.getElementById("startBtn");
+    saveBtn = document.getElementById("saveBtn");
+    scoreDiv = document.getElementById("scoreDiv");
+});
 
 function startGame()
 {
     score=0;
     idsFull=[];
-    document.getElementById("startBtn").hidden=true;
-    document.getElementById("startBtn").disabled=true;
-    document.getElementById("saveBtn").hidden=true;
-    document.getElementById("saveBtn").disabled=true;
-    document.getElementById("scoreDiv").hidden=true;
-    document.getElementById("scoreDiv").disabled=true;
+    startBtn.hidden=true;
+    startBtn.disabled=true;
+    saveBtn.hidden=true;
+    saveBtn.disabled=true;
+    scoreDiv.hidden=true;
+    scoreDiv.disabled=true;
     createBlocks(score);
 }
 
@@ -58,13 +63,13 @@ function checkBlock(id)
 function gameOver()
 {
     deleteOldBlocks();
-    document.getElementById("saveBtn").hidden=false;
-    document.getElementById("saveBtn").disabled=false;
-    document.getElementById("startBtn").hidden=false;
-    document.getElementById("startBtn").disabled=false;
-    document.getElementById("scoreDiv").hidden=false;
-    document.getElementById("scoreDiv").disabled=false;
-    document.getElementById("scoreDiv").innerText=score;
+    saveBtn.hidden=false;
+    saveBtn.disabled=false;
+    startBtn.hidden=false;
+    startBtn.disabled = false;
+    scoreDiv.hidden = false;
+    scoreDiv.disabled=false;
+    scoreDiv.innerText=score;
 }
 
 function deleteOldBlocks()
