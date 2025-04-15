@@ -135,7 +135,7 @@ async function grabWord()
     const randomIndex = Math.floor(Math.random() * wordsWithSpecificLength.length);
     randomWord = wordsWithSpecificLength[randomIndex];
     reverseWord = reverseAWord(randomWord);
-    document.getElementById("currentWord").innerText = randomWord;
+    currentWord.innerText = randomWord;
 }
 
 function reverseAWord(word) {

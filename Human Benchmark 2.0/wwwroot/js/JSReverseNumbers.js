@@ -121,7 +121,7 @@ function grabNumber()
 
 function reverseANumber(number) 
 {
-    let reversedNumber=0;
+    let reversedNumber = 0;
     while(number>0)
     {
         if(number>=10)
