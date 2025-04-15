@@ -6,3 +6,77 @@
 <label id="scoreLabel" hidden></label>
 <button id="btnSave" onclick="saveStats()" hidden disabled>SAVE</button>
 <button class="bg-green-500 text-white px-4 py-2 rounded mb-4" onclick="restartGame()" hidden disabled id="restartButton">START NEW GAME</button>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        text-align: center;
+        padding-top: 50px;
+        color: #333;
+    }
+
+    #numberField {
+        font-size: 2rem;
+        font-weight: bold;
+        display: block;
+        margin: 20px 0;
+        color: #222;
+    }
+
+    #answerField {
+        padding: 10px;
+        font-size: 1.2rem;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        margin-bottom: 20px;
+    }
+
+    #scoreLabel {
+        display: block;
+        font-size: 1.3rem;
+        margin: 20px 0;
+        color: #444;
+    }
+
+    button {
+        margin: 10px;
+        padding: 12px 24px;
+        font-size: 1rem;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    #btnStart {
+        background-color: #2196F3;
+        color: white;
+    }
+
+        #btnStart:hover {
+            background-color: #0b7dda;
+        }
+
+    #btnSave {
+        background-color: #ff9800;
+        color: white;
+    }
+
+        #btnSave:hover {
+            background-color: #e68a00;
+        }
+
+    #restartButton {
+        background-color: #4CAF50;
+        color: white;
+    }
+
+        #restartButton:hover {
+            background-color: #45a049;
+        }
+
+    button[disabled] {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
+</style>
