@@ -5,18 +5,32 @@ let timeTakenList = [];
 let avgTime = 0;
 let currentA = 0;
 let currentB = 0;
+let resultDoc;
+let startBtn;
+let answerInput;
+let submitBtn;
+let question;
+let saveStatsBtn;
+document.addEventListener("DOMContentLoaded", () =>
+{
+    resultDoc = document.getElementById("result");
+    startBtn = document.getElementById("startBtn");
+    answerInput = document.getElementById("answerInput");
+    submitBtn = document.getElementById("submitBtn");
+    question = document.getElementById("question");
+    saveStatsBtn = document.getElementById("saveStatsBtn");
+});
 function startGame() {
     currentRound = 0;
     timeTakenList = [];
     correctAnswers = 0;
-    document.getElementById("result").innerText = "";
-    document.getElementById("startBtn").disabled = true;
-    document.getElementById("answerInput").disabled = false;
-    document.getElementById("submitBtn").disabled = false;
-    document.getElementById("submitBtn").hidden = false;
-    document.getElementById("answerInput").hidden=false;
-    document.getElementById("answerInput").disabled = false;
-    document.getElementById("startBtn").hidden = true;
+    resultDoc.innerText = "";
+    startBtn.disabled = true;
+    submitBtn.disabled = false;
+    submitBtn.hidden = false;
+    answerInput.hidden=false;
+    answerInput.disabled = false;
+    startBtn.hidden = true;
     nextQuestion();
 }
 
@@ -29,15 +43,15 @@ function nextQuestion()
     }
     currentA = Math.floor(Math.random() * 90) + 10;
     currentB = Math.floor(Math.random() * 90) + 10;
-    document.getElementById("question").innerText = `What is ${currentA} × ${currentB}?`;
-    document.getElementById("answerInput").value = "";
-    document.getElementById("answerInput").focus();
+    question.innerText = `What is ${currentA} × ${currentB}?`;
+    answerInput.value = "";
+    answerInput.focus();
     startTime = new Date();
 }
 
 function submitAnswer() 
 {
-    const input = document.getElementById("answerInput").value;
+    const input = answerInput.value;
     const endTime = new Date();
     const timeTaken = (endTime - startTime) / 1000;
     timeTakenList.push(timeTaken);
@@ -53,30 +67,30 @@ function submitAnswer()
 }
 function failFinish()
 {
-    document.getElementById("question").innerText = "Game Over, calculation was wrong!";
-    document.getElementById("answerInput").disabled = true;
-    document.getElementById("submitBtn").disabled = true;
-    document.getElementById("submitBtn").hidden = true;
-    document.getElementById("startBtn").disabled = false;
-    document.getElementById("startBtn").hidden = false;
-    document.getElementById("saveStatsBtn").disabled = true;
-    document.getElementById("saveStatsBtn").hidden = true;
-    document.getElementById("answerInput").hidden=true;
-    document.getElementById("answerInput").disabled = true;
+    question.innerText = "Game Over, calculation was wrong!";
+    answerInput.disabled = true;
+    submitBtn.disabled = true;
+    submitBtn.hidden = true;
+    startBtn.disabled = false;
+    startBtn.hidden = false;
+    saveStatsBtn.disabled = true;
+    saveStatsBtn.hidden = true;
+    answerInput.hidden=true;
+    answerInput.disabled = true;
 }
 function finishGame() 
 {
-    document.getElementById("question").innerText = "Game Over!";
-    document.getElementById("answerInput").disabled = true;
-    document.getElementById("submitBtn").disabled = true;
-    document.getElementById("submitBtn").hidden = true;
-    document.getElementById("startBtn").disabled = false;
-    document.getElementById("saveStatsBtn").disabled = false;
-    document.getElementById("startBtn").hidden = false;
-    document.getElementById("saveStatsBtn").hidden = false;
-    document.getElementById("answerInput").hidden=true;
+    question.innerText = "Game Over!";
+    answerInput.disabled = true;
+    submitBtn.disabled = true;
+    submitBtn.hidden = true;
+    startBtn.disabled = false;
+    saveStatsBtn.disabled = false;
+    startBtn.hidden = false;
+    saveStatsBtn.hidden = false;
+    answerInput.hidden=true;
     avgTime = (timeTakenList.reduce((a, b) => a + b, 0) / totalRounds).toFixed(2);
-    document.getElementById("result").innerText = `Average Time: ${avgTime} seconds`;
+    resultDoc.innerText = `Average Time: ${avgTime} seconds`;
 }
     
 function saveResults()
