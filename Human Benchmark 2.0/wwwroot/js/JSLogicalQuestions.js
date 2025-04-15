@@ -32,17 +32,17 @@ function pickQuestion()
 
 function checkRepeatedQuestion()
 {
+    if(doneQuestions.length==questions.length+1)
+    {
+        doneQuestions=[-1];
+    }
     while(true)
     {
         index = Math.floor(Math.random()*questions.length);
         let present=false;
-        for(let i=0;i<doneQuestions.length;i++)
+        if(doneQuestions.includes(index))
         {
-            if(doneQuestions[i]==index)
-            {
-                present=true;
-                i=doneQuestions.length;
-            }
+            present=true;
         }
         if(!present)
         {
