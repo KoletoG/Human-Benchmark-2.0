@@ -1,10 +1,90 @@
 ﻿
 <script src="~/js/JSMemoryWords.js" asp-append-version="true"></script>
-
-<h1>TESTING</h1>
 <div id="currentWord">LABEL</div>
 <button id="seenBtn" onclick="seenWord()" hidden disabled>I HAVE SEEN THE WORD</button>
 <button id="notSeenBtn" onclick="notSeenWord()" hidden disabled>I HAVE NOT SEEN THE WORD</button>
 <button onclick="startGame()" id="btnStart">START</button>
 <button id="saveBtn" onclick="saveStats()" hidden disabled>SAVE SCORE</button>
 <button id="restartBtn" onclick="restartGame()" hidden disabled>RESTART GAME</button>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f9f9f9;
+        text-align: center;
+        padding-top: 50px;
+    }
+
+    h1 {
+        font-size: 2.5rem;
+        margin-bottom: 30px;
+    }
+
+    #currentWord {
+        font-size: 2rem;
+        margin: 20px 0;
+        color: #333;
+        font-weight: bold;
+    }
+
+    button {
+        display: inline-block;
+        margin: 10px;
+        padding: 12px 20px;
+        font-size: 1rem;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    #seenBtn {
+        background-color: #4CAF50;
+        color: white;
+    }
+
+        #seenBtn:hover {
+            background-color: #45a049;
+        }
+
+    #notSeenBtn {
+        background-color: #f44336;
+        color: white;
+    }
+
+        #notSeenBtn:hover {
+            background-color: #da190b;
+        }
+
+    #btnStart {
+        background-color: #9c27b0;
+        color: white;
+    }
+
+        #btnStart:hover {
+            background-color: #7b1fa2;
+        }
+
+    #saveBtn {
+        background-color: #ff9800;
+        color: white;
+    }
+
+        #saveBtn:hover {
+            background-color: #e68a00;
+        }
+
+    #restartBtn {
+        background-color: #9c27b0;
+        color: white;
+    }
+
+        #restartBtn:hover {
+            background-color: #7b1fa2;
+        }
+
+    button[disabled] {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
+</style>

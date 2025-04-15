@@ -15,5 +15,5 @@ Keyboard coordination reaction speed
 Think of way to get ID of user instead of userName --
 Make username a private field in the controllers
 About page
-Summaries on every method
+Summaries on every method - Controllers done
 Error-handling on every method
