@@ -3,23 +3,43 @@ let index=0;
 let date1;
 let date2;
 let times=[];
-let currentLoop=0;
+let currentLoop = 0;
+let leftBtn;
+let rightBtn;
+let upBtn;
+let downBtn;
+let btnStart;
+let saveBtn;
+let avgTime;
+let timeDoc;
+document.addEventListener("DOMContentLoaded", () =>
+{
+    leftBtn = document.getElementById("leftBtn");
+    rightBtn = document.getElementById("rightBtn");
+    upBtn = document.getElementById("upBtn");
+    downBtn = document.getElementById("downBtn");
+    btnStart = document.getElementById("btnStart");
+    saveBtn = document.getElementById("saveBtn");
+    avgTime = document.getElementById("avgTime");
+    timeDoc = document.getElementById("time");
+
+});
 function startGame()
 {
-    document.getElementById("leftBtn").hidden=false;
-    document.getElementById("leftBtn").disabled=false;
-    document.getElementById("rightBtn").hidden=false;
-    document.getElementById("rightBtn").disabled=false;
-    document.getElementById("upBtn").hidden=false;
-    document.getElementById("upBtn").disabled=false;
-    document.getElementById("downBtn").hidden=false;
-    document.getElementById("downBtn").disabled=false;
-    document.getElementById("btnStart").hidden=true;
-    document.getElementById("btnStart").disabled=true;
-    document.getElementById("saveBtn").hidden=true;
-    document.getElementById("saveBtn").disabled=true;
-    document.getElementById("avgTime").hidden=true;
-    document.getElementById("avgTime").disabled=true;
+    leftBtn.hidden = false;
+    leftBtn.disabled=false;
+    rightBtn.hidden=false;
+    rightBtn.disabled=false;
+    upBtn.hidden=false;
+    upBtn.disabled=false;
+    downBtn.hidden=false;
+    downBtn.disabled=false;
+    btnStart.hidden=true;
+    btnStart.disabled=true;
+    saveBtn.hidden=true;
+    saveBtn.disabled=true;
+    avgTime.hidden=true;
+    avgTime.disabled=true;
     times=[];
     avgTime=0;
     currentLoop=0;
@@ -52,32 +72,32 @@ function nextLevel()
             avgTime+=times[i];
         }
         avgTime/=5;
-        document.getElementById("avgTime").hidden=false;
-        document.getElementById("avgTime").disabled=false;
-        document.getElementById("avgTime").innerText=avgTime;
-        document.getElementById("saveBtn").hidden=false;
-        document.getElementById("saveBtn").disabled=false;
-        document.getElementById("btnStart").hidden=false;
-        document.getElementById("btnStart").disabled=false;
-        document.getElementById("leftBtn").hidden=true;
-        document.getElementById("leftBtn").disabled=true;
-        document.getElementById("rightBtn").hidden=true;
-        document.getElementById("rightBtn").disabled=true;
-        document.getElementById("upBtn").hidden=true;
-        document.getElementById("upBtn").disabled=true;
-        document.getElementById("downBtn").hidden=true;
-        document.getElementById("downBtn").disabled=true;
+        avgTime.hidden=false;
+        avgTime.disabled=false;
+        avgTime.innerText=avgTime;
+        saveBtn.hidden=false;
+        saveBtn.disabled=false;
+        btnStart.hidden=false;
+        btnStart.disabled=false;
+        leftBtn.hidden=true;
+        leftBtn.disabled=true;
+        rightBtn.hidden=true;
+        rightBtn.disabled=true;
+        upBtn.hidden=true;
+        upBtn.disabled=true;
+        downBtn.hidden=true;
+        downBtn.disabled=true;
     }
     else
     {
-        document.getElementById("leftBtn").hidden=true;
-        document.getElementById("leftBtn").disabled=true;
-        document.getElementById("rightBtn").hidden=true;
-        document.getElementById("rightBtn").disabled=true;
-        document.getElementById("upBtn").hidden=true;
-        document.getElementById("upBtn").disabled=true;
-        document.getElementById("downBtn").hidden=true;
-        document.getElementById("downBtn").disabled=true;
+        leftBtn.hidden=true;
+        leftBtn.disabled=true;
+        rightBtn.hidden=true;
+        rightBtn.disabled=true;
+        upBtn.hidden=true;
+        upBtn.disabled=true;
+        downBtn.hidden=true;
+        downBtn.disabled=true;
         setTimeout(()=>
         {
             playSound();
@@ -86,14 +106,14 @@ function nextLevel()
 }
 function playSound()
 {
-    document.getElementById("leftBtn").hidden=false;
-    document.getElementById("leftBtn").disabled=false;
-    document.getElementById("rightBtn").hidden=false;
-    document.getElementById("rightBtn").disabled=false;
-    document.getElementById("upBtn").hidden=false;
-    document.getElementById("upBtn").disabled=false;
-    document.getElementById("downBtn").hidden=false;
-    document.getElementById("downBtn").disabled=false;
+    leftBtn.hidden=false;
+    leftBtn.disabled=false;
+    rightBtn.hidden=false;
+    rightBtn.disabled=false;
+    upBtn.hidden=false;
+    upBtn.disabled=false;
+    downBtn.hidden=false;
+    downBtn.disabled=false;
     let nameId="myAudio";
     index=Math.floor(Math.random()*4)+1;
     document.getElementById("testS").innerText=index;
@@ -107,7 +127,7 @@ function checkAnswerLeft()
     {
         date2 = new Date();
         times[currentLoop]=date2-date1;
-        document.getElementById("time").innerText=times[currentLoop];
+        timeDoc.innerText=times[currentLoop];
         currentLoop++;
         nextLevel();
     }
@@ -118,18 +138,18 @@ function checkAnswerLeft()
 }
 function failGame()
 {
-    document.getElementById("leftBtn").hidden=true;
-    document.getElementById("leftBtn").disabled=true;
-    document.getElementById("rightBtn").hidden=true;
-    document.getElementById("rightBtn").disabled=true;
-    document.getElementById("upBtn").hidden=true;
-    document.getElementById("upBtn").disabled=true;
-    document.getElementById("downBtn").hidden=true;
-    document.getElementById("downBtn").disabled=true;
-    document.getElementById("btnStart").hidden=false;
-    document.getElementById("btnStart").disabled=false;
-    document.getElementById("time").innerText="";
-    document.getElementById("avgTime").innerText="You failed";
+    leftBtn.hidden=true;
+    leftBtn.disabled=true;
+    rightBtn.hidden=true;
+    rightBtn.disabled=true;
+    upBtn.hidden=true;
+    upBtn.disabled=true;
+    downBtn.hidden=true;
+    downBtn.disabled=true;
+    btnStart.hidden=false;
+    btnStart.disabled=false;
+    timeDoc.innerText="";
+    avgTime.innerText="You failed";
 }
 function checkAnswerRight()
 {
@@ -137,7 +157,7 @@ function checkAnswerRight()
     {
         date2 = new Date();
         times[currentLoop]=date2-date1;
-        document.getElementById("time").innerText=times[currentLoop];
+        timeDoc.innerText=times[currentLoop];
         currentLoop++;
         nextLevel();
     }
@@ -152,7 +172,7 @@ function checkAnswerUp()
     {
         date2 = new Date();
         times[currentLoop]=date2-date1;
-        document.getElementById("time").innerText=times[currentLoop];
+        timeDoc.innerText=times[currentLoop];
         currentLoop++;
         nextLevel();
         
@@ -168,7 +188,7 @@ function checkAnswerDown()
     {
         date2 = new Date();
         times[currentLoop]=date2-date1;
-        document.getElementById("time").innerText=times[currentLoop];
+        timeDoc.innerText=times[currentLoop];
         currentLoop++;
         nextLevel();
     }
