@@ -17,4 +17,3 @@ Make username a private field in the controllers
 About page
 Summaries on every method
 Error-handling on every method
-DOM lookup in variables - ReactionTime done, ReverseNumbers done, ReverseWord done, MemoryWords done, MemoryNumbers done, AudioReaction done, BlocksMemory done

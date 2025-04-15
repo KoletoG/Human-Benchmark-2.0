@@ -26,18 +26,30 @@ namespace Human_Benchmark_2._0.Controllers
             _logger = logger;
             _context = context;
         }
-
+        /// <summary>
+        /// Goes to the index page and fills database with words for the first time
+        /// </summary>
+        /// <returns>Index view and filled database</returns>
         public async Task<IActionResult> Index()
         {
             await _context.FillDatabaseWithWords();
             return View();
         }
+        /// <summary>
+        /// Goes to the Profile page
+        /// </summary>
+        /// <returns>Profile view with UserDataModel Model of the current user</returns>
+        /// <exception cref="Exception">Throws If user doesn't exist</exception>
         [Authorize]
         public async Task<IActionResult> Profile()
         {
             var currentUser = await _context.GetUserByNameAsync(this.User.Identity?.Name ?? throw new Exception("User not valid."));
             return View("Profile", currentUser);
         }
+        /// <summary>
+        /// Goes to the Privacy page
+        /// </summary>
+        /// <returns>Privacy page view</returns>
         public IActionResult Privacy()
         {
             return View();

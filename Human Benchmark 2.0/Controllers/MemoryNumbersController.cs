@@ -16,11 +16,20 @@ namespace Human_Benchmark_2._0.Controllers
             _logger = logger;
             _context = context;
         }
+        /// <summary>
+        /// Loads the main page of the mini-game
+        /// </summary>
+        /// <returns>Main page of the mini-game</returns>
         [Authorize]
         public IActionResult MemoryNumbers()
         {
             return View("MemoryNumbersMain");
         }
+        /// <summary>
+        /// Saves Score in database for the user
+        /// </summary>
+        /// <param name="score">Score of the game</param>
+        /// <returns>Redirects to profile after completing</returns>
         [Authorize]
         [HttpPost]
         public async Task<IActionResult> MemoryNumbersSave([FromBody] int score)

@@ -17,11 +17,20 @@ namespace Human_Benchmark_2._0.Controllers
             _context = context;
         }
 
+        /// <summary>
+        /// Loads the main page of the mini-game
+        /// </summary>
+        /// <returns>Main page of the mini-game</returns>
         [Authorize]
         public IActionResult ReactionTime()
         {
             return View("ReactionTime");
         }
+        /// <summary>
+        /// Saves AvgTime in database for the user
+        /// </summary>
+        /// <param name="time">Average time of the game</param>
+        /// <returns>Redirects to profile after completing</returns>
         [Authorize]
         public async Task<IActionResult> ReactionTimeSave([FromBody] int time)
         {
