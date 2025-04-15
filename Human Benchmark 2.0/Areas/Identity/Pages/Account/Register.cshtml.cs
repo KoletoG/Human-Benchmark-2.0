@@ -19,6 +19,9 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using Human_Benchmark_2._0.Models.DataModels;
+using Microsoft.IdentityModel.Tokens;
+using Human_Benchmark_2._0.Data;
+using Human_Benchmark_2._0.Methods;
 
 namespace Human_Benchmark_2._0.Areas.Identity.Pages.Account
 {
@@ -30,13 +33,15 @@ namespace Human_Benchmark_2._0.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<UserDataModel> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly ApplicationDbContext _context;
 
         public RegisterModel(
             UserManager<UserDataModel> userManager,
             IUserStore<UserDataModel> userStore,
             SignInManager<UserDataModel> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            ApplicationDbContext context)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -44,6 +49,7 @@ namespace Human_Benchmark_2._0.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _context = context;
         }
 
         /// <summary>
@@ -79,7 +85,6 @@ namespace Human_Benchmark_2._0.Areas.Identity.Pages.Account
             [EmailAddress]
             [Display(Name = "Email")]
             public string Email { get; set; }
-            [Required]
             [Display(Name = "Username")]
             public string Username { get; set; }
 
@@ -117,7 +122,11 @@ namespace Human_Benchmark_2._0.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var user = CreateUser();
-
+                if (Input.Username.IsNullOrEmpty())
+                {
+                    var name = await _context.GetRandomWords(2);
+                    Input.Username = string.Join(" ", name[0], name[1]);
+                }
                 await _userStore.SetUserNameAsync(user, Input.Username, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, Input.Password);

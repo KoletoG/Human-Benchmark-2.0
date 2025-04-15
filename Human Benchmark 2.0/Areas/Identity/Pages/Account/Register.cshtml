@@ -18,9 +18,9 @@
                 <span asp-validation-for="Input.Email" class="text-danger"></span>
             </div>
             <div class="form-floating mb-3">
-                <input asp-for="Input.Username" class="form-control" autocomplete="username" aria-required="true" />
+                <input asp-for="Input.Username" class="form-control" autocomplete="username" aria-required="true" placeholder="will be randomized if empty" />
                 <label asp-for="Input.Username">Username</label>
-                <span asp-validation-for="Input.Username" class="text-danger"></span>
+                <span asp-validation-for="Input.Username" class="text-danger"></span> 
             </div>
             <div class="form-floating mb-3">
                 <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
