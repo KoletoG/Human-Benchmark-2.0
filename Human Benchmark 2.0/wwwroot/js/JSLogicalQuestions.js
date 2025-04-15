@@ -16,6 +16,7 @@ function startGame()
 {
     startBtn.hidden=true;
     startBtn.disabled=true;
+    pickQuestion();
 }
 
 function pickQuestion()
@@ -33,10 +34,12 @@ function checkAnswer()
     if(answerField.value==answers[index])
     {
         questionField.innerText="Right!, loading next question...";
+        loadNextQuestion();
     }
     else
     {
         questionField.innerText=`Wrong! The answer was ${answers[index]}, loading next question...`;
+        loadNextQuestion();
     }
 }
 
