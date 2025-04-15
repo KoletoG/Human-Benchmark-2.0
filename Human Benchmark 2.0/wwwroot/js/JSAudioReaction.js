@@ -10,7 +10,7 @@ let upBtn;
 let downBtn;
 let btnStart;
 let saveBtn;
-let avgTime;
+let avgTimeDoc;
 let timeDoc;
 document.addEventListener("DOMContentLoaded", () =>
 {
@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () =>
     downBtn = document.getElementById("downBtn");
     btnStart = document.getElementById("btnStart");
     saveBtn = document.getElementById("saveBtn");
-    avgTime = document.getElementById("avgTime");
+    avgTimeDoc = document.getElementById("avgTime");
     timeDoc = document.getElementById("time");
 
 });
@@ -38,8 +38,8 @@ function startGame()
     btnStart.disabled=true;
     saveBtn.hidden=true;
     saveBtn.disabled=true;
-    avgTime.hidden=true;
-    avgTime.disabled=true;
+    avgTimeDoc.hidden=true;
+    avgTimeDoc.disabled=true;
     times=[];
     avgTime=0;
     currentLoop=0;
@@ -72,9 +72,9 @@ function nextLevel()
             avgTime+=times[i];
         }
         avgTime/=5;
-        avgTime.hidden=false;
-        avgTime.disabled=false;
-        avgTime.innerText=avgTime;
+        avgTimeDoc.hidden=false;
+        avgTimeDoc.disabled=false;
+        avgTimeDoc.innerText=avgTime;
         saveBtn.hidden=false;
         saveBtn.disabled=false;
         btnStart.hidden=false;
@@ -149,7 +149,7 @@ function failGame()
     btnStart.hidden=false;
     btnStart.disabled=false;
     timeDoc.innerText="";
-    avgTime.innerText="You failed";
+    avgTimeDoc.innerText="You failed";
 }
 function checkAnswerRight()
 {
