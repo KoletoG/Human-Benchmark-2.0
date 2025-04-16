@@ -1,7 +1,6 @@
 ﻿Should add different sounds for every side of the headphones in AudioReaction.
 IQ test
 Chess Puzzle memory game
-Logical questions / Trick questions
 Quiz Millionaire / Fun game
 Info for every game on the main page of the specific mini-game
 Fix code in JS / Make it better - faster and more readable
@@ -17,3 +16,4 @@ Make username a private field in the controllers
 About page
 Summaries on every method - Controllers done
 Error-handling on every method
+Change AudioReaction buttons with method parameter
