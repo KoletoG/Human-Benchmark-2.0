@@ -51,8 +51,9 @@ namespace Human_Benchmark_2._0.Controllers
                 _context.SaveChanges();
                 return Json(new { redirectUrl = Url.Action("Profile", "Home") });
             }
-            catch (Exception) 
+            catch (Exception ex) 
             {
+                _logger.LogError(ex.Message);
                 throw;
             }
         }
