@@ -9,24 +9,13 @@ namespace Human_Benchmark_2._0.Methods
     public static class IOMethods
     {
         private static readonly Random rnd = new Random();
-        public static async Task<UserDataModel> GetUserByNameAsync(this ApplicationDbContext _context,string name)
+        public static async Task<UserDataModel> GetUserByNameAsync(this ApplicationDbContext _context, string name)
         {
-            try
-            {
-                if (String.IsNullOrEmpty(name))
-                {
-                    throw new NullReferenceException();
-                }
-                return await _context.Users.SingleAsync(x => x.UserName == name);
-            }
-            catch (NullReferenceException)
+            if (String.IsNullOrEmpty(name))
             {
                 throw new UserEmptyException();
             }
-            catch (Exception) 
-            {
-                throw;
-            }
+            return await _context.Users.SingleAsync(x => x.UserName == name);
         }
         public static async Task FillDatabaseWithWords(this ApplicationDbContext _context)
         {
@@ -42,7 +31,7 @@ namespace Human_Benchmark_2._0.Methods
                     await _context.SaveChangesAsync();
                 }
             }
-            catch (Exception) 
+            catch (Exception)
             {
                 throw;
             }
@@ -64,7 +53,7 @@ namespace Human_Benchmark_2._0.Methods
                 Console.WriteLine("Database isn't filled with words!");
                 throw;
             }
-            catch (Exception) 
+            catch (Exception)
             {
                 throw;
             }
