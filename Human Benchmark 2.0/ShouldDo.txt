@@ -17,3 +17,4 @@ About page
 Summaries on every method - Controllers done
 Error-handling on every method
 Change AudioReaction buttons with method parameter
+Need more questions for LogicalQuestions

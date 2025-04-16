@@ -116,26 +116,11 @@ function playSound()
     downBtn.disabled=false;
     let nameId="myAudio";
     index=Math.floor(Math.random()*4)+1;
-    document.getElementById("testS").innerText=index;
     nameId+=index ;
     document.getElementById(nameId).play();
     date1=new Date();
 }
-function checkAnswerLeft()
-{
-    if(index==1)
-    {
-        date2 = new Date();
-        times[currentLoop]=date2-date1;
-        timeDoc.innerText=times[currentLoop];
-        currentLoop++;
-        nextLevel();
-    }
-    else
-    {
-        failGame();
-    }
-}
+
 function failGame()
 {
     leftBtn.hidden=true;
@@ -151,40 +136,10 @@ function failGame()
     timeDoc.innerText="";
     avgTimeDoc.innerText="You failed";
 }
-function checkAnswerRight()
+
+function checkAnswer(answer)
 {
-    if(index==2)
-    {
-        date2 = new Date();
-        times[currentLoop]=date2-date1;
-        timeDoc.innerText=times[currentLoop];
-        currentLoop++;
-        nextLevel();
-    }
-    else
-    {
-        failGame();
-    }
-}
-function checkAnswerUp()
-{
-    if(index==3)
-    {
-        date2 = new Date();
-        times[currentLoop]=date2-date1;
-        timeDoc.innerText=times[currentLoop];
-        currentLoop++;
-        nextLevel();
-        
-    }
-    else
-    {
-        failGame();
-    }
-}
-function checkAnswerDown()
-{
-    if(index==4)
+    if(index==answer)
     {
         date2 = new Date();
         times[currentLoop]=date2-date1;
