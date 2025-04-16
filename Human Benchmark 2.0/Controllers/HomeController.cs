@@ -74,8 +74,12 @@ namespace Human_Benchmark_2._0.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return RedirectToAction("Error");
+                return View("ThrownException", new ThrownExceptionViewModel(ex));
             }
+        }
+        public IActionResult ThrownException()
+        {
+            return View(new ThrownExceptionViewModel(new Exception()));
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

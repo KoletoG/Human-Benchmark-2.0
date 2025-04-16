@@ -2,11 +2,9 @@
 {
     public class ThrownExceptionViewModel
     {
-        public string Message { get; set; }
         public Exception ExceptionM { get; set; }
-        public ThrownExceptionViewModel(string message, Exception exception)
+        public ThrownExceptionViewModel(Exception exception)
         {
-            Message = message;
             ExceptionM = exception;
         }
     }
