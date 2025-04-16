@@ -8,7 +8,6 @@ namespace Human_Benchmark_2._0.Methods
 {
     public static class IOMethods
     {
-        private static readonly Random rnd = new Random();
         public static async Task<UserDataModel> GetUserByNameAsync(this ApplicationDbContext _context, string name)
         {
             if (String.IsNullOrEmpty(name))
@@ -34,11 +33,18 @@ namespace Human_Benchmark_2._0.Methods
             try
             {
                 await _context.FillDatabaseWithWords();
+                var wordList = await _context.wordDataModels.Select(x=>x.Word).ToListAsync();
                 string[] words = new string[count];
+                HashSet<int> indexes = new HashSet<int>();
                 for (int i = 0; i < count; i++)
                 {
-                    var result = await _context.wordDataModels.ElementAtAsync(rnd.Next(0, 10000));
-                    words[i] = result.Word;
+                    int index;
+                    do
+                    {
+                       index = Random.Shared.Next(0, wordList.Count);
+                    }
+                    while (!indexes.Add(index));
+                    words[i] = wordList[index];
                 }
                 return words;
             }
