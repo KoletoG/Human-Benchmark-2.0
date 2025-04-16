@@ -16,3 +16,4 @@ About page
 Summaries on every method - Controllers done
 Error-handling on every method
 Need more questions for LogicalQuestions
+Custom error view

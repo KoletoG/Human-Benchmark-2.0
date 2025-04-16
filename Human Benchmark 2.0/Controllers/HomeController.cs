@@ -8,6 +8,7 @@ using Human_Benchmark_2._0.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Human_Benchmark_2._0.Custom_Exceptions;
 
 namespace Human_Benchmark_2._0.Controllers
 {
