@@ -1,4 +1,5 @@
-﻿using Human_Benchmark_2._0.Data;
+﻿using Human_Benchmark_2._0.Custom_Exceptions;
+using Human_Benchmark_2._0.Data;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Human_Benchmark_2._0.Controllers
@@ -22,7 +23,7 @@ namespace Human_Benchmark_2._0.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                throw;
+                return RedirectToAction("Error","Home");
             }
         }
     }

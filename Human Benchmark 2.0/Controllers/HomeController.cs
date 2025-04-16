@@ -47,7 +47,6 @@ namespace Human_Benchmark_2._0.Controllers
         /// Goes to the Profile page
         /// </summary>
         /// <returns>Profile view with UserDataModel Model of the current user</returns>
-        /// <exception cref="Exception">Throws If user doesn't exist</exception>
         [Authorize]
         public async Task<IActionResult> Profile()
         {
