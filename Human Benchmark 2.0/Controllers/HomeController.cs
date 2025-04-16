@@ -35,12 +35,13 @@ namespace Human_Benchmark_2._0.Controllers
         {
             try
             {
+                throw new ArgumentNullException();
                 return View();
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return RedirectToAction("Error");
+                return View("ThrownException", new ThrownExceptionViewModel(ex, this.User.Identity.Name));
             }
         }
         /// <summary>
@@ -58,7 +59,7 @@ namespace Human_Benchmark_2._0.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return RedirectToAction("Error");
+                return View("ThrownException", new ThrownExceptionViewModel(ex,this.User.Identity.Name));
             }
         }
         /// <summary>
@@ -74,12 +75,12 @@ namespace Human_Benchmark_2._0.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return View("ThrownException", new ThrownExceptionViewModel(ex));
+                return View("ThrownException", new ThrownExceptionViewModel(ex, this.User.Identity.Name));
             }
         }
         public IActionResult ThrownException()
         {
-            return View(new ThrownExceptionViewModel(new Exception()));
+            return View(new ThrownExceptionViewModel(new Exception(), this.User.Identity.Name));
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

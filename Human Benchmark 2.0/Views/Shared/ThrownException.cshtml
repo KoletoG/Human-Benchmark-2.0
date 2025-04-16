@@ -1,4 +1,10 @@
 ﻿@using Human_Benchmark_2._0.Models.ViewModels;
 @model ThrownExceptionViewModel
 <h1 style="color:red;">Error</h1>
-<label asp-for="ExceptionM.StackTrace"><h3>@Model.ExceptionM.Message</h3></label>
+<label asp-for="ExceptionM.Message"><h3>@Model.ExceptionM.Message</h3></label>
+@{
+	if (Model.Name == "Admin")
+	{
+		<label asp-for="ExceptionM.StackTrace"><h3>@Model.ExceptionM.StackTrace</h3></label>
+	}
+}

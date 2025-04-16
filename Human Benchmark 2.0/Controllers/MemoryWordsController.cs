@@ -2,6 +2,7 @@
 using Human_Benchmark_2._0.Data;
 using Human_Benchmark_2._0.Methods;
 using Human_Benchmark_2._0.Models.DataModels;
+using Human_Benchmark_2._0.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -30,7 +31,7 @@ namespace Human_Benchmark_2._0.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                throw;
+                return View("ThrownException", new ThrownExceptionViewModel(ex, this.User.Identity.Name));
             }
         }
         /// <summary>
@@ -47,7 +48,7 @@ namespace Human_Benchmark_2._0.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                throw;
+                return View("ThrownException", new ThrownExceptionViewModel(ex, this.User.Identity.Name));
             }
         }
         /// <summary>
@@ -70,7 +71,7 @@ namespace Human_Benchmark_2._0.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                throw;
+                return View("ThrownException", new ThrownExceptionViewModel(ex,this.User.Identity.Name));
             }
         }
     }

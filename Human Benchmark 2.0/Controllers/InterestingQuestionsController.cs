@@ -1,5 +1,6 @@
 ﻿using Human_Benchmark_2._0.Custom_Exceptions;
 using Human_Benchmark_2._0.Data;
+using Human_Benchmark_2._0.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Human_Benchmark_2._0.Controllers
@@ -23,7 +24,7 @@ namespace Human_Benchmark_2._0.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return RedirectToAction("Error","Home");
+                return View("ThrownException", new ThrownExceptionViewModel(ex, this.User.Identity.Name));
             }
         }
     }
