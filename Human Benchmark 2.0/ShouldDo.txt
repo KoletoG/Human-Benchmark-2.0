@@ -1,7 +1,6 @@
 ﻿Should add different sounds for every side of the headphones in AudioReaction.
 IQ test
 Chess Puzzle memory game
-Quiz Millionaire / Fun game
 Info for every game on the main page of the specific mini-game
 Fix code in JS / Make it better - faster and more readable
 Random name for easier registration and faster and add Username to Register UI
@@ -12,9 +11,8 @@ Change navigation bar
 Bell's curve for every mini-game
 Keyboard coordination reaction speed
 Think of way to get ID of user instead of userName --
-Make username a private field in the controllers
+Make username a private field in the controllers --
 About page
 Summaries on every method - Controllers done
 Error-handling on every method
-Change AudioReaction buttons with method parameter
 Need more questions for LogicalQuestions

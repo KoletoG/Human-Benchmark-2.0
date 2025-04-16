@@ -43,11 +43,18 @@ namespace Human_Benchmark_2._0.Controllers
         [HttpPost]
         public async Task<IActionResult> SaveWordsScore([FromBody] int score)
         {
-            UserDataModel userDataModel = await _context.GetUserByNameAsync(this.User.Identity?.Name ?? "");
-            userDataModel.AddScoreToWordsArray(score);
-            _context.Update(userDataModel);
-            _context.SaveChanges();
-            return Json(new { redirectUrl = Url.Action("Profile", "Home") });
+            try
+            {
+                UserDataModel userDataModel = await _context.GetUserByNameAsync(this.User.Identity?.Name ?? "");
+                userDataModel.AddScoreToWordsArray(score);
+                _context.Update(userDataModel);
+                _context.SaveChanges();
+                return Json(new { redirectUrl = Url.Action("Profile", "Home") });
+            }
+            catch (Exception) 
+            {
+                throw;
+            }
         }
     }
 }
