@@ -33,20 +33,15 @@ namespace Human_Benchmark_2._0.Methods
             try
             {
                 await _context.FillDatabaseWithWords();
-                var wordList = await _context.wordDataModels.Select(x=>x.Word).ToListAsync();
-                string[] words = new string[count];
-                HashSet<int> indexes = new HashSet<int>();
-                for (int i = 0; i < count; i++)
+                int totalWords = await _context.wordDataModels.CountAsync();
+                int totalPages = (int)Math.Ceiling((double)totalWords / count);
+                int randomPage = Random.Shared.Next(0, totalPages);
+                string[] wordList = await _context.wordDataModels.Skip(randomPage * count).Take(count).Select(x=>x.Word).ToArrayAsync();
+                if (wordList.Length < count)
                 {
-                    int index;
-                    do
-                    {
-                       index = Random.Shared.Next(0, wordList.Count);
-                    }
-                    while (!indexes.Add(index));
-                    words[i] = wordList[index];
+                    wordList=await _context.wordDataModels.OrderByDescending(x=>x.Id).Take(count).Select(x=>x.Word).ToArrayAsync();
                 }
-                return words;
+                return wordList;
             }
             catch (IndexOutOfRangeException)
             {
