@@ -1,6 +1,6 @@
-﻿let questions=[];
+﻿let questions=["What is the capital city of Australia?","Which planet is known as the Red Planet?","Which language is the most spoken in the world by number of native speakers?","In computing, what does HTTP stand for?","Who was the first person to win two Nobel Prizes?"];
 let doneQuestions=[-1];
-let answers=[];
+let answers=[["Sydney","Melbourne","Brisbane","Canberra"],["Earth","Venus","Mars","Jupiter"],["English","Hindi","Spanish","Mandarin Chinese"],["HyperText Transmission Protocol","HyperTransfer Text Protocol","HyperText Transfer Protocol","HighText Transfer Program"],["Albert Einstein","Marie Curie","Linus Pauling","Niels Bohr"]];
 let startBtn;
 let answerA;
 let answerB;
@@ -8,7 +8,7 @@ let answerC;
 let answerD;
 let indexOfQuestion;
 let currentQuestion;
-let correctAnswer =[];
+let correctAnswer =["D","C","D","C","B"];
 
 document.addEventListener("DOMContentLoaded",()=>
 {
@@ -24,17 +24,8 @@ function startGame()
 {
     startBtn.hidden=true;
     startBtn.disabled=true;
-    answerA.hidden=false;
-    answerA.disabled=false;
-    answerB.hidden=false;
-    answerB.disabled=false;
-    answerC.hidden=false;
-    answerC.disabled=false;
-    answerD.hidden=false;
-    answerD.disabled=false;
-    questions=[];
+    setHiddenAndDisableAnswers(false);
     doneQuestions=[-1];
-    answers=[];
     rollQuestion();
 }
 
@@ -47,7 +38,7 @@ function rollQuestion()
 
 function checkRepeatedQuestion()
 {
-    indexOfQuestion=Math.floor(Math.random()*questions.length());
+    indexOfQuestion=Math.floor(Math.random()*questions.length);
     if(doneQuestions.includes(indexOfQuestion))
     {
         return checkRepeatedQuestion();
@@ -61,17 +52,19 @@ function checkRepeatedQuestion()
 
 function fillAnswers(index)
 {
-    answerA.innerText=answers[index];
-    answerB.innerText=answers[index+1];
-    answerC.innerText=answers[index+2];
-    answerD.innerText=answers[index+3];
+    setHiddenAndDisableAnswers(false);
+    answerA.innerText=answers[index][0];
+    answerB.innerText=answers[index][1];
+    answerC.innerText=answers[index][2];
+    answerD.innerText=answers[index][3];
 }
 
-function chooseAnswer(answerStr)
+function checkAnswer(answerStr)
 {
     if(correctAnswer[indexOfQuestion]==answerStr)
     {
         currentQuestion.innerText="Right! Loading next question...";
+        setHiddenAndDisableAnswers(true);
         setTimeout(()=>
         {
             rollQuestion();
@@ -80,9 +73,22 @@ function chooseAnswer(answerStr)
     else
     {
         currentQuestion.innerText=`Wrong! The correct answer was ${correctAnswer[indexOfQuestion]}. Loading next question...`;
+        setHiddenAndDisableAnswers(true);
         setTimeout(()=>
         {
             rollQuestion();
         },3000);
     }
+}
+
+function setHiddenAndDisableAnswers(trueOrFalse)
+{
+    answerA.hidden=trueOrFalse;
+    answerA.disabled=trueOrFalse;
+    answerB.hidden=trueOrFalse;
+    answerB.disabled=trueOrFalse;
+    answerC.hidden=trueOrFalse;
+    answerC.disabled=trueOrFalse;
+    answerD.hidden=trueOrFalse;
+    answerD.disabled=trueOrFalse;
 }
