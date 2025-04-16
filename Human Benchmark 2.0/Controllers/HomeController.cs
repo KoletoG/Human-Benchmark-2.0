@@ -32,7 +32,6 @@ namespace Human_Benchmark_2._0.Controllers
         /// <returns>Index view and filled database</returns>
         public async Task<IActionResult> Index()
         {
-            await _context.FillDatabaseWithWords();
             return View();
         }
         /// <summary>
