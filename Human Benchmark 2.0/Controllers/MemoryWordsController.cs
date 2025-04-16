@@ -11,7 +11,7 @@ namespace Human_Benchmark_2._0.Controllers
     {
         private readonly ILogger<MemoryWordsController> _logger;
         private readonly ApplicationDbContext _context;
-         public MemoryWordsController(ILogger<MemoryWordsController> logger, ApplicationDbContext context)
+        public MemoryWordsController(ILogger<MemoryWordsController> logger, ApplicationDbContext context)
         {
             _logger = logger;
             _context = context;
@@ -23,7 +23,15 @@ namespace Human_Benchmark_2._0.Controllers
         [Authorize]
         public IActionResult MemoryWordsMain()
         {
-            return View();
+            try
+            {
+                return View();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                throw;
+            }
         }
         /// <summary>
         /// Gets n random words from database
@@ -32,7 +40,15 @@ namespace Human_Benchmark_2._0.Controllers
         [HttpGet]
         public async Task<IActionResult> GetWords()
         {
-            return Ok(await _context.GetRandomWords(150));
+            try
+            {
+                return Ok(await _context.GetRandomWords(150));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                throw;
+            }
         }
         /// <summary>
         /// Saves Score in database for the user
@@ -51,7 +67,7 @@ namespace Human_Benchmark_2._0.Controllers
                 _context.SaveChanges();
                 return Json(new { redirectUrl = Url.Action("Profile", "Home") });
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
                 throw;

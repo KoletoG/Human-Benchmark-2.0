@@ -10,10 +10,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Human_Benchmark_2._0.Controllers
-{ 
+{
     // HUMAN BENCHMARK 2.0, Reaction time *, memory numbers *, memory words *, calculation speed *, pseudo IQ test,
-  // reverse word *, reverse number *, blocks memory *, coordination thoughtful test, reaction audio test **, keyboard coordination test,
-  // chess memory game, quiz millionaire, logical questions
+    // reverse word *, reverse number *, blocks memory *, coordination thoughtful test, reaction audio test **, keyboard coordination test,
+    // chess memory game, quiz millionaire, logical questions
 
     // Generate random name
     public class HomeController : Controller
@@ -30,9 +30,17 @@ namespace Human_Benchmark_2._0.Controllers
         /// Goes to the index page and fills database with words for the first time
         /// </summary>
         /// <returns>Index view and filled database</returns>
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            return View();
+            try
+            {
+                return View();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                throw;
+            }
         }
         /// <summary>
         /// Goes to the Profile page
@@ -42,8 +50,16 @@ namespace Human_Benchmark_2._0.Controllers
         [Authorize]
         public async Task<IActionResult> Profile()
         {
-            var currentUser = await _context.GetUserByNameAsync(this.User.Identity?.Name ?? throw new Exception("User not valid."));
-            return View("Profile", currentUser);
+            try
+            {
+                var currentUser = await _context.GetUserByNameAsync(this.User.Identity?.Name ?? throw new Exception("User not valid."));
+                return View("Profile", currentUser);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                throw;
+            }
         }
         /// <summary>
         /// Goes to the Privacy page
@@ -51,7 +67,15 @@ namespace Human_Benchmark_2._0.Controllers
         /// <returns>Privacy page view</returns>
         public IActionResult Privacy()
         {
-            return View();
+            try
+            {
+                return View();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                throw;
+            }
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
