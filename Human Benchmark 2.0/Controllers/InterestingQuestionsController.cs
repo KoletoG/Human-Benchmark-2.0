@@ -15,7 +15,15 @@ namespace Human_Benchmark_2._0.Controllers
         }
         public IActionResult InterestingQuestionsMain()
         {
-            return View();
+            try
+            {
+                return View();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                throw;
+            }
         }
     }
 }

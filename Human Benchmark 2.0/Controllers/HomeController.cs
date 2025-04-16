@@ -39,7 +39,7 @@ namespace Human_Benchmark_2._0.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                throw;
+                return RedirectToAction("Error");
             }
         }
         /// <summary>
@@ -58,7 +58,7 @@ namespace Human_Benchmark_2._0.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                throw;
+                return RedirectToAction("Error");
             }
         }
         /// <summary>
@@ -74,7 +74,7 @@ namespace Human_Benchmark_2._0.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                throw;
+                return RedirectToAction("Error");
             }
         }
 

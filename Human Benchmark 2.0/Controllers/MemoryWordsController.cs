@@ -17,7 +17,7 @@ namespace Human_Benchmark_2._0.Controllers
             _context = context;
         }
         /// <summary>
-        /// Loads the main page of the mini-game
+        /// Loads the main page of the mini-game                                                                                                                                                
         /// </summary>
         /// <returns>Main page of the mini-game</returns>
         [Authorize]
