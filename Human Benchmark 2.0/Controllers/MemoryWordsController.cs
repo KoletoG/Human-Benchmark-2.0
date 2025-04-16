@@ -43,7 +43,7 @@ namespace Human_Benchmark_2._0.Controllers
         {
             try
             {
-                return Ok(await _context.GetRandomWords(150));
+                return Ok(await _context.GetRandomWordsAsync(150));
             }
             catch (Exception ex)
             {

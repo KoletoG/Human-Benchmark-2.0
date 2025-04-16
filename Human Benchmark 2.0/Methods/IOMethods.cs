@@ -16,7 +16,7 @@ namespace Human_Benchmark_2._0.Methods
             }
             return await _context.Users.SingleAsync(x => x.UserName == name);
         }
-        public static async Task FillDatabaseWithWords(this ApplicationDbContext _context)
+        public static async Task FillDatabaseWithWordsAsync(this ApplicationDbContext _context)
         {
             if (!await _context.wordDataModels.AnyAsync())
             {
@@ -28,11 +28,11 @@ namespace Human_Benchmark_2._0.Methods
                 await _context.SaveChangesAsync();
             }
         }
-        public static async Task<string[]> GetRandomWords(this ApplicationDbContext _context, int count)
+        public static async Task<string[]> GetRandomWordsAsync(this ApplicationDbContext _context, int count)
         {
             try
             {
-                await _context.FillDatabaseWithWords();
+                await _context.FillDatabaseWithWordsAsync();
                 int totalWords = await _context.wordDataModels.CountAsync();
                 int totalPages = (int)Math.Ceiling((double)totalWords / count);
                 int randomPage = Random.Shared.Next(0, totalPages);

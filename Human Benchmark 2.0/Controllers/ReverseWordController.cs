@@ -32,7 +32,7 @@ namespace Human_Benchmark_2._0.Controllers
         [HttpGet]
         public async Task<IActionResult> GetWords()
         {
-            return Ok(await _context.GetRandomWords(350));
+            return Ok(await _context.GetRandomWordsAsync(350));
         }
 
         /// <summary>
