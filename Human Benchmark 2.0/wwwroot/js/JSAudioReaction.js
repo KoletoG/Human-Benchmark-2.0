@@ -26,14 +26,7 @@ document.addEventListener("DOMContentLoaded", () =>
 });
 function startGame()
 {
-    leftBtn.hidden = false;
-    leftBtn.disabled=false;
-    rightBtn.hidden=false;
-    rightBtn.disabled=false;
-    upBtn.hidden=false;
-    upBtn.disabled=false;
-    downBtn.hidden=false;
-    downBtn.disabled=false;
+    answerButtonsDisableHide(false);
     btnStart.hidden=true;
     btnStart.disabled=true;
     saveBtn.hidden=true;
@@ -79,25 +72,11 @@ function nextLevel()
         saveBtn.disabled=false;
         btnStart.hidden=false;
         btnStart.disabled=false;
-        leftBtn.hidden=true;
-        leftBtn.disabled=true;
-        rightBtn.hidden=true;
-        rightBtn.disabled=true;
-        upBtn.hidden=true;
-        upBtn.disabled=true;
-        downBtn.hidden=true;
-        downBtn.disabled=true;
+        answerButtonsDisableHide(true);
     }
     else
     {
-        leftBtn.hidden=true;
-        leftBtn.disabled=true;
-        rightBtn.hidden=true;
-        rightBtn.disabled=true;
-        upBtn.hidden=true;
-        upBtn.disabled=true;
-        downBtn.hidden=true;
-        downBtn.disabled=true;
+        answerButtonsDisableHide(true);
         setTimeout(()=>
         {
             playSound();
@@ -106,14 +85,7 @@ function nextLevel()
 }
 function playSound()
 {
-    leftBtn.hidden=false;
-    leftBtn.disabled=false;
-    rightBtn.hidden=false;
-    rightBtn.disabled=false;
-    upBtn.hidden=false;
-    upBtn.disabled=false;
-    downBtn.hidden=false;
-    downBtn.disabled=false;
+    answerButtonsDisableHide(false);
     let nameId="myAudio";
     index=Math.floor(Math.random()*4)+1;
     nameId+=index ;
@@ -123,14 +95,7 @@ function playSound()
 
 function failGame()
 {
-    leftBtn.hidden=true;
-    leftBtn.disabled=true;
-    rightBtn.hidden=true;
-    rightBtn.disabled=true;
-    upBtn.hidden=true;
-    upBtn.disabled=true;
-    downBtn.hidden=true;
-    downBtn.disabled=true;
+    answerButtonsDisableHide(true);
     btnStart.hidden=false;
     btnStart.disabled=false;
     timeDoc.innerText="";
@@ -151,4 +116,16 @@ function checkAnswer(answer)
     {
         failGame();
     }
+}
+
+function answerButtonsDisableHide(trueOrFalse)
+{
+    leftBtn.hidden=trueOrFalse;
+    leftBtn.disabled=trueOrFalse;
+    rightBtn.hidden=trueOrFalse;
+    rightBtn.disabled=trueOrFalse;
+    upBtn.hidden=trueOrFalse;
+    upBtn.disabled=trueOrFalse;
+    downBtn.hidden=trueOrFalse;
+    downBtn.disabled=trueOrFalse;
 }
