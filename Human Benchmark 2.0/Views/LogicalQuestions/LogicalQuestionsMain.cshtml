@@ -3,3 +3,62 @@
 <input id="answerField" placeholder="Your answer..." type="number" hidden disabled/>
 <button id="startBtn" onclick="startGame()">START GAME</button>
 <button id="submitBtn" onclick="checkAnswer()" hidden disabled>Check answer</button>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f5f7fa;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 50px;
+    }
+
+    #questionField {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 20px;
+        color: #333;
+    }
+
+    #answerField {
+        padding: 10px;
+        font-size: 16px;
+        width: 200px;
+        border: 2px solid #ccc;
+        border-radius: 5px;
+        margin-bottom: 15px;
+    }
+
+    button {
+        padding: 10px 20px;
+        margin: 5px;
+        font-size: 16px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    #startBtn {
+        background-color: #4CAF50;
+        color: white;
+    }
+
+        #startBtn:hover {
+            background-color: #45a049;
+        }
+
+    #submitBtn {
+        background-color: #2196F3;
+        color: white;
+    }
+
+        #submitBtn:hover {
+            background-color: #1976D2;
+        }
+
+    input:disabled, button:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
+</style>
