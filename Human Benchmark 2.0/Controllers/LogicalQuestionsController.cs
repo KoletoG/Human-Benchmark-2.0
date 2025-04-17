@@ -1,4 +1,5 @@
 ﻿using Human_Benchmark_2._0.Data;
+using Human_Benchmark_2._0.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Human_Benchmark_2._0.Controllers
@@ -15,7 +16,15 @@ namespace Human_Benchmark_2._0.Controllers
         }
         public IActionResult LogicalQuestionsMain()
         {
-            return View();
+            try
+            {
+                return View();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                return View("ThrownException", new ThrownExceptionViewModel(ex, this.User.Identity?.Name ?? ""));
+            }
         }
     }
 }

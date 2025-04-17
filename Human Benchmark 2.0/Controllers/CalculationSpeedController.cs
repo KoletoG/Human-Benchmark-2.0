@@ -24,7 +24,15 @@ namespace Human_Benchmark_2._0.Controllers
         [Authorize]
         public IActionResult CalcSpeedMain()
         {
-            return View();
+            try
+            {
+                return View();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                return View("ThrownException", new ThrownExceptionViewModel(ex, this.User.Identity?.Name ?? ""));
+            }
         }
         /// <summary>
         /// Saves AvgTime in database for the user
@@ -35,11 +43,19 @@ namespace Human_Benchmark_2._0.Controllers
         [HttpPost]
         public async Task<IActionResult> SaveCalc([FromBody] double avgTime)
         {
-            UserDataModel userDataModel = await _context.GetUserByNameAsync(this.User.Identity?.Name ?? "");
-            userDataModel.AddCalcSpeedToArray(avgTime);
-            _context.Update(userDataModel);
-            _context.SaveChanges();
-            return Json(new { redirectUrl = Url.Action("Profile", "Home") });
+            try
+            {
+                UserDataModel userDataModel = await _context.GetUserByNameAsync(this.User.Identity?.Name ?? "");
+                userDataModel.AddCalcSpeedToArray(avgTime);
+                _context.Update(userDataModel);
+                _context.SaveChanges();
+                return Json(new { redirectUrl = Url.Action("Profile", "Home") });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                return View("ThrownException", new ThrownExceptionViewModel(ex, this.User.Identity?.Name ?? ""));
+            }
         }
     }
 }

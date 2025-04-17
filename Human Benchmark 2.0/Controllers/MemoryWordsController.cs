@@ -48,7 +48,7 @@ namespace Human_Benchmark_2._0.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return View("ThrownException", new ThrownExceptionViewModel(ex, this.User.Identity.Name));
+                return View("ThrownException", new ThrownExceptionViewModel(ex, this.User.Identity?.Name ?? ""));
             }
         }
         /// <summary>
@@ -71,7 +71,7 @@ namespace Human_Benchmark_2._0.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return View("ThrownException", new ThrownExceptionViewModel(ex,this.User.Identity.Name));
+                return View("ThrownException", new ThrownExceptionViewModel(ex,this.User.Identity?.Name ?? ""));
             }
         }
     }

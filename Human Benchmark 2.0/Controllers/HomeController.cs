@@ -35,7 +35,6 @@ namespace Human_Benchmark_2._0.Controllers
         {
             try
             {
-                throw new ArgumentNullException();
                 return View();
             }
             catch (Exception ex)

@@ -1,6 +1,7 @@
 ﻿using Human_Benchmark_2._0.Data;
 using Human_Benchmark_2._0.Methods;
 using Human_Benchmark_2._0.Models.DataModels;
+using Human_Benchmark_2._0.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,7 +24,15 @@ namespace Human_Benchmark_2._0.Controllers
         [Authorize]
         public IActionResult ReverseWordMain()
         {
-            return View();
+            try
+            {
+                return View();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                return View("ThrownException", new ThrownExceptionViewModel(ex, this.User.Identity?.Name ?? ""));
+            }
         }
         /// <summary>
         /// Gets n random words from database
@@ -44,11 +53,19 @@ namespace Human_Benchmark_2._0.Controllers
         [HttpPost]
         public async Task<IActionResult> SaveWordsScore([FromBody] int score)
         {
-            UserDataModel userDataModel = await _context.GetUserByNameAsync(this.User.Identity?.Name ?? "");
-            userDataModel.AddReverseWordsScoreToArray(score);
-            _context.Update(userDataModel);
-            _context.SaveChanges();
-            return Json(new { redirectUrl = Url.Action("Profile", "Home") });
+            try
+            {
+                UserDataModel userDataModel = await _context.GetUserByNameAsync(this.User.Identity?.Name ?? "");
+                userDataModel.AddReverseWordsScoreToArray(score);
+                _context.Update(userDataModel);
+                _context.SaveChanges();
+                return Json(new { redirectUrl = Url.Action("Profile", "Home") });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                return View("ThrownException", new ThrownExceptionViewModel(ex, this.User.Identity?.Name ?? ""));
+            }
         }
     }
 }
