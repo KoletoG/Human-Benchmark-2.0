@@ -114,7 +114,6 @@ namespace Human_Benchmark_2._0.Areas.Identity.Pages.Account
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
-
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl ??= Url.Content("~/");
@@ -125,7 +124,7 @@ namespace Human_Benchmark_2._0.Areas.Identity.Pages.Account
                 if (Input.Username.IsNullOrEmpty())
                 {
                     var name = await _context.GetRandomWordsAsync(2);
-                    Input.Username = string.Join(" ", name[0], name[1]);
+                    Input.Username = string.Join("_", name[0], name[1]);
                 }
                 await _userStore.SetUserNameAsync(user, Input.Username, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
