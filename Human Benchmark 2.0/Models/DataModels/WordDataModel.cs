@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Human_Benchmark_2._0.Models.ViewModels;
 
 namespace Human_Benchmark_2._0.Models.DataModels
 {

@@ -2,12 +2,12 @@
 {
     public class ThrownExceptionViewModel
     {
-        public Exception ExceptionM { get; private set; }
-        public string? Name { get; private set; }
+        internal Exception ExceptionM { get;private init; }
+        internal bool IsAdmin { get; private init; }
         public ThrownExceptionViewModel(Exception exception, string name)
         {
             ExceptionM = exception;
-            Name = name;
+            IsAdmin = name == "Admin";
         }
     }
 }

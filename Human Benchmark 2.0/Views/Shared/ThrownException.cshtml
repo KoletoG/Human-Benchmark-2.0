@@ -3,7 +3,7 @@
 <h1 style="color:red;">Error</h1>
 <label asp-for="ExceptionM.Message"><h3>@Model.ExceptionM.Message</h3></label>
 @{
-	if (Model.Name == "Admin")
+	if (Model.IsAdmin)
 	{
 		<label asp-for="ExceptionM.StackTrace"><h3>@Model.ExceptionM.StackTrace</h3></label>
 	}
