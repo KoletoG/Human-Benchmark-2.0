@@ -15,6 +15,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using Human_Benchmark_2._0.Models.DataModels;
+using Human_Benchmark_2._0.Data;
+using Microsoft.EntityFrameworkCore;
+using System.Text.RegularExpressions;
 
 namespace Human_Benchmark_2._0.Areas.Identity.Pages.Account
 {
@@ -22,11 +25,12 @@ namespace Human_Benchmark_2._0.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<UserDataModel> _signInManager;
         private readonly ILogger<LoginModel> _logger;
-
-        public LoginModel(SignInManager<UserDataModel> signInManager, ILogger<LoginModel> logger)
+        private readonly ApplicationDbContext _context;
+        public LoginModel(SignInManager<UserDataModel> signInManager, ILogger<LoginModel> logger, ApplicationDbContext context)
         {
             _signInManager = signInManager;
             _logger = logger;
+            _context = context;
         }
 
         /// <summary>
@@ -66,7 +70,7 @@ namespace Human_Benchmark_2._0.Areas.Identity.Pages.Account
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [Required]
-            public string UserName { get; set; }
+            public string NameOrEmail { get; set; }
 
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
@@ -97,8 +101,11 @@ namespace Human_Benchmark_2._0.Areas.Identity.Pages.Account
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
 
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
-
             ReturnUrl = returnUrl;
+        }
+        private bool IsEmail(string email)
+        {
+           return Regex.IsMatch(email,@"^[^@\s]+@[^@\s]+\.[^@\s]+$");
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
@@ -106,12 +113,21 @@ namespace Human_Benchmark_2._0.Areas.Identity.Pages.Account
             returnUrl ??= Url.Content("~/");
 
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
-
-            if (ModelState.IsValid)
+            string username;
+            if (IsEmail(Input.NameOrEmail))
+            {
+                var result = await _context.Users.SingleAsync(x=>x.Email == Input.NameOrEmail);
+                username = result.UserName;
+            }
+            else
+            {
+                username = Input.NameOrEmail;
+            }
+             if (ModelState.IsValid)
             {
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                var result = await _signInManager.PasswordSignInAsync(Input.UserName, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+                var result = await _signInManager.PasswordSignInAsync(username, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
