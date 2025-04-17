@@ -7,6 +7,7 @@ namespace Human_Benchmark_2._0.Models.DataModels
     {
         [Key]
         public readonly string Id = Guid.NewGuid().ToString();
+        [Required]
         public string Word { get; private init; }
         public WordDataModel(string word) 
         {
