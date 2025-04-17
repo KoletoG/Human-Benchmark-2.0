@@ -30,28 +30,16 @@ namespace Human_Benchmark_2._0.Methods
         }
         public static async Task<string[]> GetRandomWordsAsync(this ApplicationDbContext _context, int count)
         {
-            try
+            await _context.FillDatabaseWithWordsAsync();
+            int totalWords = await _context.wordDataModels.CountAsync();
+            int totalPages = (int)Math.Ceiling((double)totalWords / count);
+            int randomPage = Random.Shared.Next(0, totalPages);
+            string[] wordList = await _context.wordDataModels.Skip(randomPage * count).Take(count).Select(x => x.Word).ToArrayAsync();
+            if (wordList.Length < count)
             {
-                await _context.FillDatabaseWithWordsAsync();
-                int totalWords = await _context.wordDataModels.CountAsync();
-                int totalPages = (int)Math.Ceiling((double)totalWords / count);
-                int randomPage = Random.Shared.Next(0, totalPages);
-                string[] wordList = await _context.wordDataModels.Skip(randomPage * count).Take(count).Select(x=>x.Word).ToArrayAsync();
-                if (wordList.Length < count)
-                {
-                    wordList=await _context.wordDataModels.OrderByDescending(x=>x.Id).Take(count).Select(x=>x.Word).ToArrayAsync();
-                }
-                return wordList;
+                wordList = await _context.wordDataModels.OrderByDescending(x => x.Id).Take(count).Select(x => x.Word).ToArrayAsync();
             }
-            catch (IndexOutOfRangeException)
-            {
-                Console.WriteLine("Database isn't filled with words!");
-                throw;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            return wordList;
         }
     }
 }
