@@ -11,3 +11,70 @@
 <button onclick="checkAnswer(2)" hidden disabled id="rightBtn">CHECK 2 TEST</button>
 <button onclick="checkAnswer(3)" hidden disabled id="upBtn">CHECK 3 TEST</button>
 <button onclick="checkAnswer(4)" hidden disabled id="downBtn">CHECK 4 TEST</button>
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f9fafb;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 60px 20px;
+    }
+
+    #time, #avgTime {
+        font-size: 18px;
+        font-weight: bold;
+        color: #1e293b; /* slate-800 */
+        margin-bottom: 15px;
+    }
+
+    #saveBtn {
+        padding: 12px 24px;
+        font-size: 16px;
+        background-color: #10b981; /* emerald-500 */
+        color: white;
+        border: none;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.2s;
+    }
+
+        #saveBtn:hover {
+            background-color: #059669; /* emerald-600 */
+            transform: scale(1.05);
+        }
+
+        #saveBtn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+    button {
+        padding: 10px 20px;
+        font-size: 16px;
+        border: none;
+        border-radius: 8px;
+        margin: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.2s;
+    }
+
+        button:hover:enabled {
+            transform: scale(1.05);
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+    #leftBtn, #rightBtn, #upBtn, #downBtn {
+        background-color: #3b82f6; /* blue-500 */
+        color: white;
+    }
+
+        #leftBtn:hover, #rightBtn:hover, #upBtn:hover, #downBtn:hover {
+            background-color: #2563eb; /* blue-600 */
+        }
+</style>
