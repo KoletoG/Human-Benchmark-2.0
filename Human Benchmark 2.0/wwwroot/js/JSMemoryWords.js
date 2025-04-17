@@ -1,5 +1,4 @@
-﻿let wordsCurrentList = [];
-let score=0;
+﻿let score=0;
 let randomWord="";
 let firstWordPassed = false;
 let allWordsFromApi = [];
@@ -9,6 +8,7 @@ let btnStart;
 let saveBtn;
 let restartBtn;
 let currentWord;
+let wordsCurrentList = new Set();
 document.addEventListener("DOMContentLoaded", () => {
     seenBtn = document.getElementById("seenBtn");
     notSeenBtn = document.getElementById("notSeenBtn");
@@ -30,7 +30,7 @@ async function startGame()
 
 async function seenWord()
 {
-    if(wordsCurrentList.includes(randomWord))
+    if(wordsCurrentList.has(randomWord))
     {
         score++;
         await grabWord();
@@ -61,20 +61,20 @@ function restartGame()
     restartBtn.hidden=true;
     restartBtn.disabled=true;
     score=0;
-    wordsCurrentList=[];
+    wordsCurrentList.clear();
     startGame();
 }
 
 async function notSeenWord()
 {
-    if(wordsCurrentList.includes(randomWord))
+    if(wordsCurrentList.has(randomWord))
     {
         gameOver();
     }
     else
     {
         score++;
-        wordsCurrentList.push(randomWord);
+        wordsCurrentList.add(randomWord);
         await grabWord();
     }
 }
@@ -92,8 +92,9 @@ async function grabWord()
     {
         if(Math.random()>0.66)
         {
-            const randomIndex = Math.floor(Math.random() * wordsCurrentList.length);
-            randomWord = wordsCurrentList[randomIndex];
+            let array = [...wordsCurrentList]
+            const randomIndex = Math.floor(Math.random() * array.length);
+            randomWord = array[randomIndex];
         }
         else
         {

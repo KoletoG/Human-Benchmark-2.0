@@ -3,16 +3,13 @@ IQ test
 Chess Puzzle memory game
 Info for every game on the main page of the specific mini-game
 Fix code in JS / Make it better - faster and more readable
-Random name for easier registration and faster and add Username to Register UI
 Make UI better for every mini-game
 Delete test blocks of every mini-game
 Change profile page
 Change navigation bar
 Bell's curve for every mini-game
 Keyboard coordination reaction speed
-Think of way to get ID of user instead of userName --
-Make username a private field in the controllers --
 About page
 Summaries on every method - Controllers done
-Error-handling on every method
 Need more questions for LogicalQuestions
+Error-handling in JS
