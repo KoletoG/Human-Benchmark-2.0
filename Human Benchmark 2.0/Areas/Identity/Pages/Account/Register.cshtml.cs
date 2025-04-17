@@ -124,7 +124,7 @@ namespace Human_Benchmark_2._0.Areas.Identity.Pages.Account
                 var user = CreateUser();
                 if (Input.Username.IsNullOrEmpty())
                 {
-                    var name = await _context.GetRandomWords(2);
+                    var name = await _context.GetRandomWordsAsync(2);
                     Input.Username = string.Join(" ", name[0], name[1]);
                 }
                 await _userStore.SetUserNameAsync(user, Input.Username, CancellationToken.None);
