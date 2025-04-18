@@ -1,20 +1,21 @@
-﻿@using Human_Benchmark_2._0.Models.DataModels
-@model UserDataModel
+﻿@using Human_Benchmark_2._0.Models.ViewModels
+@using Human_Benchmark_2._0.Models.DataModels
+@model ProfileViewModel
 <style ></style>
-<h1>@Model.Id</h1>
+<h1>@Model.User.Id</h1>
 @{
-	<h1>@Model.UserName</h1>
+	<h1>@Model.User.UserName</h1>
 	<h1>Last 5 attempts of the reaction time test:</h1>
-	for(int i = 0; i < 5; i++)
+	for (int i = 0; i < UserDataModel.arrayCount; i++)
 	{
-		<h2>@Model.reactionTimesArray[i]</h2>
+		<h2>@Model.User.reactionTimesArray[i]</h2>
 	}
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < UserDataModel.arrayCount; i++)
 	{
-		<h3>@Model.avgTimeScoreArray[i]</h3>
+		<h3>@Model.User.avgTimeScoreArray[i]</h3>
 	}
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < UserDataModel.arrayCount; i++)
 	{
-		<h2>@Model.memoryNumbersScoreArray[i]</h2>
+		<h2>@Model.User.memoryNumbersScoreArray[i]</h2>
 	}
 }

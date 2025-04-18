@@ -17,7 +17,7 @@ namespace Human_Benchmark_2._0.Models.DataModels
         [DataType(DataType.EmailAddress)]
         public override string? Email { get; set; }
         [NotMapped]
-        private const int arrayCount = 5;
+        public static readonly int arrayCount = 5;
         public int[] reactionTimesArray = new int[arrayCount];
         public double[] avgTimeScoreArray = new double[arrayCount];
         public int[] memoryNumbersScoreArray = new int[arrayCount];
