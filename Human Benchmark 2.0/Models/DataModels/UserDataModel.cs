@@ -45,8 +45,9 @@ namespace Human_Benchmark_2._0.Models.DataModels
             }
             else
             {
-                Array.Copy(reactionTimesArray, 1, reactionTimesArray, 0, arrayCount - 1);
-                reactionTimesArray[arrayCount - 1] = reaction;
+                Span<int> scores = reactionTimesArray;
+                scores.Slice(1).CopyTo(scores);
+                scores[^1] = reaction;
             }
         }
         public void AddAudioReactionAvgToArray(int reaction)
@@ -58,8 +59,9 @@ namespace Human_Benchmark_2._0.Models.DataModels
             }
             else
             {
-                Array.Copy(audioReactionAvgTimeArray, 1, audioReactionAvgTimeArray, 0, arrayCount - 1);
-                audioReactionAvgTimeArray[arrayCount - 1] = reaction;
+                Span<int> scores = audioReactionAvgTimeArray;
+                scores.Slice(1).CopyTo(scores);
+                scores[^1] = reaction;
             }
         }
         public void AddScoreBlocksToArray(int score)
@@ -71,8 +73,9 @@ namespace Human_Benchmark_2._0.Models.DataModels
             }
             else
             {
-                Array.Copy(blocksScoreArray, 1, blocksScoreArray, 0, arrayCount - 1);
-                blocksScoreArray[arrayCount - 1] = score;
+                Span<int> scores = blocksScoreArray;
+                scores.Slice(1).CopyTo(scores);
+                scores[^1] = score;
             }
         }
         public void AddReverseWordsScoreToArray(int score)
@@ -84,8 +87,9 @@ namespace Human_Benchmark_2._0.Models.DataModels
             }
             else
             {
-                Array.Copy(reverseWordsScoreArray, 1, reverseWordsScoreArray, 0, arrayCount - 1);
-                reverseWordsScoreArray[arrayCount - 1] = score;
+                Span<int> scores = reverseWordsScoreArray;
+                scores.Slice(1).CopyTo(scores);
+                scores[^1] = score;
             }
         }
         public void AddReverseNumbersScoreToArray(int score)
@@ -97,8 +101,9 @@ namespace Human_Benchmark_2._0.Models.DataModels
             }
             else
             {
-                Array.Copy(reverseNumbersScoreArray, 1, reverseNumbersScoreArray, 0, arrayCount - 1);
-                reverseNumbersScoreArray[arrayCount - 1] = score;
+                Span<int> scores = reverseNumbersScoreArray;
+                scores.Slice(1).CopyTo(scores);
+                scores[^1] = score;
             }
         }
         public void AddScoreToWordsArray(int score)
@@ -110,8 +115,9 @@ namespace Human_Benchmark_2._0.Models.DataModels
             }
             else
             {
-                Array.Copy(memoryWordsScoreArray, 1, memoryWordsScoreArray, 0, arrayCount - 1);
-                memoryWordsScoreArray[arrayCount - 1] = score;
+                Span<int> scores = memoryWordsScoreArray;
+                scores.Slice(1).CopyTo(scores);
+                scores[^1] = score;
             }
         }
         public void AddCalcSpeedToArray(double avgTime)
@@ -123,8 +129,9 @@ namespace Human_Benchmark_2._0.Models.DataModels
             }
             else
             {
-                Array.Copy(avgTimeScoreArray, 1, avgTimeScoreArray, 0, arrayCount - 1);
-                avgTimeScoreArray[arrayCount - 1] = avgTime;
+                Span<double> scores = avgTimeScoreArray;
+                scores.Slice(1).CopyTo(scores);
+                scores[^1] = avgTime;
             }
         }
         public void AddScoreToMemoryNumbersArray(int score)
@@ -136,8 +143,9 @@ namespace Human_Benchmark_2._0.Models.DataModels
             }
             else
             {
-                Array.Copy(memoryNumbersScoreArray, 1, memoryNumbersScoreArray, 0, arrayCount - 1);
-                memoryNumbersScoreArray[arrayCount - 1] = score;
+                Span<int> scores = memoryNumbersScoreArray;
+                scores.Slice(1).CopyTo(scores);
+                scores[^1] = score;
             }
         }
     }
