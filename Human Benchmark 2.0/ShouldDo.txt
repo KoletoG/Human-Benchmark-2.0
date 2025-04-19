@@ -12,3 +12,4 @@ About page
 Summaries on every method - Controllers done
 Need more questions for LogicalQuestions
 Error-handling in JS
+Dictionary in Logical Questions / InterestingQuestions
