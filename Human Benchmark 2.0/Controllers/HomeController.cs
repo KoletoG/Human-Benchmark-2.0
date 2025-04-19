@@ -53,7 +53,7 @@ namespace Human_Benchmark_2._0.Controllers
             try
             {
                 var currentUser = await _context.GetUserByNameAsync(this.User.Identity?.Name ?? throw new Exception("User not valid."));
-                return View("Profile", currentUser);
+                return View(new ProfileViewModel(currentUser));
             }
             catch (Exception ex)
             {

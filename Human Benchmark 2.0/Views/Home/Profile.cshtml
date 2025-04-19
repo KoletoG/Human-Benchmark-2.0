@@ -5,17 +5,44 @@
 <h1>@Model.User.Id</h1>
 @{
 	<h1>@Model.User.UserName</h1>
-	<h1>Last 5 attempts of the reaction time test:</h1>
+	<h3>Reaction time average times</h3>
 	for (int i = 0; i < UserDataModel.arrayCount; i++)
 	{
 		<h2>@Model.User.reactionTimesArray[i]</h2>
 	}
+	<h3>Calculation speed average times</h3>
 	for (int i = 0; i < UserDataModel.arrayCount; i++)
 	{
 		<h3>@Model.User.avgTimeScoreArray[i]</h3>
 	}
+	<h3>Memory Numbers scores</h3>
 	for (int i = 0; i < UserDataModel.arrayCount; i++)
 	{
 		<h2>@Model.User.memoryNumbersScoreArray[i]</h2>
+	}
+	<h3>Blocks Memory scores</h3>
+	for (int i = 0; i < UserDataModel.arrayCount; i++)
+	{
+		<h2>@Model.User.blocksScoreArray[i]</h2>
+	}
+	<h3>Audio Reaction average times</h3>
+	for (int i = 0; i < UserDataModel.arrayCount; i++)
+	{
+		<h2>@Model.User.audioReactionAvgTimeArray[i]</h2>
+	}
+	<h3>Memory Words scores</h3>
+	for (int i = 0; i < UserDataModel.arrayCount; i++)
+	{
+		<h2>@Model.User.memoryWordsScoreArray[i]</h2>
+	}
+	<h3>Reverse Numbers scores</h3>
+	for (int i = 0; i < UserDataModel.arrayCount; i++)
+	{
+		<h2>@Model.User.reverseNumbersScoreArray[i]</h2>
+	}
+	<h3>Reverse Words scores</h3>
+	for (int i = 0; i < UserDataModel.arrayCount; i++)
+	{
+		<h2>@Model.User.reverseWordsScoreArray[i]</h2>
 	}
 }
