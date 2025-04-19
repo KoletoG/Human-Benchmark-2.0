@@ -12,11 +12,6 @@ using Human_Benchmark_2._0.Custom_Exceptions;
 
 namespace Human_Benchmark_2._0.Controllers
 {
-    // HUMAN BENCHMARK 2.0, Reaction time *, memory numbers *, memory words *, calculation speed *, pseudo IQ test,
-    // reverse word *, reverse number *, blocks memory *, coordination thoughtful test, reaction audio test **, keyboard coordination test,
-    // chess memory game, quiz millionaire, logical questions
-
-    // Generate random name
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

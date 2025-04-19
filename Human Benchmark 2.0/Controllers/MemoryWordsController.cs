@@ -63,7 +63,7 @@ namespace Human_Benchmark_2._0.Controllers
             try
             {
                 UserDataModel userDataModel = await _context.GetUserByNameAsync(this.User.Identity?.Name ?? "");
-                userDataModel.AddScoreToWordsArray(score);
+                userDataModel.memoryWordsScoreArray.AddValueToArray(score);
                 _context.Update(userDataModel);
                 _context.SaveChanges();
                 return Json(new { redirectUrl = Url.Action("Profile", "Home") });

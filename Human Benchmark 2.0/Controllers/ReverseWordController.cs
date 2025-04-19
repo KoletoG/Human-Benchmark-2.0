@@ -4,7 +4,7 @@ using Human_Benchmark_2._0.Models.DataModels;
 using Human_Benchmark_2._0.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-
+using static Human_Benchmark_2._0.Methods.GlobalStaticMethods;
 namespace Human_Benchmark_2._0.Controllers
 {
     public class ReverseWordController : Controller
@@ -56,7 +56,7 @@ namespace Human_Benchmark_2._0.Controllers
             try
             {
                 UserDataModel userDataModel = await _context.GetUserByNameAsync(this.User.Identity?.Name ?? "");
-                userDataModel.AddReverseWordsScoreToArray(score);
+                userDataModel.reverseWordsScoreArray.AddValueToArray(score);
                 _context.Update(userDataModel);
                 _context.SaveChanges();
                 return Json(new { redirectUrl = Url.Action("Profile", "Home") });

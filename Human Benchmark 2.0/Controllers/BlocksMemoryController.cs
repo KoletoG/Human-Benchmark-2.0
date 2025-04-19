@@ -46,7 +46,7 @@ namespace Human_Benchmark_2._0.Controllers
             try
             {
                 var user = await _context.GetUserByNameAsync(this.User.Identity.Name);
-                user.AddScoreBlocksToArray(score);
+                user.blocksScoreArray.AddValueToArray(score);
                 _context.Update(user);
                 _context.SaveChanges();
                 return Json(new { redirectUrl = Url.Action("Profile", "Home") });
