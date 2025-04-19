@@ -4,7 +4,6 @@ Chess Puzzle memory game
 Info for every game on the main page of the specific mini-game
 Fix code in JS / Make it better - faster and more readable
 Make UI better for every mini-game
-Delete test blocks of every mini-game
 Change profile page
 Change navigation bar
 Bell's curve for every mini-game
