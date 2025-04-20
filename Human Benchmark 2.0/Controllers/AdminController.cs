@@ -18,20 +18,20 @@ namespace Human_Benchmark_2._0.Controllers
             _context = context;
         }
         [Authorize]
-        public async Task<IActionResult> AdminMain(int page=0)
+        public async Task<IActionResult> AdminMain(int page=1)
         {
             if (this.User.Identity.Name != "Admin")
             {
                 return View("Index");
             }
+            int countUsersByPage = 3;
             var user = await _context.GetUserByNameAsync(this.User.Identity.Name);
-            var users = await _context.Users.Skip(page*20).Take(20).ToListAsync();
-            if (!users.Any())
-            {
-                users = await _context.Users.OrderByDescending(x=>x.Id).Take(20).ToListAsync();
-                return View(new AdminMainViewModel(user, users, page, true));
-            }
-            return View(new AdminMainViewModel(user,users,++page,false));
+            var users = await _context.Users.Skip((page-1)* countUsersByPage).Take(countUsersByPage).ToListAsync();
+            int count = await _context.Users.CountAsync();
+            int pageAll = (int)Math.Ceiling((double)count / countUsersByPage);
+            bool firstPage = page == 1 ? true : false;
+            bool finalPage = page == pageAll ? true : false;
+            return View(new AdminMainViewModel(user,users,page, finalPage, firstPage));
         }
         [HttpPost]
         [Authorize]
