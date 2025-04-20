@@ -1,7 +1,7 @@
 ﻿let totalRounds = 5;
 let currentRound = 0;
 let startTime;
-let timeTakenList = [];
+let timeTakenList = new Set();
 let avgTime = 0;
 let currentA = 0;
 let currentB = 0;
@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () =>
 });
 function startGame() {
     currentRound = 0;
-    timeTakenList = [];
+    timeTakenList.clear();
     correctAnswers = 0;
     resultDoc.innerText = "";
     startBtn.disabled = true;
@@ -54,7 +54,7 @@ function submitAnswer()
     const input = answerInput.value;
     const endTime = new Date();
     const timeTaken = (endTime - startTime) / 1000;
-    timeTakenList.push(timeTaken);
+    timeTakenList.add(timeTaken);
     if (parseInt(input) === currentA * currentB) 
     {
         currentRound++;
@@ -89,7 +89,11 @@ function finishGame()
     startBtn.hidden = false;
     saveStatsBtn.hidden = false;
     answerInput.hidden=true;
-    avgTime = (timeTakenList.reduce((a, b) => a + b, 0) / totalRounds).toFixed(2);
+    avgTime=0;
+    for(const time of timeTakenList){
+        avgTime+=time;
+    }
+    avgTime = Number((avgTime / timeTakenList.size).toFixed(2)); 
     resultDoc.innerText = `Average Time: ${avgTime} seconds`;
 }
     
