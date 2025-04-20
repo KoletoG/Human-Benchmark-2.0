@@ -4,45 +4,28 @@
 <style ></style>
 <h1>@Model.User.Id</h1>
 @{
+	void GenerateArrayScores<T>(T[] array) where T : struct
+	{
+		for (int i = 0; i < UserDataModel.arrayCount; i++)
+		{
+			<h2>@array[i]</h2>
+		}
+	}
 	<h1>@Model.User.UserName</h1>
 	<h3>Reaction time average times</h3>
-	for (int i = 0; i < UserDataModel.arrayCount; i++)
-	{
-		<h2>@Model.User.reactionTimesArray[i]</h2>
-	}
+	GenerateArrayScores<int>(Model.User.reactionTimesArray);
 	<h3>Calculation speed average times</h3>
-	for (int i = 0; i < UserDataModel.arrayCount; i++)
-	{
-		<h3>@Model.User.avgTimeScoreArray[i]</h3>
-	}
+	GenerateArrayScores<double>(Model.User.avgTimeScoreArray);
 	<h3>Memory Numbers scores</h3>
-	for (int i = 0; i < UserDataModel.arrayCount; i++)
-	{
-		<h2>@Model.User.memoryNumbersScoreArray[i]</h2>
-	}
+	GenerateArrayScores<int>(Model.User.memoryNumbersScoreArray);
 	<h3>Blocks Memory scores</h3>
-	for (int i = 0; i < UserDataModel.arrayCount; i++)
-	{
-		<h2>@Model.User.blocksScoreArray[i]</h2>
-	}
+	GenerateArrayScores<int>(Model.User.blocksScoreArray);
 	<h3>Audio Reaction average times</h3>
-	for (int i = 0; i < UserDataModel.arrayCount; i++)
-	{
-		<h2>@Model.User.audioReactionAvgTimeArray[i]</h2>
-	}
+	GenerateArrayScores<int>(Model.User.audioReactionAvgTimeArray);
 	<h3>Memory Words scores</h3>
-	for (int i = 0; i < UserDataModel.arrayCount; i++)
-	{
-		<h2>@Model.User.memoryWordsScoreArray[i]</h2>
-	}
+	GenerateArrayScores<int>(Model.User.memoryWordsScoreArray);
 	<h3>Reverse Numbers scores</h3>
-	for (int i = 0; i < UserDataModel.arrayCount; i++)
-	{
-		<h2>@Model.User.reverseNumbersScoreArray[i]</h2>
-	}
+	GenerateArrayScores<int>(Model.User.reverseNumbersScoreArray);
 	<h3>Reverse Words scores</h3>
-	for (int i = 0; i < UserDataModel.arrayCount; i++)
-	{
-		<h2>@Model.User.reverseWordsScoreArray[i]</h2>
-	}
+	GenerateArrayScores<int>(Model.User.reverseWordsScoreArray);
 }
