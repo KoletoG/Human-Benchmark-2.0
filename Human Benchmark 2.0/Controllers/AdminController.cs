@@ -28,5 +28,19 @@ namespace Human_Benchmark_2._0.Controllers
             var users = await _context.Users.ToListAsync();
             return View(new AdminMainViewModel(user,users));
         }
+        [HttpPost]
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AdminDelete(string idOfUser)
+        {
+            if (this.User.Identity.Name != "Admin")
+            {
+                return View("Index");
+            }
+            var userToDelete = await _context.Users.SingleAsync(x=>x.Id== idOfUser);
+            _context.Users.Remove(userToDelete);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("AdminMain");
+        }
     }
 }
