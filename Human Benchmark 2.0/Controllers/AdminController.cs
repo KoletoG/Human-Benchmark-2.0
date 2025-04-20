@@ -1,5 +1,9 @@
 ﻿using Human_Benchmark_2._0.Data;
+using Human_Benchmark_2._0.Methods;
+using Human_Benchmark_2._0.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Human_Benchmark_2._0.Controllers
 {
@@ -13,9 +17,16 @@ namespace Human_Benchmark_2._0.Controllers
             _logger = logger;
             _context = context;
         }
-        public IActionResult Index()
+        [Authorize]
+        public async Task<IActionResult> AdminMain()
         {
-            return View();
+            if (this.User.Identity.Name != "Admin")
+            {
+                return View("Index");
+            }
+            var user = await _context.GetUserByNameAsync(this.User.Identity.Name);
+            var users = await _context.Users.ToListAsync();
+            return View(new AdminMainViewModel(user,users));
         }
     }
 }
