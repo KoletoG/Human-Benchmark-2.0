@@ -20,11 +20,11 @@ namespace Human_Benchmark_2._0.Controllers
         [Authorize]
         public async Task<IActionResult> AdminMain(int page=1)
         {
-            if (this.User.Identity.Name != "Admin")
+            if (this.User.Identity.Name != Constants.Constants.adminName)
             {
                 return View("Index");
             }
-            int countUsersByPage = 3;
+            int countUsersByPage = 5;
             var user = await _context.GetUserByNameAsync(this.User.Identity.Name);
             var users = await _context.Users.Skip((page-1)* countUsersByPage).Take(countUsersByPage).ToListAsync();
             int count = await _context.Users.CountAsync();
