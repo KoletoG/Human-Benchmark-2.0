@@ -57,6 +57,12 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="InterestingQuestions" asp-action="InterestingQuestionsMain">InterestingQuestions</a>
                         </li>
+                        @{
+                            if(this.User.Identity.Name==)
+                        }
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="InterestingQuestions" asp-action="InterestingQuestionsMain">InterestingQuestions</a>
+                        </li>
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>
