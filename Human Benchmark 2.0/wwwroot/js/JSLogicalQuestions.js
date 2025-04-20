@@ -5,7 +5,7 @@ let answerField;
 let questionField;
 let submitBtn;
 let index=0;
-let doneQuestions=[-1];
+let doneQuestions= new Set();
 document.addEventListener("DOMContentLoaded",()=>
 {
     startBtn=document.getElementById("startBtn");
@@ -32,21 +32,21 @@ function pickQuestion()
 
 function checkRepeatedQuestion()
 {
-    if(doneQuestions.length==questions.length+1)
+    if(doneQuestions.size>=questions.length)
     {
-        doneQuestions=[-1];
+        doneQuestions.clear();
     }
     while(true)
     {
         index = Math.floor(Math.random()*questions.length);
         let present=false;
-        if(doneQuestions.includes(index))
+        if(doneQuestions.has(index))
         {
             present=true;
         }
         if(!present)
         {
-            doneQuestions.push(index);
+            doneQuestions.add(index);
             return index;
         }
     }
