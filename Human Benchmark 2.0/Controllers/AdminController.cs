@@ -17,6 +17,7 @@ namespace Human_Benchmark_2._0.Controllers
             _logger = logger;
             _context = context;
         }
+        // Add searching by name
         [Authorize]
         public async Task<IActionResult> AdminMain(int page=1)
         {
@@ -25,12 +26,14 @@ namespace Human_Benchmark_2._0.Controllers
                 return View("Index");
             }
             int countUsersByPage = 5;
-            var user = await _context.GetUserByNameAsync(this.User.Identity.Name);
-            var users = await _context.Users.Skip((page-1)* countUsersByPage).Take(countUsersByPage).ToListAsync();
             int count = await _context.Users.CountAsync();
             int pageAll = (int)Math.Ceiling((double)count / countUsersByPage);
-            bool firstPage = page == 1 ? true : false;
-            bool finalPage = page == pageAll ? true : false;
+            if (page < 1) page = 1;
+            if (page > pageAll) page = pageAll;
+            var user = await _context.GetUserByNameAsync(this.User.Identity.Name);
+            var users = await _context.Users.Skip((page-1)* countUsersByPage).Take(countUsersByPage).ToListAsync();
+            bool firstPage = page == 1;
+            bool finalPage = page == pageAll;
             return View(new AdminMainViewModel(user,users,page, finalPage, firstPage));
         }
         [HttpPost]
