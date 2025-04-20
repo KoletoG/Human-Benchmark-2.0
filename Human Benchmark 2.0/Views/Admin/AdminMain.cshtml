@@ -2,13 +2,21 @@
 @model AdminMainViewModel
 
 @{
+	<h1>@Model.PageNumber</h1>
 	for(int i = 0; i < Model.Users.Count; i++)
 	{
 		<h3>@Model.Users[i].UserName</h3>
 		<form asp-action="AdminDelete" method="post">
-		@Html.AntiForgeryToken()
-		<input type="hidden" name="idOfUser" value="@Model.Users[i].Id" />
-		<button type="submit">DELETE</button>
+			@Html.AntiForgeryToken()
+			<input type="hidden" name="idOfUser" value="@Model.Users[i].Id" />
+			<button type="submit">DELETE</button>
 		</form>
+	}
+	if (Model.FinalPage != true)
+	{
+		<form asp-action="AdminMain" asp-route-page="@Model.PageNumber">
+			<input type="submit" value="Next page"/>
+		</form>
+		
 	}
 }
