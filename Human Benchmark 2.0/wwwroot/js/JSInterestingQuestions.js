@@ -48,6 +48,10 @@ function rollQuestion()
 
 function checkRepeatedQuestion()
 {
+    if(doneQuestions.size>=questions.length)
+    {
+        doneQuestions.clear();
+    }
     indexOfQuestion=Math.floor(Math.random()*questions.length);
     if(doneQuestions.has(indexOfQuestion))
     {
