@@ -25,16 +25,21 @@ namespace Human_Benchmark_2._0.Controllers
         [Authorize]
         public async Task<IActionResult> AdminMain(int page = 1)
         {
-            if (this.User.Identity.Name != Constants.Constants.adminName)
+            string currentName = this.User.Identity?.Name ?? "";
+            if (currentName != Constants.Constants.adminName)
             {
                 return View("Index");
             }
-            int countUsersByPage = 5;
+            int countUsersByPage = 1;
             int count = await _context.Users.CountAsync();
             int pageAll = (int)Math.Ceiling((double)count / countUsersByPage);
             if (page < 1) page = 1;
             if (page > pageAll) page = pageAll;
-            var user = await _context.GetUserByNameAsync(this.User.Identity.Name);
+            if(!_memoryCache.TryGetValue($"User_{currentName}",out UserDataModel user))
+            {
+                user = await _context.GetUserByNameAsync(currentName);
+                _memoryCache.Set($"User_{currentName}",user, TimeSpan.FromMinutes(3));
+            }
             if (!_memoryCache.TryGetValue(page,out List<UserDataModel> users))
             {
                 users = await _context.Users.Skip((page - 1) * countUsersByPage)
