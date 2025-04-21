@@ -32,37 +32,31 @@ namespace Human_Benchmark_2._0.Controllers
             }
             int countUsersByPage = 2; // Sets how many users should be shown per page
             int countUsers = await _context.Users.CountAsync();
-            if (!_memoryCache.TryGetValue("count", out int cachedCount) || cachedCount != countUsers) // Checks if a user has registered or deleted his profile and therefore changing the user count
+            if (!_memoryCache.TryGetValue("pageCount", out int cachedPageCount)) // Checks if pageCount has been deleted (after user deletion)
             {
-                if (_memoryCache.TryGetValue("pageCount", out int pageCachedAll))
+                if (_memoryCache.TryGetValue("count", out int cachedUsers)) // Checks if count exists which if true means that a user has been deleted
                 {
-                    for (int i = 1; i <= pageCachedAll; i++) // Removes every page that has been created with previous user count
+                    int pageAllFromCachedUsers = (int)Math.Ceiling((double)cachedUsers / countUsersByPage);
+                    for (int i = 1; i <= pageAllFromCachedUsers; i++) // Removes all pages which are calculated with the previous user count because if they are calculated with the present user count, some pages might not get deleted
                     {
                         _memoryCache.Remove($"Page:{i}");
                     }
-                    _memoryCache.Remove("pageCount");
                 }
-                else
+            }
+            else
+            {
+                if (_memoryCache.TryGetValue("count", out int cachedUsers) && cachedUsers != countUsers) // Checks if a user has registered or deleted an account by themselves
                 {
-                    if (cachedCount != default)
+                    for (int i = 1; i <= cachedPageCount; i++) // Deletes every page in case an account is missing
                     {
-                        for (int i = 1; i <= Math.Ceiling((double)cachedCount / countUsersByPage); i++) // Removes every page that has been created with previous user count
-                        {
-                            _memoryCache.Remove($"Page:{i}");
-                        }
+                        _memoryCache.Remove($"Page:{i}");
                     }
-
+                    
                 }
             }
-            if(cachedCount != countUsers)
-            {
-               _memoryCache.Set("count", countUsers);
-            }
-            if (!_memoryCache.TryGetValue("pageCount", out int pageAll))
-            {
-                pageAll = (int)Math.Ceiling((double)countUsers / countUsersByPage); // Calculates the maximum of pages with current user count
-                _memoryCache.Set("pageCount", pageAll);
-            }
+            int pageAll = (int)Math.Ceiling((double)countUsers / countUsersByPage);
+            _memoryCache.Set("pageCount", pageAll,TimeSpan.FromMinutes(5)); // Saves pageCount and count in cache only for 5 minutes in case a user has deleted their account at the same time somebody has created one so the algorithm cannot catch the difference
+            _memoryCache.Set("count", countUsers, TimeSpan.FromMinutes(5));
             if (page < 1) page = 1; // These 2 lines handle exceptions if user has manually entered a non-possible page
             if (page > pageAll) page = pageAll;
             if (!_memoryCache.TryGetValue($"User_{currentName}", out UserDataModel user)) // Caches the current user (admin)
@@ -74,7 +68,7 @@ namespace Human_Benchmark_2._0.Controllers
             {
                 users = await _context.Users.Skip((page - 1) * countUsersByPage)
                                             .Take(countUsersByPage)
-                                            .ToListAsync();
+                                            .ToListAsync(); // Loads users per page
                 var cacheEntryOptions = new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(5))
                                                                      .SetSlidingExpiration(TimeSpan.FromMinutes(3));
                 _memoryCache.Set($"Page:{page}", users, cacheEntryOptions);
