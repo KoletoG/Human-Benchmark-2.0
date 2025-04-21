@@ -1,5 +1,6 @@
 ﻿using System;
 using Human_Benchmark_2._0.Data;
+using Human_Benchmark_2._0.Interaces;
 using Human_Benchmark_2._0.Methods;
 using Human_Benchmark_2._0.Models.DataModels;
 using Human_Benchmark_2._0.Models.ViewModels;
@@ -12,10 +13,12 @@ namespace Human_Benchmark_2._0.Controllers
     {
         private readonly ILogger<MemoryWordsController> _logger;
         private readonly ApplicationDbContext _context;
-        public MemoryWordsController(ILogger<MemoryWordsController> logger, ApplicationDbContext context)
+        private readonly IIOService _ioService;
+        public MemoryWordsController(ILogger<MemoryWordsController> logger, ApplicationDbContext context, IIOService iOService)
         {
             _logger = logger;
             _context = context;
+            _ioService = iOService;
         }
         /// <summary>
         /// Loads the main page of the mini-game                                                                                                                                                
@@ -43,7 +46,7 @@ namespace Human_Benchmark_2._0.Controllers
         {
             try
             {
-                return Ok(await _context.GetRandomWordsAsync(150));
+                return Ok(await _ioService.GetRandomWordsAsync(150));
             }
             catch (Exception ex)
             {
@@ -62,7 +65,7 @@ namespace Human_Benchmark_2._0.Controllers
         {
             try
             {
-                UserDataModel userDataModel = await _context.GetUserByNameAsync(this.User.Identity?.Name ?? "");
+                UserDataModel userDataModel = await _ioService.GetUserByNameAsync(this.User.Identity?.Name ?? "");
                 userDataModel.memoryWordsScoreArray.AddValueToArray(score);
                 _context.Update(userDataModel);
                 _context.SaveChanges();

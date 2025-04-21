@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Human_Benchmark_2._0.Data;
+using Human_Benchmark_2._0.Interaces;
 using Human_Benchmark_2._0.Methods;
 using Human_Benchmark_2._0.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -11,11 +12,12 @@ namespace Human_Benchmark_2._0.Controllers
     {
         private readonly ILogger<MemoryNumbersController> _logger;
         private readonly ApplicationDbContext _context;
-
-        public MemoryNumbersController(ILogger<MemoryNumbersController> logger, ApplicationDbContext context)
+        private readonly IIOService _ioService;
+        public MemoryNumbersController(ILogger<MemoryNumbersController> logger, ApplicationDbContext context, IIOService iO)
         {
             _logger = logger;
             _context = context;
+            _ioService = iO;
         }
         /// <summary>
         /// Loads the main page of the mini-game
@@ -45,7 +47,7 @@ namespace Human_Benchmark_2._0.Controllers
         {
             try
             {
-                var user = await _context.GetUserByNameAsync(this.User.Identity.Name);
+                var user = await _ioService.GetUserByNameAsync(this.User.Identity.Name);
                 user.memoryNumbersScoreArray.AddValueToArray(score);
                 _context.Update(user);
                 _context.SaveChanges();

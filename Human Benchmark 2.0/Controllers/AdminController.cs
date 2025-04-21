@@ -16,12 +16,14 @@ namespace Human_Benchmark_2._0.Controllers
         private readonly ApplicationDbContext _context;
         private readonly IMemoryCache _memoryCache;
         private readonly ICacheService _cacheService;
-        public AdminController(ILogger<AdminController> logger, ApplicationDbContext context, IMemoryCache memoryCache, ICacheService cacheService)
+        private readonly IIOService _ioService;
+        public AdminController(ILogger<AdminController> logger,IIOService iOService, ApplicationDbContext context, IMemoryCache memoryCache, ICacheService cacheService)
         {
             _logger = logger;
             _context = context;
             _memoryCache = memoryCache;
             _cacheService = cacheService;
+            _ioService = iOService;
         }
         
         // Add searching by name
@@ -44,7 +46,7 @@ namespace Human_Benchmark_2._0.Controllers
             if (page > pageAll) page = pageAll;
             if (!_memoryCache.TryGetValue($"User_{currentName}", out UserDataModel user)) // Caches the current user (admin)
             {
-                user = await _context.GetUserByNameAsync(currentName);
+                user = await _ioService.GetUserByNameAsync(currentName);
                 _memoryCache.Set($"User_{currentName}", user, TimeSpan.FromMinutes(3));
             }
             if (!_memoryCache.TryGetValue($"Page:{page}", out List<UserDataModel> users)) // Caches the page's users

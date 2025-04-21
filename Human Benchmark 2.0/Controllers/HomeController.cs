@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Human_Benchmark_2._0.Custom_Exceptions;
+using Human_Benchmark_2._0.Interaces;
 
 namespace Human_Benchmark_2._0.Controllers
 {
@@ -16,11 +17,12 @@ namespace Human_Benchmark_2._0.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly ApplicationDbContext _context;
-
-        public HomeController(ILogger<HomeController> logger, ApplicationDbContext context)
+        private readonly IIOService _ioService;
+        public HomeController(ILogger<HomeController> logger, ApplicationDbContext context,IIOService service)
         {
             _logger = logger;
             _context = context;
+            _ioService = service;
         }
         /// <summary>
         /// Goes to the index page and fills database with words for the first time
@@ -47,7 +49,7 @@ namespace Human_Benchmark_2._0.Controllers
         {
             try
             {
-                var currentUser = await _context.GetUserByNameAsync(this.User.Identity?.Name ?? throw new Exception("User not valid."));
+                var currentUser = await _ioService.GetUserByNameAsync(this.User.Identity?.Name ?? throw new Exception("User not valid."));
                 return View(new ProfileViewModel(currentUser));
             }
             catch (Exception ex)
