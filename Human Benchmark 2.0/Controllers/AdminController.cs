@@ -31,8 +31,29 @@ namespace Human_Benchmark_2._0.Controllers
                 return View("Index");
             }
             int countUsersByPage = 2;
-            int count = await _context.Users.CountAsync();
+            if(!_memoryCache.TryGetValue("count", out int count))
+            {
+                count = await _context.Users.CountAsync();
+                _memoryCache.Set("count", count);
+            }
+            int countUsers = await _context.Users.CountAsync();
             int pageAll = (int)Math.Ceiling((double)count / countUsersByPage);
+            if (count != countUsers)
+            {
+                for (int i = 1; i <= pageAll; i++)
+                {
+                    try
+                    {
+                        _memoryCache.Remove(i);
+                    }
+                    catch (KeyNotFoundException)
+                    {
+
+                    }
+                }
+                _memoryCache.Set("count", countUsers); 
+                pageAll = (int)Math.Ceiling((double)countUsers / countUsersByPage);
+            }
             if (page < 1) page = 1;
             if (page > pageAll) page = pageAll;
             if(!_memoryCache.TryGetValue($"User_{currentName}",out UserDataModel user))
@@ -40,9 +61,15 @@ namespace Human_Benchmark_2._0.Controllers
                 user = await _context.GetUserByNameAsync(currentName);
                 _memoryCache.Set($"User_{currentName}",user, TimeSpan.FromMinutes(3));
             }
-            var users = await _context.Users.Skip((page - 1) * countUsersByPage)
+            if (!_memoryCache.TryGetValue(page,out List<UserDataModel> users))
+            {
+                users = await _context.Users.Skip((page - 1) * countUsersByPage)
                                             .Take(countUsersByPage)
                                             .ToListAsync();
+                var cacheEntryOptions = new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(5))
+                                                                     .SetSlidingExpiration(TimeSpan.FromMinutes(3));
+                _memoryCache.Set(page, users,cacheEntryOptions);
+            }
             bool firstPage = page == 1;
             bool finalPage = page == pageAll;
             return View(new AdminMainViewModel(user, users, page, finalPage, firstPage));
