@@ -9,6 +9,7 @@
 		<form asp-action="AdminDelete" method="post">
 			@Html.AntiForgeryToken()
 			<input type="hidden" name="idOfUser" value="@Model.Users[i].Id" />
+			<input type="hidden" name="page" value="@Model.PageNumber" />
 			<button type="submit">DELETE</button>
 		</form>
 	}

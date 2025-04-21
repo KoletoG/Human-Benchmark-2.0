@@ -30,7 +30,7 @@ namespace Human_Benchmark_2._0.Controllers
             {
                 return View("Index");
             }
-            int countUsersByPage = 1;
+            int countUsersByPage = 2;
             int count = await _context.Users.CountAsync();
             int pageAll = (int)Math.Ceiling((double)count / countUsersByPage);
             if (page < 1) page = 1;
@@ -56,13 +56,14 @@ namespace Human_Benchmark_2._0.Controllers
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AdminDelete(string idOfUser)
+        public async Task<IActionResult> AdminDelete(string idOfUser, int page)
         {
             if (this.User.Identity.Name != "Admin")
             {
                 return View("Index");
             }
             var userToDelete = await _context.Users.SingleAsync(x => x.Id == idOfUser);
+            _memoryCache.Remove(page);
             _context.Users.Remove(userToDelete);
             await _context.SaveChangesAsync();
             return RedirectToAction("AdminMain");
