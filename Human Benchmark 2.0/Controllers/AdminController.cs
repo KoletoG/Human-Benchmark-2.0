@@ -21,7 +21,7 @@ namespace Human_Benchmark_2._0.Controllers
             _memoryCache = memoryCache;
         }
         // Add searching by name
-        // Cache user and usercount, maybe dict for cached users
+        // Add comments
         [Authorize]
         public async Task<IActionResult> AdminMain(int page = 1)
         {
@@ -30,41 +30,67 @@ namespace Human_Benchmark_2._0.Controllers
             {
                 return View("Index");
             }
-            int countUsersByPage = 2;
+            int countUsersByPage = 2; // Sets how many users should be shown per page
             int countUsers = await _context.Users.CountAsync();
-            if (!_memoryCache.TryGetValue("count", out int cachedCount) || cachedCount != countUsers)
+            if (!_memoryCache.TryGetValue("count", out int cachedCount) || cachedCount != countUsers) // Checks if a user has registered or deleted his profile and therefore changing the user count
             {
-                for (int i = 1; i <= Math.Ceiling((double)cachedCount / countUsersByPage); i++)
+                if(_memoryCache.TryGetValue("pageCount",out int pageCachedAll))
                 {
-                    try
+                    for (int i = 1; i <= pageCachedAll; i++) // Removes every page that has been created with previous user count
                     {
-                        _memoryCache.Remove($"Page:{i}");
-                    }
-                    catch (KeyNotFoundException)
-                    {
+                        try
+                        {
+                            _memoryCache.Remove($"Page:{i}");
+                        }
+                        catch (KeyNotFoundException)
+                        {
 
+                        }
                     }
+                    _memoryCache.Remove("pageCount");
                 }
-                _memoryCache.Set("count", countUsers);
+                else
+                {
+                    if (cachedCount != default)
+                    {
+                        for (int i = 1; i <= Math.Ceiling((double)cachedCount / countUsersByPage); i++) // Removes every page that has been created with previous user count
+                        {
+                            try
+                            {
+                                _memoryCache.Remove($"Page:{i}");
+                            }
+                            catch (KeyNotFoundException)
+                            {
+
+                            }
+                        }
+                    }
+                    
+                }
             }
-            int pageAll = (int)Math.Ceiling((double)countUsers / countUsersByPage);
-            if (page < 1) page = 1;
+            _memoryCache.Set("count", countUsers);
+            if (!_memoryCache.TryGetValue("pageCount", out int pageAll))
+            {
+                pageAll = (int)Math.Ceiling((double)countUsers / countUsersByPage); // Calculates the maximum of pages with current user count
+                _memoryCache.Set("pageCount", pageAll);
+            }
+            if (page < 1) page = 1; // These 2 lines handle exceptions if user has manually entered a non-possible page
             if (page > pageAll) page = pageAll;
-            if(!_memoryCache.TryGetValue($"User_{currentName}",out UserDataModel user))
+            if (!_memoryCache.TryGetValue($"User_{currentName}", out UserDataModel user)) // Caches the current user (admin)
             {
                 user = await _context.GetUserByNameAsync(currentName);
-                _memoryCache.Set($"User_{currentName}",user, TimeSpan.FromMinutes(3));
+                _memoryCache.Set($"User_{currentName}", user, TimeSpan.FromMinutes(3));
             }
-            if (!_memoryCache.TryGetValue($"Page:{page}", out List<UserDataModel> users))
+            if (!_memoryCache.TryGetValue($"Page:{page}", out List<UserDataModel> users)) // Caches the page's users
             {
                 users = await _context.Users.Skip((page - 1) * countUsersByPage)
                                             .Take(countUsersByPage)
                                             .ToListAsync();
                 var cacheEntryOptions = new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(5))
                                                                      .SetSlidingExpiration(TimeSpan.FromMinutes(3));
-                _memoryCache.Set($"Page:{page}", users,cacheEntryOptions);
+                _memoryCache.Set($"Page:{page}", users, cacheEntryOptions);
             }
-            bool firstPage = page == 1;
+            bool firstPage = page == 1; // These 2 lines are for checking if NextPage or PreviousPage buttons should show
             bool finalPage = page == pageAll;
             return View(new AdminMainViewModel(user, users, page, finalPage, firstPage));
         }
@@ -78,13 +104,13 @@ namespace Human_Benchmark_2._0.Controllers
                 return View("Index");
             }
             var userToDelete = await _context.Users.SingleOrDefaultAsync(x => x.Id == idOfUser);
-            if (userToDelete != default)
+            if (userToDelete != default) // Checks if user's account is still present (in case he deleted it himself or something else unexpected happened)
             {
                 _context.Users.Remove(userToDelete);
                 await _context.SaveChangesAsync();
             }
-            _memoryCache.Remove("count");
-            return RedirectToAction("AdminMain", new {page});
+            _memoryCache.Remove("pageCount"); // Removes the user's count and therefore 
+            return RedirectToAction("AdminMain", new { page });
         }
     }
 }
