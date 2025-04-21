@@ -34,18 +34,11 @@ namespace Human_Benchmark_2._0.Controllers
             int countUsers = await _context.Users.CountAsync();
             if (!_memoryCache.TryGetValue("count", out int cachedCount) || cachedCount != countUsers) // Checks if a user has registered or deleted his profile and therefore changing the user count
             {
-                if(_memoryCache.TryGetValue("pageCount",out int pageCachedAll))
+                if (_memoryCache.TryGetValue("pageCount", out int pageCachedAll))
                 {
                     for (int i = 1; i <= pageCachedAll; i++) // Removes every page that has been created with previous user count
                     {
-                        try
-                        {
-                            _memoryCache.Remove($"Page:{i}");
-                        }
-                        catch (KeyNotFoundException)
-                        {
-
-                        }
+                        _memoryCache.Remove($"Page:{i}");
                     }
                     _memoryCache.Remove("pageCount");
                 }
@@ -55,20 +48,16 @@ namespace Human_Benchmark_2._0.Controllers
                     {
                         for (int i = 1; i <= Math.Ceiling((double)cachedCount / countUsersByPage); i++) // Removes every page that has been created with previous user count
                         {
-                            try
-                            {
-                                _memoryCache.Remove($"Page:{i}");
-                            }
-                            catch (KeyNotFoundException)
-                            {
-
-                            }
+                            _memoryCache.Remove($"Page:{i}");
                         }
                     }
-                    
+
                 }
             }
-            _memoryCache.Set("count", countUsers);
+            if(cachedCount != countUsers)
+            {
+               _memoryCache.Set("count", countUsers);
+            }
             if (!_memoryCache.TryGetValue("pageCount", out int pageAll))
             {
                 pageAll = (int)Math.Ceiling((double)countUsers / countUsersByPage); // Calculates the maximum of pages with current user count
