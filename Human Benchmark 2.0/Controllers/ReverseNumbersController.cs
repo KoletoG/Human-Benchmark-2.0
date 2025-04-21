@@ -13,12 +13,14 @@ namespace Human_Benchmark_2._0.Controllers
         private readonly ILogger<ReverseNumbersController> _logger;
         private readonly ApplicationDbContext _context;
         private readonly IIOService _ioService;
+        private readonly IArrayAddService _arrayAddService;
 
-        public ReverseNumbersController(ILogger<ReverseNumbersController> logger, ApplicationDbContext context, IIOService iOService)
+        public ReverseNumbersController(ILogger<ReverseNumbersController> logger, ApplicationDbContext context, IIOService iOService, IArrayAddService arrayAddService)
         {
             _logger = logger;
             _context = context;
             _ioService = iOService;
+            _arrayAddService = arrayAddService;
         }
         /// <summary>
         /// Loads the main page of the mini-game
@@ -49,7 +51,7 @@ namespace Human_Benchmark_2._0.Controllers
             try
             {
                 UserDataModel userDataModel = await _ioService.GetUserByNameAsync(this.User.Identity?.Name ?? "");
-                userDataModel.reverseNumbersScoreArray.AddValueToArray(score);
+                _arrayAddService.AddValueToArray(userDataModel.reverseNumbersScoreArray, score);
                 _context.Update(userDataModel);
                 _context.SaveChanges();
                 return Json(new { redirectUrl = Url.Action("Profile", "Home") });

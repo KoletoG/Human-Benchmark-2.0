@@ -13,11 +13,13 @@ namespace Human_Benchmark_2._0.Controllers
         private readonly ILogger<MemoryNumbersController> _logger;
         private readonly ApplicationDbContext _context;
         private readonly IIOService _ioService;
-        public MemoryNumbersController(ILogger<MemoryNumbersController> logger, ApplicationDbContext context, IIOService iO)
+        private readonly IArrayAddService _arrayAddService;
+        public MemoryNumbersController(ILogger<MemoryNumbersController> logger, ApplicationDbContext context, IIOService iO, IArrayAddService arrayAddService)
         {
             _logger = logger;
             _context = context;
             _ioService = iO;
+            _arrayAddService = arrayAddService;
         }
         /// <summary>
         /// Loads the main page of the mini-game
@@ -48,7 +50,7 @@ namespace Human_Benchmark_2._0.Controllers
             try
             {
                 var user = await _ioService.GetUserByNameAsync(this.User.Identity.Name);
-                user.memoryNumbersScoreArray.AddValueToArray(score);
+                _arrayAddService.AddValueToArray(user.memoryNumbersScoreArray, score);
                 _context.Update(user);
                 _context.SaveChanges();
                 return Json(new { redirectUrl = Url.Action("Profile", "Home") });

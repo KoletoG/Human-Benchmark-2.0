@@ -22,6 +22,7 @@ using Human_Benchmark_2._0.Models.DataModels;
 using Microsoft.IdentityModel.Tokens;
 using Human_Benchmark_2._0.Data;
 using Human_Benchmark_2._0.Methods;
+using Human_Benchmark_2._0.Interaces;
 
 namespace Human_Benchmark_2._0.Areas.Identity.Pages.Account
 {
@@ -34,6 +35,7 @@ namespace Human_Benchmark_2._0.Areas.Identity.Pages.Account
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
         private readonly ApplicationDbContext _context;
+        private readonly IIOService _ioService;
 
         public RegisterModel(
             UserManager<UserDataModel> userManager,
@@ -41,7 +43,7 @@ namespace Human_Benchmark_2._0.Areas.Identity.Pages.Account
             SignInManager<UserDataModel> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender,
-            ApplicationDbContext context)
+            ApplicationDbContext context, IIOService iOService)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -50,6 +52,7 @@ namespace Human_Benchmark_2._0.Areas.Identity.Pages.Account
             _logger = logger;
             _emailSender = emailSender;
             _context = context;
+            _ioService = iOService;
         }
 
         /// <summary>
@@ -123,7 +126,7 @@ namespace Human_Benchmark_2._0.Areas.Identity.Pages.Account
                 var user = CreateUser();
                 if (Input.Username.IsNullOrEmpty())
                 {
-                    var name = await _context.GetRandomWordsAsync(2);
+                    var name = await _ioService.GetRandomWordsAsync(2);
                     Input.Username = string.Join("_", name[0], name[1]);
                 }
                 await _userStore.SetUserNameAsync(user, Input.Username, CancellationToken.None);
