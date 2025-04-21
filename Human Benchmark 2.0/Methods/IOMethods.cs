@@ -34,10 +34,10 @@ namespace Human_Benchmark_2._0.Methods
             int totalWords = await _context.wordDataModels.CountAsync();
             int totalPages = (int)Math.Ceiling((double)totalWords / count);
             int randomPage = Random.Shared.Next(0, totalPages);
-            string[] wordList = await _context.wordDataModels.Skip(randomPage * count).Take(count).Select(x => x.Word).ToArrayAsync();
+            string[] wordList = await _context.wordDataModels.AsNoTracking().Skip(randomPage * count).Take(count).Select(x => x.Word).ToArrayAsync();
             if (wordList.Length < count)
             {
-                wordList = await _context.wordDataModels.OrderByDescending(x => x.Id).Take(count).Select(x => x.Word).ToArrayAsync();
+                wordList = await _context.wordDataModels.AsNoTracking().OrderByDescending(x => x.Id).Take(count).Select(x => x.Word).ToArrayAsync();
             }
             return wordList;
         }
