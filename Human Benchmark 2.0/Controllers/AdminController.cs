@@ -66,7 +66,7 @@ namespace Human_Benchmark_2._0.Controllers
             }
             if (!_memoryCache.TryGetValue($"Page:{page}", out List<UserDataModel> users)) // Caches the page's users
             {
-                users = await _context.Users.Skip((page - 1) * countUsersByPage)
+                users = await _context.Users.AsNoTracking().Skip((page - 1) * countUsersByPage)
                                             .Take(countUsersByPage)
                                             .ToListAsync(); // Loads users per page
                 var cacheEntryOptions = new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(5))
