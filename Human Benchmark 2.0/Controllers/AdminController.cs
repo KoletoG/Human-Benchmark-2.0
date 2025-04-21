@@ -1,4 +1,5 @@
 ﻿using Human_Benchmark_2._0.Data;
+using Human_Benchmark_2._0.Interaces;
 using Human_Benchmark_2._0.Methods;
 using Human_Benchmark_2._0.Models.DataModels;
 using Human_Benchmark_2._0.Models.ViewModels;
@@ -14,36 +15,15 @@ namespace Human_Benchmark_2._0.Controllers
         private readonly ILogger<AdminController> _logger;
         private readonly ApplicationDbContext _context;
         private readonly IMemoryCache _memoryCache;
-        public AdminController(ILogger<AdminController> logger, ApplicationDbContext context, IMemoryCache memoryCache)
+        private readonly ICacheService _cacheService;
+        public AdminController(ILogger<AdminController> logger, ApplicationDbContext context, IMemoryCache memoryCache, ICacheService cacheService)
         {
             _logger = logger;
             _context = context;
             _memoryCache = memoryCache;
+            _cacheService = cacheService;
         }
-        public void HandleCache(IMemoryCache memory,int countUsers, int countUsersByPage)
-        {
-            if (!_memoryCache.TryGetValue("pageCount", out int cachedPageCount)) // Checks if pageCount has been deleted (after user deletion)
-            {
-                if (_memoryCache.TryGetValue("count", out int cachedUsers)) // Checks if count exists which if true means that a user has been deleted
-                {
-                    int pageAllFromCachedUsers = (int)Math.Ceiling((double)cachedUsers / countUsersByPage);
-                    for (int i = 1; i <= pageAllFromCachedUsers; i++) // Removes all pages which are calculated with the previous user count because if they are calculated with the present user count, some pages might not get deleted
-                    {
-                        _memoryCache.Remove($"Page:{i}");
-                    }
-                }
-            }
-            else
-            {
-                if (_memoryCache.TryGetValue("count", out int cachedUsers) && cachedUsers != countUsers) // Checks if a user has registered or deleted an account by themselves
-                {
-                    for (int i = 1; i <= cachedPageCount; i++) // Deletes every page in case an account is missing
-                    {
-                        _memoryCache.Remove($"Page:{i}");
-                    }
-                }
-            }
-        }
+        
         // Add searching by name
         // Add comments
         [Authorize]
@@ -56,34 +36,9 @@ namespace Human_Benchmark_2._0.Controllers
             }
             int countUsersByPage = 2; // Sets how many users should be shown per page
             int countUsers = await _context.Users.CountAsync();
-            HandleCache(_memoryCache, countUsers, countUsersByPage);
+            _cacheService.HandleCacheAdmin(countUsers, countUsersByPage);
             int pageAll = (int)Math.Ceiling((double)countUsers / countUsersByPage);
             _memoryCache.Set("pageCount", pageAll, TimeSpan.FromMinutes(5)); // Saves pageCount and count in cache only for 5 minutes in case a user has deleted their account at the same time somebody has created one so the algorithm cannot catch the difference
-            _memoryCache.Set("count", countUsers, TimeSpan.FromMinutes(5));
-            if (!_memoryCache.TryGetValue("pageCount", out int cachedPageCount)) // Checks if pageCount has been deleted (after user deletion)
-            {
-                if (_memoryCache.TryGetValue("count", out int cachedUsers)) // Checks if count exists which if true means that a user has been deleted
-                {
-                    int pageAllFromCachedUsers = (int)Math.Ceiling((double)cachedUsers / countUsersByPage);
-                    for (int i = 1; i <= pageAllFromCachedUsers; i++) // Removes all pages which are calculated with the previous user count because if they are calculated with the present user count, some pages might not get deleted
-                    {
-                        _memoryCache.Remove($"Page:{i}");
-                    }
-                }
-            }
-            else
-            {
-                if (_memoryCache.TryGetValue("count", out int cachedUsers) && cachedUsers != countUsers) // Checks if a user has registered or deleted an account by themselves
-                {
-                    for (int i = 1; i <= cachedPageCount; i++) // Deletes every page in case an account is missing
-                    {
-                        _memoryCache.Remove($"Page:{i}");
-                    }
-                    
-                }
-            }
-            int pageAll = (int)Math.Ceiling((double)countUsers / countUsersByPage);
-            _memoryCache.Set("pageCount", pageAll,TimeSpan.FromMinutes(5)); // Saves pageCount and count in cache only for 5 minutes in case a user has deleted their account at the same time somebody has created one so the algorithm cannot catch the difference
             _memoryCache.Set("count", countUsers, TimeSpan.FromMinutes(5));
             if (page < 1) page = 1; // These 2 lines handle exceptions if user has manually entered a non-possible page
             if (page > pageAll) page = pageAll;

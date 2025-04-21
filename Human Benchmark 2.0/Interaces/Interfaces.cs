@@ -2,5 +2,6 @@
 {
     public interface ICacheService
     {
+        void HandleCacheAdmin(int countUsers, int countUsersByPage);
     }
 }
