@@ -28,7 +28,7 @@ namespace Human_Benchmark_2._0.Controllers
             string currentName = this.User.Identity?.Name ?? "";
             if (currentName != Constants.Constants.adminName)
             {
-                return View("Index");
+                return RedirectToAction("Index", "Home");
             }
             int countUsersByPage = 2; // Sets how many users should be shown per page
             int countUsers = await _context.Users.CountAsync();
@@ -93,7 +93,7 @@ namespace Human_Benchmark_2._0.Controllers
                 await _context.SaveChangesAsync();
             }
             _memoryCache.Remove("pageCount"); // Removes the user's count and therefore 
-            return RedirectToAction("AdminMain", new { page });
+            return RedirectToAction(nameof(AdminMain), new { page });
         }
     }
 }
