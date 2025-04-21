@@ -31,16 +31,10 @@ namespace Human_Benchmark_2._0.Controllers
                 return View("Index");
             }
             int countUsersByPage = 2;
-            if(!_memoryCache.TryGetValue("count", out int count))
-            {
-                count = await _context.Users.CountAsync();
-                _memoryCache.Set("count", count);
-            }
             int countUsers = await _context.Users.CountAsync();
-            int pageAll = (int)Math.Ceiling((double)count / countUsersByPage);
-            if (count != countUsers)
+            if (!_memoryCache.TryGetValue("count", out int count) || count!=countUsers)
             {
-                for (int i = 1; i <= pageAll; i++)
+                for (int i = 1; i <= Math.Ceiling((double)count / countUsersByPage); i++)
                 {
                     try
                     {
@@ -51,9 +45,9 @@ namespace Human_Benchmark_2._0.Controllers
 
                     }
                 }
-                _memoryCache.Set("count", countUsers); 
-                pageAll = (int)Math.Ceiling((double)countUsers / countUsersByPage);
+                _memoryCache.Set("count", countUsers);
             }
+            int pageAll = (int)Math.Ceiling((double)count / countUsersByPage);
             if (page < 1) page = 1;
             if (page > pageAll) page = pageAll;
             if(!_memoryCache.TryGetValue($"User_{currentName}",out UserDataModel user))
@@ -89,8 +83,8 @@ namespace Human_Benchmark_2._0.Controllers
                 _context.Users.Remove(userToDelete);
                 await _context.SaveChangesAsync();
             }
-            _memoryCache.Remove(page);
-            return RedirectToAction("AdminMain");
+            _memoryCache.Remove("count");
+            return RedirectToAction("AdminMain", new {page});
         }
     }
 }
