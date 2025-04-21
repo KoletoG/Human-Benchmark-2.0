@@ -1,11 +1,9 @@
 ﻿using Human_Benchmark_2._0.Data;
 using Human_Benchmark_2._0.Interaces;
-using Human_Benchmark_2._0.Methods;
 using Human_Benchmark_2._0.Models.DataModels;
 using Human_Benchmark_2._0.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using static Human_Benchmark_2._0.Methods.GlobalStaticMethods;
 namespace Human_Benchmark_2._0.Controllers
 {
     public class ReverseWordController : Controller

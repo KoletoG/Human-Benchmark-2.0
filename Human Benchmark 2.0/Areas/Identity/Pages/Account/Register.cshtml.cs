@@ -21,7 +21,6 @@ using Microsoft.Extensions.Logging;
 using Human_Benchmark_2._0.Models.DataModels;
 using Microsoft.IdentityModel.Tokens;
 using Human_Benchmark_2._0.Data;
-using Human_Benchmark_2._0.Methods;
 using Human_Benchmark_2._0.Interaces;
 
 namespace Human_Benchmark_2._0.Areas.Identity.Pages.Account

@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Human_Benchmark_2._0.Data;
 using Human_Benchmark_2._0.Interaces;
-using Human_Benchmark_2._0.Methods;
 using Human_Benchmark_2._0.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
