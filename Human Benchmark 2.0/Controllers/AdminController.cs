@@ -40,15 +40,9 @@ namespace Human_Benchmark_2._0.Controllers
                 user = await _context.GetUserByNameAsync(currentName);
                 _memoryCache.Set($"User_{currentName}",user, TimeSpan.FromMinutes(3));
             }
-            if (!_memoryCache.TryGetValue(page,out List<UserDataModel> users))
-            {
-                users = await _context.Users.Skip((page - 1) * countUsersByPage)
+            var users = await _context.Users.Skip((page - 1) * countUsersByPage)
                                             .Take(countUsersByPage)
                                             .ToListAsync();
-                var cacheEntryOptions = new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(10))
-                                                                     .SetSlidingExpiration(TimeSpan.FromMinutes(3));
-                _memoryCache.Set(page, users,cacheEntryOptions);
-            }
             bool firstPage = page == 1;
             bool finalPage = page == pageAll;
             return View(new AdminMainViewModel(user, users, page, finalPage, firstPage));
@@ -62,10 +56,13 @@ namespace Human_Benchmark_2._0.Controllers
             {
                 return View("Index");
             }
-            var userToDelete = await _context.Users.SingleAsync(x => x.Id == idOfUser);
+            var userToDelete = await _context.Users.SingleOrDefaultAsync(x => x.Id == idOfUser);
+            if (userToDelete != default)
+            {
+                _context.Users.Remove(userToDelete);
+                await _context.SaveChangesAsync();
+            }
             _memoryCache.Remove(page);
-            _context.Users.Remove(userToDelete);
-            await _context.SaveChangesAsync();
             return RedirectToAction("AdminMain");
         }
     }
