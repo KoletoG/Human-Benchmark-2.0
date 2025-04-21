@@ -68,8 +68,9 @@ namespace Human_Benchmark_2._0.Controllers
             {
                 UserDataModel userDataModel = await _ioService.GetUserByNameAsync(this.User.Identity?.Name ?? "");
                 _arrayAddService.AddValueToArray(userDataModel.memoryWordsScoreArray,score);
-                _context.Update(userDataModel);
-                _context.SaveChanges();
+                _context.Attach(userDataModel);
+                _context.Entry(userDataModel).Property(x => x.memoryWordsScoreArray).IsModified = true;
+                await _context.SaveChangesAsync();
                 return Json(new { redirectUrl = Url.Action("Profile", "Home") });
             }
             catch (Exception ex)

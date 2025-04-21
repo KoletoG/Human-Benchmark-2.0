@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Human_Benchmark_2._0.Data;
 using Human_Benchmark_2._0.Interaces;
+using Human_Benchmark_2._0.Models.DataModels;
 using Human_Benchmark_2._0.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -50,8 +51,9 @@ namespace Human_Benchmark_2._0.Controllers
             {
                 var user = await _ioService.GetUserByNameAsync(this.User.Identity.Name);
                 _arrayAddService.AddValueToArray(user.memoryNumbersScoreArray, score);
-                _context.Update(user);
-                _context.SaveChanges();
+                _context.Attach(user);
+                _context.Entry(user).Property(x => x.memoryNumbersScoreArray).IsModified = true;
+                await _context.SaveChangesAsync();
                 return Json(new { redirectUrl = Url.Action("Profile", "Home") });
             }
             catch (Exception ex)

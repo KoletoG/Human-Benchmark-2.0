@@ -19,7 +19,7 @@ namespace Human_Benchmark_2._0.Services
             {
                 throw new UserEmptyException();
             }
-            return await _context.Users.SingleAsync(x => x.UserName == name);
+            return await _context.Users.AsNoTracking().SingleAsync(x => x.UserName == name);
         }
         public async Task FillDatabaseWithWordsAsync()
         {

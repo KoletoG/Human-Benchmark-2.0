@@ -50,8 +50,9 @@ namespace Human_Benchmark_2._0.Controllers
             {
                 UserDataModel userDataModel = await _ioService.GetUserByNameAsync(this.User.Identity?.Name ?? "");
                 _arrayAddService.AddValueToArray(userDataModel.audioReactionAvgTimeArray,avgTime);
-                _context.Update(userDataModel);
-                _context.SaveChanges();
+                _context.Attach(userDataModel);
+                _context.Entry(userDataModel).Property(x => x.audioReactionAvgTimeArray).IsModified = true;
+                await _context.SaveChangesAsync();
                 return Json(new { redirectUrl = Url.Action("Profile", "Home") });
             }
             catch (Exception ex)
