@@ -35,7 +35,15 @@ namespace Human_Benchmark_2._0.Controllers
             if (page < 1) page = 1;
             if (page > pageAll) page = pageAll;
             var user = await _context.GetUserByNameAsync(this.User.Identity.Name);
-            var users = await _context.Users.Skip((page - 1) * countUsersByPage).Take(countUsersByPage).ToListAsync();
+            if (!_memoryCache.TryGetValue(page,out List<UserDataModel> users))
+            {
+                users = await _context.Users.Skip((page - 1) * countUsersByPage)
+                                            .Take(countUsersByPage)
+                                            .ToListAsync();
+                var cacheEntryOptions = new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(10))
+                                                                     .SetSlidingExpiration(TimeSpan.FromMinutes(3));
+                _memoryCache.Set(page, users,cacheEntryOptions);
+            }
             bool firstPage = page == 1;
             bool finalPage = page == pageAll;
             return View(new AdminMainViewModel(user, users, page, finalPage, firstPage));
