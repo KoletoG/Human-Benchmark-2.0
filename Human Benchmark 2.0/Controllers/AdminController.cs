@@ -24,9 +24,10 @@ namespace Human_Benchmark_2._0.Controllers
             _cacheService = cacheService;
             _ioService = iOService;
         }
-        
+
         // Add searching by name
         // Add comments
+        [HttpGet]
         [Authorize]
         public async Task<IActionResult> AdminMain(int page = 1)
         {
