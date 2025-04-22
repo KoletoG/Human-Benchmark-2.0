@@ -1,8 +1,11 @@
 ﻿<script src="~/js/JSBlocksMemory.js" asp-append-version="true"></script>
-<button id="startBtn" onclick="startGame()">Start</button>
-<div id="gameContainer"></div>
-<div id="scoreDiv" hidden disabled>SCORE</div>
-<button id="saveBtn" onclick="saveStats()" hidden disabled>Save Score</button>
+<form>
+    <button id="startBtn" onclick="startGame()">Start</button>
+    <div id="gameContainer"></div>
+    <div id="scoreDiv" hidden disabled>SCORE</div>
+    @Html.AntiForgeryToken()
+    <button id="saveBtn" type="button" onclick="saveStats()" hidden disabled>Save Score</button>
+</form>
 
 <style>
     body {

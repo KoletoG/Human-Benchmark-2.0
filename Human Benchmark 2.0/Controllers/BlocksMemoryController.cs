@@ -45,6 +45,7 @@ namespace Human_Benchmark_2._0.Controllers
         /// <returns>Redirects to profile after completing</returns>
         [Authorize]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> SaveBlocksScore([FromBody] int score)
         {
             try
