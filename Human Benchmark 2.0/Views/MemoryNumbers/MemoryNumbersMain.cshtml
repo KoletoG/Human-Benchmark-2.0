@@ -1,11 +1,14 @@
 ﻿
 <script src="~/js/JSMemoryNumbers.js" asp-append-version="true"></script>
-<label id="numberField"></label>
-<input id="answerField" hidden/>
-<button id="btnStart" onclick="startGame()">START</button>
-<label id="scoreLabel" hidden></label>
-<button id="btnSave" onclick="saveStats()" hidden disabled>SAVE</button>
-<button class="bg-green-500 text-white px-4 py-2 rounded mb-4" onclick="restartGame()" hidden disabled id="restartButton">START NEW GAME</button>
+<form>
+    <label id="numberField"></label>
+    <input id="answerField" hidden />
+    <button type="button" id="btnStart" onclick="startGame()">START</button>
+    <label id="scoreLabel" hidden></label>
+    <button type ="button" id="btnSave" onclick="saveStats()" hidden disabled>SAVE</button>
+    @Html.AntiForgeryToken()
+    <button type="button" class="bg-green-500 text-white px-4 py-2 rounded mb-4" onclick="restartGame()" hidden disabled id="restartButton">START NEW GAME</button>
+</form>
 <style>
     body {
         font-family: Arial, sans-serif;
