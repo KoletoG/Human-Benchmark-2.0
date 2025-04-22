@@ -1,12 +1,13 @@
 ﻿
 <script src="~/js/JSReverseWord.js" asp-append-version="true"></script>
-
+<form>
 <div id="currentWord" hidden disabled>LABEL</div>
 <div id="scoreOutput" hidden disabled>SCORE</div>
-<button onclick="startGame()" id="startBtn">START</button>
+<button type="button" onclick="startGame()" id="startBtn">START</button>
 <input id="answerInput" type="text" hidden disabled />
-<button id="saveBtn" onclick="saveStats()" hidden disabled>SAVE SCORE</button>
-
+@Html.AntiForgeryToken()
+    <button type="button" id="saveBtn" onclick="saveStats()" hidden disabled>SAVE SCORE</button>
+</form>
 <style>
     body {
         font-family: Arial, sans-serif;
