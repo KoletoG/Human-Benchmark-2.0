@@ -1,12 +1,14 @@
 ﻿
 <script src="~/js/JSMemoryWords.js" asp-append-version="true"></script>
+<form>
 <div id="currentWord"></div>
-<button id="seenBtn" onclick="seenWord()" hidden disabled>I HAVE SEEN THE WORD</button>
-<button id="notSeenBtn" onclick="notSeenWord()" hidden disabled>I HAVE NOT SEEN THE WORD</button>
-<button onclick="startGame()" id="btnStart">START</button>
-<button id="saveBtn" onclick="saveStats()" hidden disabled>SAVE SCORE</button>
-<button id="restartBtn" onclick="restartGame()" hidden disabled>RESTART GAME</button>
-
+<button id="seenBtn" type="button" onclick="seenWord()" hidden disabled>I HAVE SEEN THE WORD</button>
+    <button id="notSeenBtn" type="button" onclick="notSeenWord()" hidden disabled>I HAVE NOT SEEN THE WORD</button>
+    <button onclick="startGame()" type="button" id="btnStart">START</button>
+    <button id="saveBtn" type="button" onclick="saveStats()" hidden disabled>SAVE SCORE</button>
+    @Html.AntiForgeryToken()
+    <button id="restartBtn" type="button" onclick="restartGame()" hidden disabled>RESTART GAME</button>
+</form>
 <style>
     body {
         font-family: Arial, sans-serif;

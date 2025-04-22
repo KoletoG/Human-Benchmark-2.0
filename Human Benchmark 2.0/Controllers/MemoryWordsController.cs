@@ -62,11 +62,12 @@ namespace Human_Benchmark_2._0.Controllers
         /// <returns>Redirects to profile after completing</returns>
         [Authorize]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> SaveWordsScore([FromBody] int score)
         {
             try
             {
-                UserDataModel userDataModel = await _ioService.GetUserByNameAsync(this.User.Identity?.Name ?? "");
+                var userDataModel = await _ioService.GetUserByNameAsync(this.User.Identity?.Name ?? "");
                 _arrayAddService.AddValueToArray(userDataModel.memoryWordsScoreArray,score);
                 _context.Attach(userDataModel);
                 _context.Entry(userDataModel).Property(x => x.memoryWordsScoreArray).IsModified = true;
