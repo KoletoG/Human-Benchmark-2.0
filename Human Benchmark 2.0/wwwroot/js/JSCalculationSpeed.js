@@ -99,21 +99,21 @@ function finishGame()
     
 function saveResults()
 {
-    fetch("/CalculationSpeed/SaveCalc", 
+    const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
+    fetch("/CalculationSpeed/SaveCalc",
         {
             method: "POST",
-            headers: 
+            headers:
             {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "RequestVerificationToken": token
             },
             body: JSON.stringify(avgTime)
         })
-        .then(res => res.json())
-        .then(data => 
-        {
-            if (data.redirectUrl)
-            {
-                window.location.href = data.redirectUrl;
-            }
+            .then(res => res.json())
+            .then(data => {
+                if (data.redirectUrl) {
+                    window.location.href = data.redirectUrl;
+                }
         });
 }
