@@ -16,17 +16,13 @@
 	if (Model.FirstPage != true)
 	{
 		int pageNum = Model.PageNumber - 1;
-		<form asp-action="AdminMain" method="get">
-			<input type="hidden" name="page" value="@pageNum" />
-			<input type="submit" value="Previous page" />
-		</form>
+		<a asp-action="AdminMain" method="get" asp-route-page="@pageNum">Previous page
+		</a>
 	}
 	if (Model.FinalPage != true)
 	{
 		int pageNum = Model.PageNumber + 1;
-		<form asp-action="AdminMain" method="get">
-			<input type="hidden" name="page" value="@pageNum" />
-			<input type="submit" value="Next page"/>
-		</form>
+		<a asp-action="AdminMain" method="get" asp-route-page="@pageNum">Next page
+		</a>
 	}
 }

@@ -27,7 +27,7 @@ namespace Human_Benchmark_2._0.Controllers
 
         // Add searching by name
         // Add comments
-        [HttpGet]
+        [HttpGet("adminPanel/page-{page}")]
         [Authorize]
         public async Task<IActionResult> AdminMain(int page = 1)
         {
