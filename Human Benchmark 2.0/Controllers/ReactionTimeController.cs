@@ -26,7 +26,6 @@ namespace Human_Benchmark_2._0.Controllers
         /// Loads the main page of the mini-game
         /// </summary>
         /// <returns>Main page of the mini-game</returns>
-        [Authorize]
         public IActionResult ReactionTime()
         {
             try

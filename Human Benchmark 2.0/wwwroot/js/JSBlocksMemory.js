@@ -106,7 +106,8 @@ function createBlocks(number)
         let idName = "id";
         idName+=i;
         let btn = document.createElement("button");
-        btn.setAttribute("id",idName);
+        btn.setAttribute("id", idName);
+        btn.setAttribute("type", "button");
         btn.style.height="50px";
         btn.style.width="50px";
         btn.style.margin="10px";
