@@ -63,13 +63,14 @@ function startNewGame()
 }
 function saveStats()
 {
-   
     if (finalAverage == null) return;
+    const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
         fetch("/ReactionTime/ReactionTimeSave", 
         {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "RequestVerificationToken":token
             },
             body: JSON.stringify(finalAverage)
         })

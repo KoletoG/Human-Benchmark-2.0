@@ -1,13 +1,14 @@
 ﻿<script src="~/js/JSReactionTime.js" asp-append-version="true"></script>
 <h2>Reaction Time Test</h2>
-
+<form>
 <div id="box" onclick="startReaction()" style="width:100%;height:300px;background-color:gray;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:24px;color:white;">
 	Click to Start
 </div>
 <p id="averageTime"></p>
-<button id="submitt" hidden="hidden" onclick="saveStats()" class="reactionbutton"><span class="text">SUBMIT ME</span></button>
-<button id="startBtn" onclick="startNewGame()" hidden disabled>Start new game</button>
-
+<button type="button" id="submitt" hidden="hidden" onclick="saveStats()" class="reactionbutton"><span class="text">SUBMIT ME</span></button>
+    <button type="button" id="startBtn" onclick="startNewGame()" hidden disabled>Start new game</button>
+    @Html.AntiForgeryToken()
+</form>
 <style>
     body {
         font-family: Arial, sans-serif;
