@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
+using NuGet.Protocol.Plugins;
 
 namespace Human_Benchmark_2._0.Controllers
 {
@@ -62,7 +63,7 @@ namespace Human_Benchmark_2._0.Controllers
             bool finalPage = page == pageAll;
             return View(new AdminMainViewModel(user, users, page, finalPage, firstPage));
         }
-        [HttpPost]
+        [HttpPost("deleteUser/page-{page}/id-{idOfUser}")]
         [Authorize]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AdminDelete(string idOfUser, int page)
@@ -78,6 +79,7 @@ namespace Human_Benchmark_2._0.Controllers
                 await _context.SaveChangesAsync();
             }
             _memoryCache.Remove("pageCount"); // Removes the user's count and therefore 
+            
             return RedirectToAction(nameof(AdminMain), new { page });
         }
     }
