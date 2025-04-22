@@ -1,11 +1,13 @@
 ﻿
 <script src="~/js/JSReverseNumbers.js" asp-append-version="true"></script>
-
-<div id="currentNumber" hidden disabled>LABEL</div>
-<div id="scoreOutput" hidden disabled>SCORE</div>
-<button onclick="startGame()" id="startBtn">START</button>
-<input id="answerInput" type="text" hidden disabled />
-<button id="saveBtn" onclick="saveStats()" hidden disabled>SAVE SCORE</button>
+<form>
+    <div id="currentNumber" hidden disabled>LABEL</div>
+    <div id="scoreOutput" hidden disabled>SCORE</div>
+    <button type="button" onclick="startGame()" id="startBtn">START</button>
+    <input id="answerInput" type="text" hidden disabled />
+    @Html.AntiForgeryToken()
+    <button type="button" id="saveBtn" onclick="saveStats()" hidden disabled>SAVE SCORE</button>
+</form>
 
 <style>
     body {
