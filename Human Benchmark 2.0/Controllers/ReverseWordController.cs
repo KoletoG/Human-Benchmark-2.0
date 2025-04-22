@@ -24,6 +24,7 @@ namespace Human_Benchmark_2._0.Controllers
         /// </summary>
         /// <returns>Main page of the mini-game</returns>
         [Authorize]
+        [Route("ReverseWordGame")]
         public IActionResult ReverseWordMain()
         {
             try

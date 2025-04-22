@@ -14,6 +14,7 @@ namespace Human_Benchmark_2._0.Controllers
             _logger = logger;
             _context = context;
         }
+        [Route("LogicalQuestionsGame")]
         public IActionResult LogicalQuestionsMain()
         {
             try

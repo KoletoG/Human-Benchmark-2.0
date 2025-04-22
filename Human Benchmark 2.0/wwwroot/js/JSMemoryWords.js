@@ -1,5 +1,5 @@
-﻿let score=0;
-let randomWord="";
+﻿let score = 0;
+let randomWord = "";
 let firstWordPassed = false;
 let allWordsFromApi = [];
 let seenBtn;
@@ -17,87 +17,73 @@ document.addEventListener("DOMContentLoaded", () => {
     restartBtn = document.getElementById("restartBtn");
     currentWord = document.getElementById("currentWord");
 });
-async function startGame()
-{
+async function startGame() {
     await grabWord();
     seenBtn.hidden = false;
     seenBtn.disabled = false;
     notSeenBtn.hidden = false;
     notSeenBtn.disabled = false;
-    btnStart.hidden=true;
-    btnStart.disabled=true;
+    btnStart.hidden = true;
+    btnStart.disabled = true;
 }
 
-async function seenWord()
-{
-    if(wordsCurrentList.has(randomWord))
-    {
+async function seenWord() {
+    if (wordsCurrentList.has(randomWord)) {
         score++;
         await grabWord();
     }
-    else
-    {
+    else {
         gameOver();
     }
 }
 
-function gameOver()
-{
+function gameOver() {
     seenBtn.hidden = true;
     seenBtn.disabled = true;
     notSeenBtn.hidden = true;
     notSeenBtn.disabled = true;
     saveBtn.hidden = false;
     saveBtn.disabled = false;
-    restartBtn.hidden=false;
-    restartBtn.disabled=false;
-    currentWord.innerText=score;
+    restartBtn.hidden = false;
+    restartBtn.disabled = false;
+    currentWord.innerText = score;
 }
 
-function restartGame()
-{
+function restartGame() {
     saveBtn.hidden = true;
     saveBtn.disabled = true;
-    restartBtn.hidden=true;
-    restartBtn.disabled=true;
-    score=0;
+    restartBtn.hidden = true;
+    restartBtn.disabled = true;
+    score = 0;
     wordsCurrentList.clear();
     startGame();
 }
 
-async function notSeenWord()
-{
-    if(wordsCurrentList.has(randomWord))
-    {
+async function notSeenWord() {
+    if (wordsCurrentList.has(randomWord)) {
         gameOver();
     }
-    else
-    {
+    else {
         score++;
         wordsCurrentList.add(randomWord);
         await grabWord();
     }
 }
 
-async function grabWord()
-{
-    if(!firstWordPassed)
-    {
+async function grabWord() {
+    if (!firstWordPassed) {
         allWordsFromApi = await loadWordsFromApi();
-        firstWordPassed=true;
+        firstWordPassed = true;
         const randomIndex = Math.floor(Math.random() * allWordsFromApi.length);
         randomWord = allWordsFromApi[randomIndex];
     }
-    else
-    {
-        if(Math.random()>0.66)
-        {
-            let array = [...wordsCurrentList]
+    else {
+        if (Math.random() > 0.66) {
+            let array = [...wordsCurrentList];
             const randomIndex = Math.floor(Math.random() * array.length);
             randomWord = array[randomIndex];
         }
-        else
-        {
+        else {
             const randomIndex = Math.floor(Math.random() * allWordsFromApi.length);
             randomWord = allWordsFromApi[randomIndex];
         }
@@ -119,25 +105,22 @@ async function loadWordsFromApi() {
         return [];
     }
 }
-function saveStats()
-{
+function saveStats() {
     const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
-    fetch("/MemoryWords/SaveWordsScore", 
-    {
-        method: "POST",
-        headers: 
+    fetch("/MemoryWords/SaveWordsScore",
         {
-            "Content-Type": "application/json",
-            "RequestVerificationToken": token
-        },
-        body: JSON.stringify(score)
-    })
-    .then(res => res.json())
-    .then(data => 
-    {
-        if (data.redirectUrl) 
-        {
-            window.location.href = data.redirectUrl;
-        }
-    });
+            method: "POST",
+            headers:
+            {
+                "Content-Type": "application/json",
+                "RequestVerificationToken": token
+            },
+            body: JSON.stringify(score)
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.redirectUrl) {
+                window.location.href = data.redirectUrl;
+            }
+        });
 }

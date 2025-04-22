@@ -44,6 +44,7 @@ namespace Human_Benchmark_2._0.Controllers
         /// </summary>
         /// <returns>Profile view with UserDataModel Model of the current user</returns>
         [Authorize]
+        [Route("Profile")]
         public async Task<IActionResult> Profile()
         {
             try
