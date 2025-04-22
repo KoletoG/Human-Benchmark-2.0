@@ -40,12 +40,14 @@ function startGame()
 }
 function saveStats()
 {
+    const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
     fetch("/AudioReaction/SaveAudioTime",
         {
             method: "POST",
             headers:
             {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "RequestVerificationToken": token
             },
             body: JSON.stringify(avgTime)
         })

@@ -1,16 +1,20 @@
 ﻿<script src="~/js/JSAudioReaction.js" asp-append-version="true"></script>
-<button onclick="startGame()" id="btnStart">START</button>
-<audio id="myAudio1" src="~/sounds/fart.mp3"></audio>
-<audio id="myAudio2" src="~/sounds/fart.mp3"></audio>
-<audio id="myAudio3" src="~/sounds/fart.mp3"></audio>
-<audio id="myAudio4" src="~/sounds/fart.mp3"></audio>
-<div id="time">TIME</div>
-<div id="avgTime">AVG TIME</div>
-<button id="saveBtn" onclick="saveStats()" hidden disabled>Save</button>
-<button onclick="checkAnswer(1)" hidden disabled id="leftBtn">CHECK 1 TEST</button>
-<button onclick="checkAnswer(2)" hidden disabled id="rightBtn">CHECK 2 TEST</button>
-<button onclick="checkAnswer(3)" hidden disabled id="upBtn">CHECK 3 TEST</button>
-<button onclick="checkAnswer(4)" hidden disabled id="downBtn">CHECK 4 TEST</button>
+<form>
+
+    <button onclick="startGame()" type="button" id="btnStart">START</button>
+    <audio id="myAudio1" src="~/sounds/fart.mp3"></audio>
+    <audio id="myAudio2" src="~/sounds/fart.mp3"></audio>
+    <audio id="myAudio3" src="~/sounds/fart.mp3"></audio>
+    <audio id="myAudio4" src="~/sounds/fart.mp3"></audio>
+    <div id="time">TIME</div>
+    <div id="avgTime">AVG TIME</div>
+    <button id="saveBtn" onclick="saveStats()" type="button" hidden disabled>Save</button>
+    @Html.AntiForgeryToken()
+    <button onclick="checkAnswer(1)" type="button" hidden disabled id="leftBtn">CHECK 1 TEST</button>
+    <button onclick="checkAnswer(2)" type="button" hidden disabled id="rightBtn">CHECK 2 TEST</button>
+    <button onclick="checkAnswer(3)" type="button" hidden disabled id="upBtn">CHECK 3 TEST</button>
+    <button onclick="checkAnswer(4)" type="button" hidden disabled id="downBtn">CHECK 4 TEST</button>
+</form>
 <style>
     body {
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
