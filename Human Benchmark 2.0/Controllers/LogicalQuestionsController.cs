@@ -23,7 +23,7 @@ namespace Human_Benchmark_2._0.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message);
+                _logger.LogError(ex, $"An error occurred in {nameof(LogicalQuestionsMain)}.");
                 return View("ThrownException", new ThrownExceptionViewModel(ex, this.User.Identity?.Name ?? ""));
             }
         }

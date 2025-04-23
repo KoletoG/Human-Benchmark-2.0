@@ -33,7 +33,7 @@ namespace Human_Benchmark_2._0.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message);
+                _logger.LogError(ex, $"An error occurred in {nameof(AudioReactionMain)}.");
                 return View("ThrownException", new ThrownExceptionViewModel(ex, this.User.Identity?.Name ?? ""));
             }
         }
@@ -58,7 +58,7 @@ namespace Human_Benchmark_2._0.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message);
+                _logger.LogError(ex, $"An error occurred in {nameof(SaveAudioTime)}.");
                 return View("ThrownException", new ThrownExceptionViewModel(ex, this.User.Identity?.Name ?? ""));
             }
         }
