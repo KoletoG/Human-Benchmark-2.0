@@ -15,6 +15,7 @@ namespace Human_Benchmark_2._0.Services
                     if (index1 == 5)
                     {
                         Array.Sort(array);
+                        Array.Reverse(array);
                     }
                 }
             }
@@ -59,7 +60,6 @@ namespace Human_Benchmark_2._0.Services
                     if (index1 == 5)
                     {
                         Array.Sort(array);
-                        Array.Reverse(array);
                     }
                 }
             }
