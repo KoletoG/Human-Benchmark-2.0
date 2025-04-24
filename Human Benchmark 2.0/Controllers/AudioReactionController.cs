@@ -45,12 +45,12 @@ namespace Human_Benchmark_2._0.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> SaveAudioTime([FromBody] int avgTime)
+        public async Task<IActionResult> SaveAudioTime([FromBody] double avgTime)
         {
             try
             {
                 var userDataModel = await _ioService.GetUserByNameAsync(this.User.Identity?.Name ?? "");
-                _arrayAddService.AddValueToArray(userDataModel.audioReactionAvgTimeArray,avgTime);
+                _arrayAddService.AddTimeToArray(userDataModel.audioReactionAvgTimeArray,avgTime);
                 _context.Attach(userDataModel);
                 _context.Entry(userDataModel).Property(x => x.audioReactionAvgTimeArray).IsModified = true;
                 await _context.SaveChangesAsync();

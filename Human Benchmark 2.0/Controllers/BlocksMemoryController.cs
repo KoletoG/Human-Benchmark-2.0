@@ -51,7 +51,7 @@ namespace Human_Benchmark_2._0.Controllers
             try
             {
                 var user = await _ioService.GetUserByNameAsync(this.User.Identity.Name);
-                _arrayAddService.AddValueToArray(user.blocksScoreArray, score);
+                _arrayAddService.AddScoreToArray(user.blocksScoreArray, score);
                 _context.Attach(user);
                 _context.Entry(user).Property(x => x.blocksScoreArray).IsModified = true;
                 await _context.SaveChangesAsync();

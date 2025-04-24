@@ -60,7 +60,7 @@ namespace Human_Benchmark_2._0.Controllers
             try
             {
                 var userDataModel = await _ioService.GetUserByNameAsync(this.User.Identity?.Name ?? "");
-                _arrayAddService.AddValueToArray(userDataModel.reverseWordsScoreArray, score);
+                _arrayAddService.AddScoreToArray(userDataModel.reverseWordsScoreArray, score);
                 _context.Attach(userDataModel);
                 _context.Entry(userDataModel).Property(x => x.reverseWordsScoreArray).IsModified = true;
                 await _context.SaveChangesAsync();

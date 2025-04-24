@@ -19,14 +19,14 @@ namespace Human_Benchmark_2._0.Models.DataModels
         public override string? Email { get; set; }
         [NotMapped]
         public static readonly int arrayCount = 5;
-        public int[] reactionTimesArray = new int[arrayCount];
+        public double[] reactionTimesArray = new double[arrayCount];
         public double[] avgTimeScoreArray = new double[arrayCount];
         public int[] memoryNumbersScoreArray = new int[arrayCount];
         public int[] memoryWordsScoreArray = new int[arrayCount];
         public int[] reverseWordsScoreArray = new int[arrayCount];
         public int[] reverseNumbersScoreArray = new int[arrayCount];
         public int[] blocksScoreArray = new int[arrayCount];
-        public int[] audioReactionAvgTimeArray = new int[arrayCount];
+        public double[] audioReactionAvgTimeArray = new double[arrayCount];
         public UserDataModel(string email, string username)
         {
             Id = Guid.NewGuid().ToString();

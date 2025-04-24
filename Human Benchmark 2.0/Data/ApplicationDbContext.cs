@@ -16,7 +16,7 @@ namespace Human_Benchmark_2._0.Data
             modelBuilder.Entity<UserDataModel>().Property(x => x.reactionTimesArray).HasConversion
                 (
                 x => string.Join(',', x),
-                x => x.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray()
+                x => x.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(double.Parse).ToArray()
                 );
             modelBuilder.Entity<UserDataModel>().Property(x => x.avgTimeScoreArray).HasConversion
                 (
@@ -51,7 +51,7 @@ namespace Human_Benchmark_2._0.Data
             modelBuilder.Entity<UserDataModel>().Property(x => x.audioReactionAvgTimeArray).HasConversion
                 (
                 x => string.Join(',', x),
-                x => x.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray()
+                x => x.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(double.Parse).ToArray()
                 );
         }
         public DbSet<WordDataModel> wordDataModels { get; set; }
