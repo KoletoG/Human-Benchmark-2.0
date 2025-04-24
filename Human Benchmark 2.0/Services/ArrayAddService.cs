@@ -1,4 +1,5 @@
 ﻿using Human_Benchmark_2._0.Interaces;
+using Human_Benchmark_2._0.Models.DataModels;
 
 namespace Human_Benchmark_2._0.Services
 {
@@ -6,13 +7,13 @@ namespace Human_Benchmark_2._0.Services
     {
         public void AddScoreToArray(int[] array, int score)
         {
-            if (array[5] == default)
+            if (array[^1] == default)
             {
                 int index1 = Array.IndexOf(array, default);
                 if (index1 != -1)
                 {
                     array[index1] = score;
-                    if (index1 == 5)
+                    if (index1 == 4)
                     {
                         Array.Sort(array);
                         Array.Reverse(array);
@@ -51,13 +52,13 @@ namespace Human_Benchmark_2._0.Services
         }
         public void AddTimeToArray(double[] array, double time)
         {
-            if (array[5] == default)
+            if (array[^1] == default)
             {
                 int index1 = Array.IndexOf(array, default);
                 if (index1 != -1)
                 {
                     array[index1] = time;
-                    if (index1 == 5)
+                    if (index1 == 4)
                     {
                         Array.Sort(array);
                     }
