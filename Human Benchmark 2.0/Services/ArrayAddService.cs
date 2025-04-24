@@ -13,7 +13,7 @@ namespace Human_Benchmark_2._0.Services
                 if (index1 != -1)
                 {
                     array[index1] = score;
-                    if (index1 == 4)
+                    if (index1 == UserDataModel.arrayCount-1)
                     {
                         Array.Sort(array);
                         Array.Reverse(array);
@@ -58,7 +58,7 @@ namespace Human_Benchmark_2._0.Services
                 if (index1 != -1)
                 {
                     array[index1] = time;
-                    if (index1 == 4)
+                    if (index1 == UserDataModel.arrayCount - 1)
                     {
                         Array.Sort(array);
                     }
