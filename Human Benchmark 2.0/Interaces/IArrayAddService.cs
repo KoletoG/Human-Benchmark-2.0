@@ -2,6 +2,6 @@
 {
     public interface IArrayAddService
     {
-        void AddValueToArray<T>(T[] array, T score) where T : struct;
+        void AddValueToArray(int[] array, int score);
     }
 }
