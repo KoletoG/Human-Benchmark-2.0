@@ -13,7 +13,7 @@
 	}
 	<h1>@Model.User.UserName</h1>
 	<h3>Reaction time average times</h3>
-	GenerateArrayScores<int>(Model.User.reactionTimesArray);
+	GenerateArrayScores<double>(Model.User.reactionTimesArray);
 	<h3>Calculation speed average times</h3>
 	GenerateArrayScores<double>(Model.User.avgTimeScoreArray);
 	<h3>Memory Numbers scores</h3>
@@ -21,7 +21,7 @@
 	<h3>Blocks Memory scores</h3>
 	GenerateArrayScores<int>(Model.User.blocksScoreArray);
 	<h3>Audio Reaction average times</h3>
-	GenerateArrayScores<int>(Model.User.audioReactionAvgTimeArray);
+	GenerateArrayScores<double>(Model.User.audioReactionAvgTimeArray);
 	<h3>Memory Words scores</h3>
 	GenerateArrayScores<int>(Model.User.memoryWordsScoreArray);
 	<h3>Reverse Numbers scores</h3>
