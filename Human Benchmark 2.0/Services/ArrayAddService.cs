@@ -6,21 +6,27 @@ namespace Human_Benchmark_2._0.Services
     {
         public void AddScoreToArray(int[] array, int score)
         {
-            int index1 = Array.IndexOf(array, default);
-            if (index1 != -1)
+            if (array[5] == default)
             {
-                array[index1] = score;
-                Array.Sort(array);
+                int index1 = Array.IndexOf(array, default);
+                if (index1 != -1)
+                {
+                    array[index1] = score;
+                    if (index1 == 5)
+                    {
+                        Array.Sort(array);
+                    }
+                }
             }
             else
             {
-                for(int i = 0; i < array.Length; i++)
+                for (int i = 0; i < array.Length; i++)
                 {
-                    if (array[i]< score)
+                    if (array[i] < score)
                     {
-                        for(int y = array.Length - 1; y > i; y--)
+                        for (int y = array.Length - 1; y > i; y--)
                         {
-                            array[y] = array[y-1];
+                            array[y] = array[y - 1];
                         }
                         array[i] = score;
                         break;
@@ -43,12 +49,18 @@ namespace Human_Benchmark_2._0.Services
         }
         public void AddTimeToArray(double[] array, double score)
         {
-            int index1 = Array.IndexOf(array, default);
-            if (index1 != -1)
+            if (array[5] == default)
             {
-                array[index1] = score;
-                Array.Sort(array);
-                Array.Reverse(array);
+                int index1 = Array.IndexOf(array, default);
+                if (index1 != -1)
+                {
+                    array[index1] = score;
+                    if (index1 == 5)
+                    {
+                        Array.Sort(array);
+                        Array.Reverse(array);
+                    }
+                }
             }
             else
             {
