@@ -20,6 +20,7 @@ namespace Human_Benchmark_2._0.Services
             }
             else
             {
+                if (score <= array[^1]) return;
                 for (int i = 0; i < array.Length; i++)
                 {
                     if (array[i] < score)
@@ -47,14 +48,14 @@ namespace Human_Benchmark_2._0.Services
             }
             */
         }
-        public void AddTimeToArray(double[] array, double score)
+        public void AddTimeToArray(double[] array, double time)
         {
             if (array[5] == default)
             {
                 int index1 = Array.IndexOf(array, default);
                 if (index1 != -1)
                 {
-                    array[index1] = score;
+                    array[index1] = time;
                     if (index1 == 5)
                     {
                         Array.Sort(array);
@@ -64,15 +65,16 @@ namespace Human_Benchmark_2._0.Services
             }
             else
             {
+                if (time <= array[^1]) return;
                 for (int i = 0; i < array.Length; i++)
                 {
-                    if (array[i].CompareTo(score) < 0)
+                    if (array[i] > time)
                     {
                         for (int y = array.Length - 1; y > i; y--)
                         {
                             array[y] = array[y - 1];
                         }
-                        array[i] = score;
+                        array[i] = time;
                         break;
                     }
                 }
