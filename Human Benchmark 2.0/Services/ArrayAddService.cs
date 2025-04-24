@@ -4,7 +4,7 @@ namespace Human_Benchmark_2._0.Services
 {
     public class ArrayAddService : IArrayAddService
     {
-        public void AddValueToArray(int[] array, int score)
+        public void AddScoreToArray(int[] array, int score)
         {
             int index1 = Array.IndexOf(array, default);
             if (index1 != -1)
@@ -41,13 +41,14 @@ namespace Human_Benchmark_2._0.Services
             }
             */
         }
-        public void AddTimeToArray<T>(T[] array, T score) where T : struct, IComparable<T>
+        public void AddTimeToArray(double[] array, double score)
         {
             int index1 = Array.IndexOf(array, default);
             if (index1 != -1)
             {
                 array[index1] = score;
                 Array.Sort(array);
+                Array.Reverse(array);
             }
             else
             {

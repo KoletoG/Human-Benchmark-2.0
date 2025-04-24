@@ -2,6 +2,7 @@
 {
     public interface IArrayAddService
     {
-        void AddValueToArray(int[] array, int score);
+        void AddScoreToArray(int[] array, int score);
+        void AddTimeToArray(double[] array, double score);
     }
 }
