@@ -2,6 +2,7 @@
 using Human_Benchmark_2._0.Interaces;
 using Human_Benchmark_2._0.Models.DataModels;
 using Human_Benchmark_2._0.Models.ViewModels;
+using Human_Benchmark_2._0.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,14 +13,12 @@ namespace Human_Benchmark_2._0.Controllers
         private readonly ILogger<ReactionTimeController> _logger;
         private readonly ApplicationDbContext _context;
         private readonly IIOService _ioService;
-        private readonly IArrayAddService _arrayAddService;
 
-        public ReactionTimeController(ILogger<ReactionTimeController> logger, ApplicationDbContext context, IIOService iOService, IArrayAddService arrayAddService)
+        public ReactionTimeController(ILogger<ReactionTimeController> logger, ApplicationDbContext context, IIOService iOService)
         {
             _logger = logger;
             _context = context;
             _ioService = iOService;
-            _arrayAddService = arrayAddService;
         }
 
         /// <summary>
@@ -52,7 +51,7 @@ namespace Human_Benchmark_2._0.Controllers
             try
             {
                 var userDataModel = await _ioService.GetUserByNameAsync(this.User.Identity?.Name ?? "");
-                _arrayAddService.AddTimeToArray(userDataModel.reactionTimesArray, time);
+                ArrayAddService.AddTimeToArray(userDataModel.reactionTimesArray, time);
                 _context.Attach(userDataModel);
                 _context.Entry(userDataModel).Property(x => x.reactionTimesArray).IsModified = true;
                 await _context.SaveChangesAsync();

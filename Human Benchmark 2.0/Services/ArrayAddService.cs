@@ -3,9 +3,9 @@ using Human_Benchmark_2._0.Models.DataModels;
 
 namespace Human_Benchmark_2._0.Services
 {
-    public class ArrayAddService : IArrayAddService
+    public class ArrayAddService
     {
-        public void AddScoreToArray(int[] array, int score)
+        public static void AddScoreToArray(int[] array, int score)
         {
             if (array[^1] == default)
             {
@@ -50,7 +50,7 @@ namespace Human_Benchmark_2._0.Services
             }
             */
         }
-        public void AddTimeToArray(double[] array, double time)
+        public static void AddTimeToArray(double[] array, double time)
         {
             if (array[^1] == default)
             {

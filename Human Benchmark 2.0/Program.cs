@@ -36,7 +36,6 @@ namespace Human_Benchmark_2._0
             builder.Services.AddMemoryCache();
             builder.Services.AddSingleton<ICacheService, CacheService>();
             builder.Services.AddScoped<IIOService, IOService>();
-            builder.Services.AddTransient<IArrayAddService, ArrayAddService>();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

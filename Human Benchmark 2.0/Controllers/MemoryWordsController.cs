@@ -3,6 +3,7 @@ using Human_Benchmark_2._0.Data;
 using Human_Benchmark_2._0.Interaces;
 using Human_Benchmark_2._0.Models.DataModels;
 using Human_Benchmark_2._0.Models.ViewModels;
+using Human_Benchmark_2._0.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,13 +14,11 @@ namespace Human_Benchmark_2._0.Controllers
         private readonly ILogger<MemoryWordsController> _logger;
         private readonly ApplicationDbContext _context;
         private readonly IIOService _ioService;
-        private readonly IArrayAddService _arrayAddService;
-        public MemoryWordsController(ILogger<MemoryWordsController> logger, ApplicationDbContext context, IIOService iOService, IArrayAddService arrayAddService)
+        public MemoryWordsController(ILogger<MemoryWordsController> logger, ApplicationDbContext context, IIOService iOService)
         {
             _logger = logger;
             _context = context;
             _ioService = iOService;
-            _arrayAddService = arrayAddService;
         }
         /// <summary>
         /// Loads the main page of the mini-game                                                                                                                                                
@@ -69,7 +68,7 @@ namespace Human_Benchmark_2._0.Controllers
             try
             {
                 var userDataModel = await _ioService.GetUserByNameAsync(this.User.Identity?.Name ?? "");
-                _arrayAddService.AddScoreToArray(userDataModel.memoryWordsScoreArray,score);
+                ArrayAddService.AddScoreToArray(userDataModel.memoryWordsScoreArray,score);
                 _context.Attach(userDataModel);
                 _context.Entry(userDataModel).Property(x => x.memoryWordsScoreArray).IsModified = true;
                 await _context.SaveChangesAsync();
