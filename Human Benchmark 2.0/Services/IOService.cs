@@ -21,6 +21,10 @@ namespace Human_Benchmark_2._0.Services
             }
             return await _context.Users.AsNoTracking().SingleAsync(x => x.UserName == name);
         }
+        public async Task<UserDataModel?> GetUserByIdAsync(string id)
+        {
+            return await _context.Users.FindAsync(id);
+        }
         public async Task FillDatabaseWithWordsAsync()
         {
             if (!await _context.wordDataModels.AnyAsync())

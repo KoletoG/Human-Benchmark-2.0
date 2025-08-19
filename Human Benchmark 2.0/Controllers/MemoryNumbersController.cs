@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Security.Claims;
+using System.Threading.Tasks;
 using Human_Benchmark_2._0.Data;
 using Human_Benchmark_2._0.Interaces;
 using Human_Benchmark_2._0.Models.DataModels;
@@ -48,7 +49,11 @@ namespace Human_Benchmark_2._0.Controllers
         {
             try
             {
-                var user = await _ioService.GetUserByNameAsync(this.User.Identity.Name);
+                var user = await _ioService.GetUserByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+                if (user is null)
+                {
+                    return Unauthorized();
+                }
                 ArrayAddService.AddScoreToArray(user.memoryNumbersScoreArray, score);
                 _context.Attach(user);
                 _context.Entry(user).Property(x => x.memoryNumbersScoreArray).IsModified = true;

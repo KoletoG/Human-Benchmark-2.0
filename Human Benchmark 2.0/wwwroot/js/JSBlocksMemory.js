@@ -139,8 +139,7 @@ function createBlocks(number)
         container.appendChild(btn);
         if((i+1)%7==0)
         {
-            idName="idBr";
-            idName+=i;
+            idName=`idBr${i}`;
             let line = document.createElement("br");
             line.setAttribute("id",idName)
             container.appendChild(line);

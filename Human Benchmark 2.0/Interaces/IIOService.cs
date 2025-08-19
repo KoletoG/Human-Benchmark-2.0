@@ -5,6 +5,7 @@ namespace Human_Benchmark_2._0.Interaces
     public interface IIOService
     {
         Task<UserDataModel> GetUserByNameAsync(string name);
+        Task<UserDataModel?> GetUserByIdAsync(string id);
         Task FillDatabaseWithWordsAsync();
         Task<string[]> GetRandomWordsAsync(int count);
     }

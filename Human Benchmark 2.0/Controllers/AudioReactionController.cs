@@ -1,4 +1,5 @@
-﻿using Human_Benchmark_2._0.Data;
+﻿using System.Security.Claims;
+using Human_Benchmark_2._0.Data;
 using Human_Benchmark_2._0.Interaces;
 using Human_Benchmark_2._0.Models.DataModels;
 using Human_Benchmark_2._0.Models.ViewModels;
@@ -48,10 +49,14 @@ namespace Human_Benchmark_2._0.Controllers
         {
             try
             {
-                var userDataModel = await _ioService.GetUserByNameAsync(this.User.Identity?.Name ?? "");
-                ArrayAddService.AddTimeToArray(userDataModel.audioReactionAvgTimeArray,avgTime);
-                _context.Attach(userDataModel);
-                _context.Entry(userDataModel).Property(x => x.audioReactionAvgTimeArray).IsModified = true;
+                var user = await _ioService.GetUserByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+                if (user is null)
+                {
+                    return Unauthorized();
+                }
+                ArrayAddService.AddTimeToArray(user.audioReactionAvgTimeArray,avgTime);
+                _context.Attach(user);
+                _context.Entry(user).Property(x => x.audioReactionAvgTimeArray).IsModified = true;
                 await _context.SaveChangesAsync();
                 return Json(new { redirectUrl = Url.Action("Profile", "Home") });
             }

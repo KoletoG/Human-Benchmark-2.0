@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Human_Benchmark_2._0.Custom_Exceptions;
 using Human_Benchmark_2._0.Interaces;
+using System.Security.Claims;
 
 namespace Human_Benchmark_2._0.Controllers
 {
@@ -49,8 +50,12 @@ namespace Human_Benchmark_2._0.Controllers
         {
             try
             {
-                var currentUser = await _ioService.GetUserByNameAsync(this.User.Identity?.Name ?? throw new Exception("User not valid."));
-                return View(new ProfileViewModel(currentUser));
+                var user = await _ioService.GetUserByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+                if (user is null)
+                {
+                    return Unauthorized();
+                }
+                return View(new ProfileViewModel(user));
             }
             catch (Exception ex)
             {
